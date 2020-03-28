@@ -1,0 +1,21 @@
+@mixin positionAbsolute($top: auto, $bottom: auto) {
+  position: absolute;
+  top: $top;
+  left: 0;
+  bottom: $bottom;
+}
+// Aplicar el estilo de flex centrar en el elemento
+@mixin flexCenter($positionH: center) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $positionH;
+  //align-content: center;
+  align-items: center;
+}
+// para el padding interior de capas
+@mixin marcosInternos($topBottom: $spaceMedium, $leftRight: $spaceMedium) {
+  padding-top: $topBottom;
+  padding-bottom: $topBottom;
+  padding-left: $leftRight;
+  padding-right: $leftRight;
+}

@@ -1,0 +1,33 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Agujeros de Gusanos</title>
+
+  </head>
+
+  <body>
+    <!-- 👇 INICIO -- Menú navegación ------------------------- -->
+    <app-menu-principal></app-menu-principal>
+    <!-- 👆 FIN -- Menú navegación -------------------------- -->
+    <div class="content">
+      <!-- 👇 INICIO -- Menú Top ------------------------- -->
+      <app-menu-top></app-menu-top>
+      <!-- 👆 FIN -- Menú Top -------------------------- -->
+
+      <!-- 👇 INICIO -- Contenido genereal rooter ------------------------- -->
+      <section class="wrapper">
+        <div class="container-fluid">
+          <router-outlet></router-outlet>
+        </div>
+      </section>
+      <!-- 👆 FIN -- Contenido genereal rooter ------------------------- -->
+      <!-- 👇 INICIO -- Footer ------------------------- -->
+      <app-menu-footer></app-menu-footer>
+      <!-- 👆 FIN -- Footer -------------------------- -->
+    </div>
+  </body>
+
+</html>

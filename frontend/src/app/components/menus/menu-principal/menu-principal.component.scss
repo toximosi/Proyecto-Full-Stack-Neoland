@@ -1,0 +1,16 @@
+@import "../../import.scss";
+nav {
+  height: 100%;
+}
+.nav-principal {
+  z-index: 100;
+  @include positionAbsolute;
+  @include flexCenter;
+  width: $anchoMenu;
+  height: 100%;
+  padding: $spaceSmall;
+  flex-direction: column;
+  background: {
+    color: blue;
+  }
+}

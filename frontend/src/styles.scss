@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+/* vasirables y funciones ScSS*/
+
+@import "./assets/scss/variables";
+@import "./assets/scss/mixin";
+
+/* Estilos generales */
+
+@import "./assets/scss/layout";
+
+/* Ajuste de las mediaqueries en resposive */
+@import "./assets/scss/medias";

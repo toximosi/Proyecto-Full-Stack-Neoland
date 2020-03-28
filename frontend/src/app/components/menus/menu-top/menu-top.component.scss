@@ -1,0 +1,15 @@
+@import "../../import.scss";
+
+.nav-top {
+  @include positionAbsolute;
+  @include flexCenter(flex-end);
+  @include marcosInternos($spaceSmall);
+  font: {
+    size: $fontSmaller;
+  }
+  z-index: 100;
+  background: {
+    color: $color;
+  }
+  width: 100%;
+}
