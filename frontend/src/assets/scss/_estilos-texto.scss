@@ -1,0 +1,13 @@
+html {
+  font-size: $fontSizeInicialAjuste;
+}
+body {
+  font: {
+    family: $fontFamilyBase;
+    size: $fontMedium;
+    weight: 500; //medium
+  }
+}
+.content {
+  font-size: 1 rem;
+}

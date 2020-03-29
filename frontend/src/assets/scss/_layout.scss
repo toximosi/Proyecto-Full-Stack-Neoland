@@ -5,18 +5,8 @@ body {
   height: 100%;
   width: 100%;
 }
-html {
-  font-size: $fontSizeInicialAjuste;
-}
-body {
-  font: {
-    size: $fontMedium;
-  }
-  //--
-}
 .content {
   position: relative;
-  font-size: 1 rem;
   margin: 0;
   margin-left: $anchoMenu;
   padding: 0;
@@ -37,3 +27,4 @@ body {
     height: 100%;
   }
 }
+@import "_estilos-texto";
