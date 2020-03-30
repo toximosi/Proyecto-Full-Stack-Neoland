@@ -19,3 +19,8 @@
   padding-left: $leftRight;
   padding-right: $leftRight;
 }
+
+//Color gradicente den el background del elemento
+@mixin colorGRadienteLineal() {
+  background-image: linear-gradient(269deg, $colorPrincipalClaro 0%, $colorPrincipal 100%);
+}
