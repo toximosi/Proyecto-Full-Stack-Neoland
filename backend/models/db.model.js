@@ -2,6 +2,7 @@
 //! Sirve para gesionar la conexión con la base de datos.
 //libreria para manejar bd de mysql.
 const mysql = require('mysql');
+const secrets = require('../secret/secrets');
 
 //wrapper para pasar de callback a promesa, el npm mysql trabaja con callbacks
 class Database {
@@ -35,15 +36,8 @@ class Database {
         });
     };
 }
-const connection = new Database({
-    //se pasa la confuración de la bd
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root',
-    'database': 'lostthing',
-    'port': 8889,
-    'connectTimeout': 10000
-});
+//se pasa la confuración de la bd
+const connection = new Database(secrets);
 
 // ! EXPORTAR LA CONEXION A LA BASE DE DATOS
 module.exports = connection;
