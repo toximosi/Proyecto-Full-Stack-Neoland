@@ -14,8 +14,8 @@ exports.AlarmaVerModel = () => {
 exports.AlarmaNuevoModel = (imagen, titulo, texto) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const resultado = connection.query(`INSERT INTO alarma (imagen, titulo, texto) VALUES ("${imagen}", "${titulo}", "${texto}");`);
-            resolve(resultado);
+            const data = connection.query(`INSERT INTO alarma (imagen, titulo, texto) VALUES ("${imagen}", "${titulo}", "${texto}");`);
+            resolve(data);
         } catch (error) {
             reject(error);
         };

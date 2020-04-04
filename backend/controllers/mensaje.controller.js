@@ -11,14 +11,12 @@ exports.MensajeVer = async (req, res) => {
 
 exports.MensajeNuevo = async (req, res) => {
     const emisor = req.body.emisor;
-    const receptor = req.body.receptor;
-    const asunto = req.body.asunto;
-    const mensaje = req.body.mensaje;
-    const respuesta = req.body.respuesta;
+    //! la fecha la da el servidor
+    const texto = req.body.texto;
 
     try {
-        const data = await MensajeModel.MensajeNuevoModel(emisor, receptor, asunto, mensaje, respuesta);
-        res.send({ "message": " 📪 mensaje creado !!!", "ID": data.insertId });
+        const data = await MensajeModel.MensajeNuevoModel(emisor, texto);
+        res.send({ "message": " 📨 mensaje creado !!!", "ID": data.insertId });
     } catch (error) {
         res.send("Error MensajeNuevoController: " + error);
     };

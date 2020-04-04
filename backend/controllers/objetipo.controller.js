@@ -15,7 +15,7 @@ exports.ObjetoTipoNuevo = async (req, res) => {
     const icono = req.body.icono;
 
     try {
-        const data = await ObjetoTipoModel.ObjetoTipoNuevoModel(tipo, familia, icono);
+        const data = await ObjetoTipoModel.ObjetoTipoNuevoModel(tipo, icono);
         res.send({ "message": " 🌟 ObjetoTipo creado !!!", "ID": data.insertId })
 
     } catch (error) {

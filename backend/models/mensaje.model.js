@@ -11,10 +11,10 @@ exports.MensajeVerModel = () => {
     });
 };
 
-exports.MensajeNuevoModel = (emisor, receptor, mensaje, respuesta) => {
+exports.MensajeNuevoModel = (emisor, texto) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await connection.query(`INSERT INTO mensaje (emisor, receptor, asunto, mensaje, respuesta) VALUE ("${emisor}", "${receptor}","${asunto}", "${mensaje}", "${respuesta}");`)
+            const data = await connection.query(`INSERT INTO mensaje (emisor, texto) VALUE ("${emisor}", "${texto}");`)
             resolve(data);
         } catch (error) {
             reject("Error MensajeNuevoModel: " + error);

@@ -11,10 +11,11 @@ exports.ObjetoTipoVerModel = () => {
     });
 };
 
-exports.ObjetoTipoNuevoModel = (tipo, familia, icono) => {
+exports.ObjetoTipoNuevoModel = (tipo, icono) => {
+
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await connection.query(`INSERT INTO objetotipo (tipo, familia, icono) VALUE("${tipo}", "${familia}", "${icono}");`);
+            const data = await connection.query(`INSERT INTO objetotipo (tipo, icono) VALUE("${tipo}", "${icono}");`);
             resolve(data);
         } catch (error) {
             reject("Error ObjetoTipoNuevoModel: " + error);

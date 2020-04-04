@@ -11,14 +11,14 @@ exports.UsuarioVerModel = () => {
     })
 }
 
-exports.UsuarioNuevoModel = (nombre, apellidos, email) => {
+exports.UsuarioNuevoModel = (alias, nombre, apellidos, edad, email, password, avatar) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await connection.query(`INSERT INTO usuario (nombre, apellidos, email) VALUE ("${nombre}", "${apellidos}", "${email}");`);
+            const data = await connection.query(`INSERT INTO usuario (alias, nombre, apellidos, edad, email, password, avatar)
+            VALUE ("${alias}", "${nombre}", "${apellidos}", ${edad}, "${email}", "${password}", "${avatar}");`);
             resolve(data);
         } catch (error) {
             reject("Error UsuarioNuevoModel: " + error);
         }
     });
 };
-
