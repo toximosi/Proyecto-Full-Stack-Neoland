@@ -1,5 +1,7 @@
 const ConversacionModel = require('../models/conversacion.model');
+const { validationResult } = require('express-validator');// valida el body
 
+// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo conversacion
 exports.ConversacionNuevo = async (req, res) => {
     const emisor = req.body.emisor;
@@ -7,8 +9,13 @@ exports.ConversacionNuevo = async (req, res) => {
     const asunto = req.body.asunto;
 
     try {
-        const data = await ConversacionModel.ConversacionNuevoModel(emisor, receptor, asunto);
-        res.send({ "message": " 📪 conversacion creada !!!", "ID": data.insertId });
+        const errors = validationResult(req)//Ejecuta las validaciones 
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await ConversacionModel.ConversacionNuevoModel(emisor, receptor, asunto);
+            res.send({ "message": " 📪 conversacion creada !!!", "ID": data.insertId });
+        }
     } catch (error) {
         res.send("Error ConversacionNuevoController: " + error)
     };
@@ -40,9 +47,20 @@ exports.ConversacionCambiar = async (req, res) => {
     const receptor = req.body.receptor;
     const asunto = req.body.asunto;
 
+    const errors = validationResult(req);//Ejecuta las validaciones
+
     try {
-        await ConversacionModel.ConversacionCambiarModel(ID, emisor, receptor, asunto);
-        res.send({ "message": ` 📪 conversacion ${asunto} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!;` });
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await ConversacionModel.ConversacionCambiarModel(ID, emisor, receptor, asunto);
+
+            if (data.affectedRows > 0) {
+                res.send({ "message": ` 📪 conversacion ${asunto} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!;` });
+            } else {
+                res.status(404).send({ "error": `Ese 📪 conversacion con id = ${ID} no existe 😱` })
+            };
+        };
     } catch (error) {
         res.send("Error ConversacionCambiarController: " + error);
     };
@@ -53,7 +71,11 @@ exports.ConversacionBorrar = async (req, res) => {
 
     try {
         const data = await ConversacionModel.ConversacionBorrarModel(ID);
-        res.send({ "message": `📪 conversacion con id ${ID} borrado ☠️!!` });
+        if (data.affectedRows > 0) {
+            res.send({ "message": `📪 conversacion con id ${ID} borrado ☠️!!` });
+        } else {
+            res.status(404).send({ "error": `Esa 📪 conversacion con id = ${ID} no existe 😱` })
+        };
     } catch (error) {
         res.send("Error X: " + error);
     };

@@ -1,14 +1,22 @@
 const AlarmaModel = require('../models/alarma.model');
+const { validationResult } = require('express-validator');// valida el body
 
+// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
 exports.AlarmaNuevo = async (req, res) => {
     const imagen = req.body.imagen;
     const titulo = req.body.titulo;
     const texto = req.body.texto;
 
+    const errors = validationResult(req);//Ejecuta las validaciones
+
     try {
-        const data = await AlarmaModel.AlarmaNuevoModel(imagen, titulo, texto);
-        res.send({ "message": " 🐨 Alarma creada !!!", "ID": data.insertId });
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await AlarmaModel.AlarmaNuevoModel(imagen, titulo, texto);
+            res.send({ "message": " 🐨 Alarma creada !!!", "ID": data.insertId });
+        };
     } catch (error) {
         res.send("Error AlarmaNuevoModel: " + error);
     };
@@ -43,21 +51,37 @@ exports.AlarmaCambiar = async (req, res) => {
     const titulo = req.body.titulo;
     const texto = req.body.texto;
 
+    const errors = validationResult(req);//Ejecuta las validaciones
+
     try {
-        await AlarmaModel.AlarmaCambiarModel(ID, imagen, titulo, texto);
-        res.send({ "message": `🐨 Alarma ${titulo} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await AlarmaModel.AlarmaCambiarModel(ID, imagen, titulo, texto);
+
+            if (data.affectedRows > 0) {
+                res.send({ "message": `🐨 Alarma ${titulo} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+            } else {
+                res.status(404).send({ "error": `Ese 🐨 Alarma con id = ${ID} no existe 😱` });
+            };
+        };
     } catch (error) {
         res.send("Error AlarmaCambiarController: " + error);
-    }
-}
+    };
+};
+
 // crruD : DELETED ID --> borrar  un objetos por su id
 exports.AlarmaBorrar = async (req, res) => {
     const ID = req.params.ID;
 
     try {
-        await AlarmaModel.AlarmaBorrarModel(ID);
-        res.send({ "message": `🐨 Alarma con id ${ID} borrado ☠️!!` });
+        const data = await AlarmaModel.AlarmaBorrarModel(ID);
+        if (data.affectedRows > 0) {
+            res.send({ "message": `🐨 Alarma con id ${ID} borrado ☠️!!` });
+        } else {
+            res.status(404).send({ "error": `Esa 🐨 Alarma con id = ${ID} no existe 😱` })
+        };
     } catch (error) {
         res.send("Error AlarmaBorrarController: " + error);
-    }
-}
+    };
+};

@@ -1,4 +1,6 @@
 const connection = require('../models/db.model');
+
+// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetoFamilia
 exports.ObjetoFamiliaNuevoModel = (familia, color) => {
     return new Promise(async (resolve, reject) => {

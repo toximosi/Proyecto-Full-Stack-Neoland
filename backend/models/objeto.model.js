@@ -1,5 +1,6 @@
 const connection = require('./db.model');
 
+// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
 exports.ObjetoNuevoModel = (nombre, foto, descripcion, perdido, encontrado, fecha_perdida, latitud_perdida, longitud_perdida, fecha_encontrado, latitud_encontrado, longitud_encontrado) => {
     return new Promise(async (resolve, reject) => {

@@ -1,14 +1,23 @@
 const MensajeModel = require('../models/mensaje.model');
+const { validationResult } = require('express-validator');// valida el body
 
+// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo mensajes
 exports.MensajeNuevo = async (req, res) => {
     const emisor = req.body.emisor;
     //! la fecha la da el servidor
     const texto = req.body.texto;
 
+    const errors = validationResult(req);//Ejecuta las validaciones 
+
     try {
-        const data = await MensajeModel.MensajeNuevoModel(emisor, texto);
-        res.send({ "message": " 📨 mensaje creado !!!", "ID": data.insertId });
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await MensajeModel.MensajeNuevoModel(emisor, texto);
+            res.send({ "message": " 📨 mensaje creado !!!", "ID": data.insertId });
+        };
     } catch (error) {
         res.send("Error MensajeNuevoController: " + error);
     };
@@ -41,9 +50,21 @@ exports.MensajeCambiar = async (req, res) => {
     const emisor = req.body.emisor;
     const texto = req.body.texto;
 
+    const errors = validationResult(req);//Ejecuta las validaciones
+
     try {
-        await MensajeModel.MensajeCambiarModel(ID, emisor, texto);
-        res.send({ "message": ` 📨 mensaje con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await MensajeModel.MensajeCambiarModel(ID, emisor, texto);
+
+            if (data.affectedRows > 0) {
+                res.send({ "message": ` 📨 mensaje con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+            } else {
+                res.status(404).send({ "error": `Ese 📨 mensaje con id = ${ID} no existe 😱` })
+            };
+        };
     } catch (error) {
         res.send("Error MensajeCambiarController: " + error);
     };
@@ -55,7 +76,11 @@ exports.MensajeBorrar = async (req, res) => {
 
     try {
         const data = await MensajeModel.MensajeBorrarModel(ID);
-        res.send({ "message": ` 📨 mensaje con id ${ID} borrado ☠️!!` });
+        if (data.affectedRows > 0) {
+            res.send({ "message": ` 📨 mensaje con id ${ID} borrado ☠️!!` });
+        } else {
+            res.status(404).send({ "error": `Ese 📨 mensaje con id = ${ID} no existe 😱` })
+        };
     } catch (error) {
         res.send("Error MensajeBorrarController: " + error);
     };

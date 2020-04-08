@@ -1,6 +1,6 @@
 const connection = require('./db.model');
-// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 
+// CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo usuario
 exports.UsuarioNuevoModel = (alias, nombre, apellidos, edad, email, password, avatar) => {
     return new Promise(async (resolve, reject) => {

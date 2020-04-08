@@ -1,4 +1,6 @@
 const UsuarioModel = require('../models/usuario.model');
+const { check, validationResult } = require('express-validator');// valida el body
+
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo usuario
 exports.UsuarioNuevo = async (req, res) => {
@@ -12,10 +14,17 @@ exports.UsuarioNuevo = async (req, res) => {
     const avatar = req.body.avatar;
     //! la fecha la incluye directamente mysql
 
-    try {
-        const data = UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
-        res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
+    const errors = validationResult(req);//Ejecuta las validaciones 
+    console.log(req.body);
 
+    try {
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+
+            res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
+        }
     } catch (error) {
         res.send("Error UsuarioNuevoController:" + error);
     };
@@ -35,7 +44,7 @@ exports.UsuarioVerId = async (req, res) => {
     try {
         const data = await UsuarioModel.UsuarioVerIdModel(ID);
         if (data.lenght === 0) {
-            res.status(400).send({ "message": `Ese Usuari@ con id = ${ID} no exinste 😱` });
+            res.status(400).send({ "message": `Ese Usuari@ con id = ${ID} no existe 😱` });
         } else {
             res.send(data);
         };
@@ -56,14 +65,23 @@ exports.UsuarioCambiar = async (req, res) => {
     const password = req.body.password;
     const avatar = req.body.avatar;
 
-    try {
-        //const data =
-        await UsuarioModel.UsuarioCambiarModel(ID, alias, nombre, apellidos, edad, email, password, avatar);
-        res.send({ "message": `👨‍🎤 Usuari@ ${alias} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+    const errors = validationResult(req)//Ejecuta las validaciones
 
+    try {
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await UsuarioModel.UsuarioCambiarModel(ID, alias, nombre, apellidos, edad, email, password, avatar);
+
+            if (data.affectedRows > 0) {
+                res.send({ "message": `👨‍🎤 Usuari@ ${alias} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+            } else {
+                res.status(404).send({ "error": `Ese 👨‍🎤 Usuari@ con id = ${ID} no existe 😱` })
+            };
+        };
     } catch (error) {
         res.send("Error UsuarioCambiarControler: " + error);
-    }
+    };
 };
 
 // crruD : DELETED ID --> borrar  un usuarios por su id
@@ -71,12 +89,12 @@ exports.UsuarioBorrar = async (req, res) => {
     const ID = req.params.ID;//sacamos del path param el id del usuario
     try {
         const data = await UsuarioModel.UsuarioBorrarModel(ID);
-        if (result.affectedRows > 0) {
+        if (data.affectedRows > 0) {
             res.send({ "message": `👨‍🎤 Usuari@ con id ${ID} borrado ☠️!!` })
         } else {
-            res.status(404).send({ "error": `Ese Usuari@ con id = ${ID} no exinste 😱` })
+            res.status(404).send({ "error": `Ese Usuari@ con id = ${ID} no existe 😱` })
         }
-        res.send(data);
+        //res.send(data)
     } catch (error) {
         res.send("Error UsuarioBorrarId:" + error);
     };
