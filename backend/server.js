@@ -38,6 +38,9 @@ server.post("/usuario/nuevo", [
 ], UsuarioController.UsuarioNuevo);// incluir usuario
 server.put("/usuario/cambiar", UsuarioController.UsuarioCambiar);// modificar usuario
 server.delete("/usuario/borrar/:ID", UsuarioController.UsuarioBorrar);// ver usuario por ID
+//Extra
+server.get("/usuarios-conversacion", UsuarioController.UsuarioConversacion);//obtener las conversaciones del usuario
+server.get("/usuarios-conversacion-mensaje", UsuarioController.UsuarioConversacionMensaje);//obtener las conversaciones del usuario
 //* usuario FIN -------------------------------------------------------
 
 //* 👌 objeto INICIO -----------------------------------------------------
@@ -91,7 +94,9 @@ server.post("/conversacion/nuevo", [
     check('asunto').isAlphanumeric().escape().trim()
 ], ConversacionController.ConversacionNuevo); // incluir conversacion
 server.put("/conversacion/cambiar", ConversacionController.ConversacionCambiar);//cambiar conversacion
-server.delete("/conversacion/borrar/:ID", ConversacionController.ConversacionBorrar);//borrar converscion
+server.delete("/conversacion/borrar/:ID", ConversacionController.ConversacionBorrar);//borrar conversacion
+//Extra
+server.get("/conversacion-mensaje", ConversacionController.ConversacionMensaje)// ver conversacion
 //* conversacion FIN --------------------------------------------------------
 
 //* 👌 mensaje INICIO -----------------------------------------------------
@@ -103,6 +108,8 @@ server.post("/mensaje/nuevo", [
 ], MensajeController.MensajeNuevo); // incluir mensaje
 server.put("/mensaje/cambiar", MensajeController.MensajeCambiar); // cambiar mensaje
 server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar mensaje
+
+
 //* mensaje FIN --------------------------------------------------------
 
 //* 👌 alarma INICIO -----------------------------------------------------

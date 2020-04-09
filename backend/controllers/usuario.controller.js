@@ -99,3 +99,101 @@ exports.UsuarioBorrar = async (req, res) => {
         res.send("Error UsuarioBorrarId:" + error);
     };
 };
+
+//Extras  -------------------------------------------------------------------------------
+//Obtener converaciones del usuario
+exports.UsuarioConversacion = async (req, res) => {
+    try {
+        const data = await UsuarioModel.UsuarioVerModel();
+        for (let conversacion of data) {
+            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
+            conversacion.conversacionesRecibida = conversaciones;
+        };
+        res.send(data);
+    } catch (error) {
+        res.send("Error UsuarioConversacion:" + error);
+    };
+};
+
+//Conversacion con sus mensajes
+/* exports.UsuarioConversacionMensaje = async (req, res) => {
+    try {
+        const data = await UsuarioModel.UsuarioVerModel();
+
+        for (let conversacion of data) {
+            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
+            conversacion.conversacionesRecibida = conversaciones;
+            for (let mensaje of conversaciones) {
+                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
+                mensaje.mensajes = mensajes;
+            };
+        };
+        res.send(data);
+    } catch (error) {
+        res.send("Error UsuarioConversacionMensaje:" + error);
+    };
+}; */
+
+// diferenciar los mensajes entre emisor y receptor:
+
+/* exports.UsuarioConversacion = async (req, res) => {
+    try {
+        const data = await UsuarioModel.UsuarioVerModel();
+        for (let conversacion of data) {
+            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
+            conversacion.conversacionesRecibida = conversaciones;
+            const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
+            conversacion.conversacionesEnviada = conversacionesEnv;
+        };
+        res.send(data);
+    } catch (error) {
+        res.send("Error UsuarioConversacion:" + error);
+    };
+}; */
+
+
+exports.UsuarioConversacionMensaje = async (req, res) => {
+    try {
+        const data = await UsuarioModel.UsuarioVerModel();
+
+        for (let objeto of data) {
+            const objetos = await UsuarioModel.UsuarioObjetoModel(objeto.ID);
+            objeto.objetos = objetos;
+            /*if (objetos.perdido == 1) {
+                objeto.objetosPerdido = objetos;
+            }
+                        if (objetos[encontrado] == 1) {
+                            objetos.objetosEncontado = objeto;
+                        } */
+            for (let f of objetos) {
+                const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(f.ID);
+                f.familia = familia;
+                for (let t of familia) {
+                    const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(t.ID);
+                    t.tipo = tipo;
+                };
+            };
+        };
+
+        for (let conversacion of data) {
+            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
+            conversacion.conversacionesRecibida = conversaciones;
+            for (let mensaje of conversaciones) {
+                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
+                mensaje.mensajes = mensajes;
+            };
+
+            const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
+            conversacion.conversacionesEnviada = conversacionesEnv;
+            for (let mensaje of conversacionesEnv) {
+                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
+                mensaje.mensajes = mensajes;
+            };
+
+
+        };
+        res.send(data);
+    } catch (error) {
+        res.send("Error UsuarioConversacionMensaje:" + error);
+    };
+};

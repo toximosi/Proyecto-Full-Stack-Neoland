@@ -62,3 +62,15 @@ exports.ConversacionBorrarModel = (ID) => {
         };
     });
 }
+
+//Obtener datos anidados entre conversación y mensaje
+exports.ConversacionMensajeModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await connection.query(`SELECT * FROM mensaje WHERE fk_conversacion = ?`, [ID]);
+            resolve(data);
+        } catch (error) {
+            reject("Error ConversacionMensajeModel: " + error);
+        };
+    });
+};

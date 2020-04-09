@@ -1,4 +1,5 @@
 const ConversacionModel = require('../models/conversacion.model');
+//const MensajeModel = require('../models/mensaje.model');
 const { validationResult } = require('express-validator');// valida el body
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
@@ -32,7 +33,6 @@ exports.ConversacionVer = async (req, res) => {
 // crRud : READ --> Leer o ver un conversacion por su id
 exports.ConversacionVerId = async (req, res) => {
     const ID = req.params.ID;
-
     try {
         const data = await ConversacionModel.ConversacionVerIdModel(ID);
         res.send(data);
@@ -80,3 +80,18 @@ exports.ConversacionBorrar = async (req, res) => {
         res.send("Error X: " + error);
     };
 };
+//Extras ------------- obtener todas las conversaciones
+exports.ConversacionMensaje = async (req, res) => {
+
+    try {
+        //console.log("entro1");
+        const data = await ConversacionModel.ConversacionVerModel();
+        for (let mensaje of data) {
+            console.log("entro2");
+            const mensajes = await ConversacionModel.ConversacionMensajeModel(mensaje.ID);
+            mensaje.mensajes = mensajes;
+        };
+        res.send(data);
+    } catch (error) { res.send("Error ConversacionMensaje " + error) };
+};
+

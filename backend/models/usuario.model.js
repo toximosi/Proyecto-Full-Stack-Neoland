@@ -73,5 +73,75 @@ exports.UsuarioBorrarModel = (ID) => {
             reject("Error UsuarioBorrarModel: " + error);
         }
     });
-}
+};
 
+//Extras -------------------------------------------------------------------------------
+//Incluir conversaciones realizadas
+exports.UsuarioConversacionModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            //conseguir las conversaciones y los mensajes realcionados
+            const data = connection.query(`SELECT * FROM conversacion con WHERE con.fk_usuario = ?;`, [ID])
+            resolve(data);
+        } catch (error) {
+            reject("Error UsuarioConversacionModel: " + error);
+        }
+    });
+};
+
+exports.UsuarioConversacionEnvidaModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            //conseguir las conversaciones y los mensajes realcionados
+            const data = connection.query(`SELECT * FROM conversacion con WHERE con.emisor = ?;`, [ID])
+            resolve(data);
+        } catch (error) {
+            reject("Error UsuarioConversacionModel: " + error);
+        }
+    });
+};
+
+exports.UsuarioConversacionMensajeModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            //conseguir las conversaciones y los mensajes realcionados
+            const data = connection.query(`SELECT * FROM mensaje men WHERE men.fk_conversacion = ?;`, [ID])
+            resolve(data);
+        } catch (error) {
+            reject("Error UsuarioConversacionMensajeModel: " + error);
+        }
+    });
+};
+
+exports.UsuarioObjetoModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await connection.query(`SELECT * FROM objeto obj WHERE obj.fk_usuario = ? `, [ID]);
+            resolve(data);
+        } catch (error) {
+            reject("UsuarioObjetoModel: " + error)
+        };
+    });
+};
+
+exports.UsuarioObjetoFamiliaModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = connection.query(`SELECT * FROM objetofamilia fa WHERE fa.fk_objeto = ?`, [ID]);
+            resolve(data);
+        } catch (error) {
+            reject("Error: UsuarioObjetoFamiliaModel " + error);
+        }
+    });
+};
+
+exports.UsuarioObjetoFamiliaTipoModel = (ID) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = connection.query(`SELECT * FROM objetotipo tip WHERE tip.fk_objetofamilia=?`, [ID]);
+            resolve(data);
+        } catch (error) {
+            reject("Error UsuarioObjetoFamiliaTipoModel:" + error);
+        }
+    });
+};

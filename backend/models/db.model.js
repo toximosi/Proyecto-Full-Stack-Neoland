@@ -11,9 +11,9 @@ class Database {
         this.connection = mysql.createPool(config);
     };
     //usamos un query para abrir conexiones
-    query(sql) {
+    query(sql, data) {
         return new Promise((resolve, reject) => {
-            this.connection.query(sql, (error, result) => {
+            this.connection.query(sql, data, (error, result) => {
                 if (error) {
                     //console.log(error);
                     return reject(error);
