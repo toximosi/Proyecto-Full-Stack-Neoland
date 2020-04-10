@@ -4,8 +4,6 @@ const helmet = require('helmet');// helmet --> para ayudarnos con la seguridad d
 const bodyParser = require('body-parser');// parsea la el body
 const { check } = require('express-validator');// valida el body
 //require('dotenv').config();
-require('dotenv').config();//para el archivo de entorno de .env
-
 // CONTROLADORES -- importar controladores --------------------------------------------------
 const UsuarioController = require('./controllers/usuario.controller');
 const ObjetoController = require('./controllers/objeto.controller');
@@ -133,7 +131,7 @@ server.get("/test", (req, res) => { res.send(" 🖐 Hola Mundo!!!!"); });
 // --> llamada al servidor en el puerto 3000
 //const PORT = process.env.PORT;
 const PORT = process.argv[2];
-server.listen(process.env.PORT || PORT, () => {
+server.listen(PORT, () => {
     console.log(`👾 Servidor escuchando en el puerto ${PORT} 👾`);
 });
 
