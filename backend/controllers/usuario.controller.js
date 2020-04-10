@@ -1,30 +1,46 @@
 const UsuarioModel = require('../models/usuario.model');
-const { check, validationResult } = require('express-validator');// valida el body
+const { validationResult } = require('express-validator');// valida el body
+const bcrypt = require('bcrypt');//hashear contraseñas
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo usuario
 exports.UsuarioNuevo = async (req, res) => {
     //request, response --> solicitud, respuesta
+    //try {
+    const hash = await bcrypt.hash(req.body.password, 14);//hashear la contraseña para que tenga más seguridad}
+    /* } catch (error) {
+        res.send("Error en el hasha de la contraseña: " + error);
+        return//ponemos el return para que no siga más
+    } */
     const alias = req.body.alias;
     const nombre = req.body.nombre;
     const apellidos = req.body.apellidos;
     const edad = req.body.edad;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = hash;//passwoord hasheada
     const avatar = req.body.avatar;
     //! la fecha la incluye directamente mysql
 
     const errors = validationResult(req);//Ejecuta las validaciones 
-    console.log(req.body);
+
+    const UsuarioDuplicado = await UsuarioModel.UsuarioVerModel();
 
     try {
         if (!errors.isEmpty()) {
+
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
 
-            res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
-        }
+            if (UsuarioDuplicado[0].email !== email) {
+                const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+
+                res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
+
+            } else {
+                res.send({ "message": " 👨‍🎤 usuario duplicado con el mismo email !!!", "email": email });
+            };
+
+        };
     } catch (error) {
         res.send("Error UsuarioNuevoController:" + error);
     };
@@ -115,56 +131,20 @@ exports.UsuarioConversacion = async (req, res) => {
     };
 };
 
-//Conversacion con sus mensajes
-/* exports.UsuarioConversacionMensaje = async (req, res) => {
-    try {
-        const data = await UsuarioModel.UsuarioVerModel();
-
-        for (let conversacion of data) {
-            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
-            conversacion.conversacionesRecibida = conversaciones;
-            for (let mensaje of conversaciones) {
-                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
-                mensaje.mensajes = mensajes;
-            };
-        };
-        res.send(data);
-    } catch (error) {
-        res.send("Error UsuarioConversacionMensaje:" + error);
-    };
-}; */
-
-// diferenciar los mensajes entre emisor y receptor:
-
-/* exports.UsuarioConversacion = async (req, res) => {
-    try {
-        const data = await UsuarioModel.UsuarioVerModel();
-        for (let conversacion of data) {
-            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
-            conversacion.conversacionesRecibida = conversaciones;
-            const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
-            conversacion.conversacionesEnviada = conversacionesEnv;
-        };
-        res.send(data);
-    } catch (error) {
-        res.send("Error UsuarioConversacion:" + error);
-    };
-}; */
-
-
 exports.UsuarioConversacionMensaje = async (req, res) => {
     try {
         const data = await UsuarioModel.UsuarioVerModel();
-
         for (let objeto of data) {
             const objetos = await UsuarioModel.UsuarioObjetoModel(objeto.ID);
-            objeto.objetos = objetos;
-            /*if (objetos.perdido == 1) {
-                objeto.objetosPerdido = objetos;
-            }
-                        if (objetos[encontrado] == 1) {
+
+            //console.log(objetos[0].perdido);
+            /*             if (objetos[0].perdido == 1) {
+                            objeto.objetosPerdido = objetos;
+                        }
+                        if (objetos[0].encontrado == 1) {
                             objetos.objetosEncontado = objeto;
                         } */
+            objeto.objetos = objetos;
             for (let f of objetos) {
                 const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(f.ID);
                 f.familia = familia;
@@ -189,8 +169,6 @@ exports.UsuarioConversacionMensaje = async (req, res) => {
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
             };
-
-
         };
         res.send(data);
     } catch (error) {
