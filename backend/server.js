@@ -1,7 +1,10 @@
 //! 🤘 Centro neural del servidor -----------------------------------
+
 const express = require('express');// express --> para crear el servidor
 const helmet = require('helmet');// helmet --> para ayudarnos con la seguridad del servidor
 const bodyParser = require('body-parser');// parsea la el body
+const cookieParser = require('cookie-parser');//incluir una cookie de seguimiento en el ¿body?
+//const jwtController = require('./middleware/jwt.middleware');
 const { check } = require('express-validator');// valida el body
 //require('dotenv').config();
 require('dotenv').config();//para el archivo de entorno de .env
@@ -21,6 +24,8 @@ const server = express();
 //* MIDDLEWARE al ataque!!!! 
 server.use(helmet());//Servidor protegido :)
 server.use(bodyParser.json());//parseamose el body al estilo json, así puedo acceder a sus propiedades como si fuera  un objeto
+server.use(cookieParser());//incluye una cookie en el navegador para saber si el usuario esta registrado
+//server.use(jwtController.checkToken());
 //server.us(express.static('static'));//servidor estático:
 
 // 👇 AQUÍ EMPIEZA LA API -------------------------------------------
@@ -43,6 +48,12 @@ server.delete("/usuario/borrar/:ID", UsuarioController.UsuarioBorrar);// ver usu
 //Extra
 server.get("/usuarios-conversacion", UsuarioController.UsuarioConversacion);//obtener las conversaciones del usuario
 server.get("/usuarios-conversacion-mensaje", UsuarioController.UsuarioConversacionMensaje);//obtener las conversaciones del usuario
+server.post("/login", [
+    //check('alias').isString().escape().trim(),
+    //check('nombre').isString().escape().trim(),
+    //check('email').isEmail().trim(),
+    check('password').isString().trim(),
+], UsuarioController.UsuarioLogin);//login con hash
 //* usuario FIN -------------------------------------------------------
 
 //* 👌 objeto INICIO -----------------------------------------------------
@@ -62,7 +73,7 @@ server.post("/objeto/nuevo", [
     check('longitud_encontrado').isNumeric()
 ], ObjetoController.ObjetoNuevo);// incluir objeto
 server.put("/objeto/cambiar", ObjetoController.ObjetoCambiar);// cambiar objeto
-server.delete("/objeto/borrar/:ID", ObjetoController.ObjetoBorrar);// 👿 borrar objeto por id
+server.delete("/objeto/borrar/:ID", ObjetoController.ObjetoBorrar);// borrar objeto por id
 //* objeto FIN --------------------------------------------------------
 
 //* 👌 objetofamilia INICIO -----------------------------------------------------
@@ -110,8 +121,6 @@ server.post("/mensaje/nuevo", [
 ], MensajeController.MensajeNuevo); // incluir mensaje
 server.put("/mensaje/cambiar", MensajeController.MensajeCambiar); // cambiar mensaje
 server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar mensaje
-
-
 //* mensaje FIN --------------------------------------------------------
 
 //* 👌 alarma INICIO -----------------------------------------------------
@@ -135,13 +144,4 @@ server.get("/test", (req, res) => { res.send(" 🖐 Hola Mundo!!!!"); });
 const PORT = process.argv[2];
 server.listen(process.env.PORT || PORT, () => {
     console.log(`👾 Servidor escuchando en el puerto ${PORT} 👾`);
-});
-
-//nodemon server.js 3000
-
-/* const errors = validationResult(req)//Ejecuta las validaciones
-if (!errors) {
-
-} else {
-    res.status(400).send({ "error": "El body esta mal formado", "Explicacion": errors });
-} */
+});//nodemon server.js 3000

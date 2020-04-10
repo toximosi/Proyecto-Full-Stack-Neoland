@@ -145,3 +145,15 @@ exports.UsuarioObjetoFamiliaTipoModel = (ID) => {
         }
     });
 };
+
+exports.UsuarioLoginModel = (ID, password, email) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = connection.query(`SELECT * FROM usuario WHERE ID=?`, [ID]);
+            resolve(data);
+        } catch (error) {
+            reject("Error UsuarioLoginModel: " + error)
+        };
+    });
+
+}
