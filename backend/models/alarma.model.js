@@ -13,7 +13,7 @@ exports.AlarmaNuevoModel = ({ imagen, titulo, texto }) => {
 // cRrud : READ --> Leer o ver todos los objetos
 exports.AlarmaVerModel = () => {
     return new Promise(async (resolve, reject) => {
-        connection.query('SELECT * FROM alarma')
+        connection.query('SELECT * FROM alarma;')
             .then(result => resolve(result))
             .catch(error => reject("Error AlarmaVerModel: " + error));
     });
@@ -45,12 +45,9 @@ exports.AlarmaCambiarModel = ({ ID, imagen, titulo, texto }) => {
 
 // crruD : DELETED ID --> borrar  un objetos por su id
 exports.AlarmaBorrarModel = (ID) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const data = await connection.query(`DELETE FROM alarma WHERE ID=${ID};`);
-            resolve(data);
-        } catch (error) {
-            reject("Error AlarmaBorrarModel: " + error);
-        };
+    return new Promise((resolve, reject) => {
+        connection.query(`DELETE FROM alarma WHERE ID=?;`, [ID])
+            .then(result => resolve(result))
+            .catch(error => reject("Error AlarmaBorrarModel: " + error));
     });
 };

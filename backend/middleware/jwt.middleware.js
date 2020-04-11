@@ -1,3 +1,4 @@
+//require('cors')
 const jwt = require('jsonwebtoken');
 const secret = require('../secret/secrets');
 
@@ -22,4 +23,4 @@ const secret = require('../secret/secrets');
     } else {
         next();
     };
-};  */
+}; */

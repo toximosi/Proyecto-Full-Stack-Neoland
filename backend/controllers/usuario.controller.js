@@ -34,15 +34,18 @@ exports.UsuarioNuevo = async (req, res) => {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
 
-            if (UsuarioDuplicado[0].email !== email) {
-                const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+            if (email !== secret.email_contacto) {
+                if (UsuarioDuplicado[0].email !== email) {
+                    const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+                    res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
 
-                res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
-
+                } else {
+                    res.send({ "message": " 👨‍🎤 usuario duplicado con el mismo email !!!", "email": email });
+                };
             } else {
-                res.send({ "message": " 👨‍🎤 usuario duplicado con el mismo email !!!", "email": email });
-            };
-
+                const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+                res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
+            }
         };
     } catch (error) {
         res.send("Error UsuarioNuevoController:" + error);
@@ -124,6 +127,7 @@ exports.UsuarioBorrar = async (req, res) => {
 exports.UsuarioConversacion = async (req, res) => {
     try {
         const data = await UsuarioModel.UsuarioVerModel();
+
         for (let conversacion of data) {
             const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
             conversacion.conversacionesRecibida = conversaciones;
@@ -134,7 +138,7 @@ exports.UsuarioConversacion = async (req, res) => {
     };
 };
 
-exports.UsuarioConversacionMensaje = async (req, res) => {
+exports.UsuarioCompleto = async (req, res) => {
     try {
         const data = await UsuarioModel.UsuarioVerModel();
         for (let objeto of data) {
@@ -161,6 +165,7 @@ exports.UsuarioConversacionMensaje = async (req, res) => {
         for (let conversacion of data) {
             const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
             conversacion.conversacionesRecibida = conversaciones;
+
             for (let mensaje of conversaciones) {
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
@@ -168,6 +173,7 @@ exports.UsuarioConversacionMensaje = async (req, res) => {
 
             const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
             conversacion.conversacionesEnviada = conversacionesEnv;
+
             for (let mensaje of conversacionesEnv) {
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
@@ -175,7 +181,7 @@ exports.UsuarioConversacionMensaje = async (req, res) => {
         };
         res.send(data);
     } catch (error) {
-        res.send("Error UsuarioConversacionMensaje:" + error);
+        res.send("Error UsuarioCompleto:" + error);
     };
 };
 

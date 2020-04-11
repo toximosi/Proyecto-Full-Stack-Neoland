@@ -47,7 +47,7 @@ server.put("/usuario/cambiar", UsuarioController.UsuarioCambiar);// modificar us
 server.delete("/usuario/borrar/:ID", UsuarioController.UsuarioBorrar);// ver usuario por ID
 //Extra
 server.get("/usuarios-conversacion", UsuarioController.UsuarioConversacion);//obtener las conversaciones del usuario
-server.get("/usuarios-conversacion-mensaje", UsuarioController.UsuarioConversacionMensaje);//obtener las conversaciones del usuario
+server.get("/usuarios-completo", UsuarioController.UsuarioCompleto);//obtener las conversaciones del usuario
 server.post("/login", [
     //check('alias').isString().escape().trim(),
     //check('nombre').isString().escape().trim(),
@@ -96,7 +96,7 @@ server.post("/objetotipo/nuevo", [
 ], ObjetoTipoController.ObjetoTipoNuevo); // incluir objetoTipo
 server.put("/objetotipo/cambiar", ObjetoTipoController.ObjetoTipoCambiar);// cambiar objeto tipo
 server.delete("/objetotipo/borrar/:ID", ObjetoTipoController.ObjetoTipoBorrar); //borrar objeto tipo por ID
-//* objetoTipo FIN --------------------------------------------------------
+//* objetoTipo FIN -------------------------------------------------------- */
 
 //* 👌 conversacion INICIO -----------------------------------------------------
 server.get("/conversacion", ConversacionController.ConversacionVer)// ver conversacion
@@ -110,7 +110,7 @@ server.put("/conversacion/cambiar", ConversacionController.ConversacionCambiar);
 server.delete("/conversacion/borrar/:ID", ConversacionController.ConversacionBorrar);//borrar conversacion
 //Extra
 server.get("/conversacion-mensaje", ConversacionController.ConversacionMensaje)// ver conversacion
-//* conversacion FIN --------------------------------------------------------
+//* conversacion FIN -------------------------------------------------------- */
 
 //* 👌 mensaje INICIO -----------------------------------------------------
 server.get("/mensaje", MensajeController.MensajeVer);// ver mensaje
@@ -121,7 +121,7 @@ server.post("/mensaje/nuevo", [
 ], MensajeController.MensajeNuevo); // incluir mensaje
 server.put("/mensaje/cambiar", MensajeController.MensajeCambiar); // cambiar mensaje
 server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar mensaje
-//* mensaje FIN --------------------------------------------------------
+//* mensaje FIN -------------------------------------------------------- */
 
 //* 👌 alarma INICIO -----------------------------------------------------
 server.get("/alarma", AlarmaController.AlarmaVer);// ver alarmas
@@ -133,7 +133,7 @@ server.post("/alarma/nuevo", [
 ], AlarmaController.AlarmaNuevo); // incluir alarmas
 server.put("/alarma/cambiar", AlarmaController.AlarmaCambiar); // cambiar alarmas
 server.delete("/alarma/borrar/:ID", AlarmaController.AlarmaBorrar);// borrar alarma
-//* alarma FIN --------------------------------------------------------
+//* alarma FIN -------------------------------------------------------- */
 
 //*Testeamos --- fuciona los Endpoints? -------------------------------
 server.get("/test", (req, res) => { res.send(" 🖐 Hola Mundo!!!!"); });
