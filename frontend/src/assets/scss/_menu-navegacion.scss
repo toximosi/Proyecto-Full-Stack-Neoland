@@ -48,22 +48,26 @@
           text-decoration: none;
           height: $anchoMenu;
           flex-wrap: nowrap;
+          transform: translateX(0);
 
-          &::before {
-            @include contentVacio;
-            width: 0px;
-            height: 100%;
-            background-color: $colorBg;
-            top: 0;
-            left: 0;
-          }
           &:hover {
             color: $colorPrincipalHover;
             //background-color: $colorPrincipalHover;
-            &::before {
-              width: 4px;
-              background-color: $colorPrincipalHover;
-            }
+            transform: translateX($spaceSmall);
+          }
+        }
+        &::before {
+          @include contentVacio;
+          width: 0px;
+          height: 100%;
+          background-color: $colorBg;
+          top: 0;
+          left: 0;
+        }
+        &:hover {
+          &::before {
+            width: 4px;
+            background-color: $colorPrincipalHover;
           }
         }
         span {

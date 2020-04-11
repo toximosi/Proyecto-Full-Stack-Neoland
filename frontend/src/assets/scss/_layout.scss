@@ -5,27 +5,35 @@ body {
   height: 100%;
   width: 100%;
 }
-.content {
-  position: relative;
+.interface {
+  height: 100%;
+  padding: $anchoMenu;
   margin: 0;
-  margin-left: $anchoMenu;
-  padding: 0;
-  background: {
-    color: grey;
-  }
-  //width: 100%;
-  height: 100%;
+  overflow: hidden;
 }
-// info
 .wrapper {
-  width: 100%;
   height: 100%;
+
+  /*   width: 100%;
+  
   .container-fluid,
   .row {
     padding: 0;
     margin: 0;
     height: 100%;
-  }
+  } */
+}
+.container-fluid {
+  height: 100%;
+}
+.row {
+  background-color: $colorBgGrisClaro;
+  border-radius: $EsquinaRedondeadaMedia;
+}
+article {
+  @include flexCenter;
+  width: 100%;
+  height: 100%;
 }
 @import "_estilos-texto";
 @import "_animacion";

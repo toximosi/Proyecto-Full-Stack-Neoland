@@ -6,23 +6,39 @@
     right: 0; //*
 
     .contenido {
-        @include flexCenter(column, flex-start, end); //*
+        @include flexCenter(column, flex-start, end);
         .menu {
             padding-top: $anchoMenu;
         }
         ul {
             li.boton {
                 a {
-                    flex-direction: row-reverse; //*
+                    flex-direction: row-reverse;
+                    &:hover {
+                        transform: translateX(-$spaceSmall);
+                    }
+                }
+                &::before {
+                    left: auto;
+                    right: 0;
+                }
+                .icono {
+                    position: relative;
+                    .aviso {
+                        @include positionAbsolute();
+                        color: $colorLlamada;
+                        top: 9px;
+                        left: 28px;
 
-                    &::before {
-                        left: auto; //*
-                        right: 0; //*
+                        i {
+                            font-size: 14px;
+                        }
                     }
                 }
 
                 .texto {
-                    transform: translateX(14px); //*
+                    transform: translateX(14px);
+                    text-align: right;
                 }
             }
         }

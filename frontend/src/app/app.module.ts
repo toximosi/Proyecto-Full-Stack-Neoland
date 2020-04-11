@@ -17,6 +17,7 @@ import { Error404Component } from './components/pantallas/error404/error404.comp
 import { AlarmasComponent } from './components/pantallas/alarmas/alarmas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuUsuarioComponent } from './components/menus/menu-usuario/menu-usuario.component';
+import { MenuUsuarioPerfilComponent } from './components/menus/menu-usuario-perfil/menu-usuario-perfil.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MenuUsuarioComponent } from './components/menus/menu-usuario/menu-usuar
     MapaComponent,
     Error404Component,
     AlarmasComponent,
-    MenuUsuarioComponent
+    MenuUsuarioComponent,
+    MenuUsuarioPerfilComponent
   ],
   imports: [
     BrowserModule,
