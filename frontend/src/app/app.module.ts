@@ -15,6 +15,8 @@ import { UsuarioPerfilComponent } from './components/pantallas/usuario-perfil/us
 import { MapaComponent } from './components/pantallas/mapa/mapa.component';
 import { Error404Component } from './components/pantallas/error404/error404.component';
 import { AlarmasComponent } from './components/pantallas/alarmas/alarmas.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuUsuarioComponent } from './components/menus/menu-usuario/menu-usuario.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,15 @@ import { AlarmasComponent } from './components/pantallas/alarmas/alarmas.compone
     UsuarioPerfilComponent,
     MapaComponent,
     Error404Component,
-    AlarmasComponent
+    AlarmasComponent,
+    MenuUsuarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     // Font iconos de font awesome: https://fontawesome.com/
     FontAwesomeModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

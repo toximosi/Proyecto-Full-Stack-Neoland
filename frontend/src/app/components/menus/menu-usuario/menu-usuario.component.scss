@@ -1,0 +1,38 @@
+@import "../../import.scss";
+
+.nav-usuario {
+    z-index: 100;
+    left: auto; //*
+    right: 0; //*
+
+    .contenido {
+        @include flexCenter(column, flex-start, end); //*
+        .menu {
+            padding-top: $anchoMenu;
+        }
+        ul {
+            li.boton {
+                a {
+                    flex-direction: row-reverse; //*
+
+                    &::before {
+                        left: auto; //*
+                        right: 0; //*
+                    }
+                }
+
+                .texto {
+                    transform: translateX(14px); //*
+                }
+            }
+        }
+        &:hover {
+            width: 150px;
+            ul li.boton .texto {
+                font-size: $fontSmall;
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    }
+}
