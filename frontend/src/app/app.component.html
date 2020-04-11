@@ -21,20 +21,29 @@
     <app-menu-usuario></app-menu-usuario>
     <!-- 👆 FIN -- Menú usuario -------------------------- -->
 
-    <div class="content">
-
+    <div class="interface">
 
       <!-- 👇 INICIO -- Contenido genereal rooter ------------------------- -->
       <section class="wrapper">
+
         <div class="container-fluid">
-          <router-outlet></router-outlet>
+          <!-- <app-menu-usuario-perfil></app-menu-usuario-perfil> -->
+
+          <div class="row h-100">
+            <div class="col-12 h-100">
+              <article class="h-100">
+                <router-outlet></router-outlet>
+              </article>
+            </div>
+          </div>
         </div>
       </section>
       <!-- 👆 FIN -- Contenido genereal rooter ------------------------- -->
-      <!-- 👇 INICIO -- Footer ------------------------- -->
-      <app-menu-footer></app-menu-footer>
-      <!-- 👆 FIN -- Footer -------------------------- -->
+
     </div>
+    <!-- 👇 INICIO -- Footer ------------------------- -->
+    <app-menu-footer></app-menu-footer>
+    <!-- 👆 FIN -- Footer -------------------------- -->
   </body>
 
 </html>

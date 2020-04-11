@@ -61,3 +61,21 @@ strong {
 stronger {
   font-weight: 700; //semiblod
 }
+
+//Links
+a.a-normal {
+  text-decoration: none;
+  color: $colorFontBase;
+  &:hover {
+    text-decoration: underline;
+    color: $colorPrincipalHover;
+  }
+}
+a.a-color {
+  text-decoration: none;
+  color: $colorPrincipal;
+  &:hover {
+    text-decoration: underline;
+    color: $colorPrincipalHover;
+  }
+}
