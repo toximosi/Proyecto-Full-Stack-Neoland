@@ -9,10 +9,19 @@
         </div>
 
         <div class="menu">
-
             <ul>
                 <li class="boton">
-                    <a href="#" alt="" title="">
+                    <a [routerLink]="['usuario', 'perfil']" routerLinkActive="active" alt="Ir al Panel de Usuario"
+                        title="Ir al Panel de Usuario">
+                        <span class="icono"><span class="material-icons">
+                                emoji_people
+                            </span></span>
+                        <span class="texto">Panel de Usuario</span>
+                    </a>
+                </li>
+                <li class="boton">
+                    <a [routerLink]="['usuario', 'conversacion']" routerLinkActive="active"
+                        alt="Ir a la sección de mensajes" title="Ir a la sección de mensajes">
                         <span class="icono icono-nesajes">
                             <span class="aviso">
                                 <i class="material-icons animated infinite heartBeat">adjust</i>
@@ -25,7 +34,8 @@
                     </a>
                 </li>
                 <li class="boton">
-                    <a href="#" alt="" title="">
+                    <a [routerLink]="['usuario', 'objeto']" routerLinkActive="active" alt="ir a la sección de objeto"
+                        title="ir a la sección de objeto">
                         <span class="icono"><i class="material-icons md-24">outlined_flag</i></span>
                         <span class="texto">Objetos perdidos</span>
                     </a>

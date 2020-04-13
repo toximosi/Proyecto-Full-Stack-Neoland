@@ -5,16 +5,25 @@ body {
   height: 100%;
   width: 100%;
 }
+body {
+  display: flex;
+}
 .interface {
-  height: 100%;
-  padding: $anchoMenu;
-  margin: 0;
-  overflow: hidden;
+  min-height: calc(100% - #{$anchoMenu * 2});
+  max-height: max-content;
+  padding: 0 $anchoMenu;
+  margin: 0 $anchoMenu;
+  border-radius: $EsquinaRedondeadaMedia;
+  background-color: $colorBgGrisClaro;
+  /* overflow: hidden; */
+}
+app-root {
+  width: 100%;
 }
 .wrapper {
   height: 100%;
 
-  /*   width: 100%;
+  /* width: 100%;
   
   .container-fluid,
   .row {
@@ -23,14 +32,16 @@ body {
     height: 100%;
   } */
 }
+/* section {
+} */
 .container-fluid {
   height: 100%;
 }
-.row {
-  background-color: $colorBgGrisClaro;
-  border-radius: $EsquinaRedondeadaMedia;
-}
-article {
+/* .row {
+} */
+article,
+article > div,
+div-flex {
   @include flexCenter;
   width: 100%;
   height: 100%;

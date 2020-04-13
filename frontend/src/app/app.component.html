@@ -1,49 +1,14 @@
-<html lang="en">
+<!-- 👇 INICIO -- Menú navegación ------------------------- -->
+<app-menu-principal></app-menu-principal>
+<!-- 👆 FIN -- Menú navegación -------------------------- -->
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Agujeros de Gusanos</title>
-
-  </head>
-
-  <body>
-    <!-- 👇 INICIO -- Menú Top ------------------------- -->
-    <app-menu-top></app-menu-top>
-    <!-- 👆 FIN -- Menú Top -------------------------- -->
-
-    <!-- 👇 INICIO -- Menú navegación ------------------------- -->
-    <app-menu-principal></app-menu-principal>
-    <!-- 👆 FIN -- Menú navegación -------------------------- -->
-
-    <!-- 👇 INICIO -- Menú usuario ------------------------- -->
-    <app-menu-usuario></app-menu-usuario>
-    <!-- 👆 FIN -- Menú usuario -------------------------- -->
-
-    <div class="interface">
-
-      <!-- 👇 INICIO -- Contenido genereal rooter ------------------------- -->
-      <section class="wrapper">
-
-        <div class="container-fluid">
-          <!-- <app-menu-usuario-perfil></app-menu-usuario-perfil> -->
-
-          <div class="row h-100">
-            <div class="col-12 h-100">
-              <article class="h-100">
-                <router-outlet></router-outlet>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- 👆 FIN -- Contenido genereal rooter ------------------------- -->
-
-    </div>
-    <!-- 👇 INICIO -- Footer ------------------------- -->
-    <app-menu-footer></app-menu-footer>
-    <!-- 👆 FIN -- Footer -------------------------- -->
-  </body>
-
-</html>
+<!-- 👇 INICIO -- Menú usuario ------------------------- -->
+<app-menu-usuario></app-menu-usuario>
+<!-- 👆 FIN -- Menú usuario -------------------------- -->
+<!-- 👇 INICIO -- Menú Top ------------------------- -->
+<app-menu-top></app-menu-top>
+<!-- 👆 FIN -- Menú Top -------------------------- -->
+<router-outlet></router-outlet>
+<!-- 👇 INICIO -- Footer ------------------------- -->
+<app-menu-footer></app-menu-footer>
+<!-- 👆 FIN -- Footer -------------------------- -->

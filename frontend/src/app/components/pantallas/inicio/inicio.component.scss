@@ -1,4 +1,7 @@
 @import "../../import.scss";
-
-.pantalla-inicio {
+.interface {
+    @include flexCenter;
 }
+/* .pantalla-inicio {
+}
+ */

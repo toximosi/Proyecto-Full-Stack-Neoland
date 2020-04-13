@@ -1,8 +1,8 @@
 @import "../../import.scss";
 
 .nav-top {
-  z-index: 200;
-  @include positionAbsolute(0, auto);
+  /* z-index: 200; */
+  /* @include positionAbsolute(0, auto); */
   @include flexCenter(row, space-between, center);
   @include marcosInternos($spaceSmall, 0px);
   font-size: $fontSmaller;

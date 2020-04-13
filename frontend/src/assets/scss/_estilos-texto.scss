@@ -55,11 +55,11 @@ h6.display{
 -*/
 
 strong {
-  font-weight: 500; //medium
+  font-weight: $fontBold; //medium
 }
 // Etiqueta personalizada
 stronger {
-  font-weight: 700; //semiblod
+  font-weight: $fontBolder; //semiblod
 }
 
 //Links

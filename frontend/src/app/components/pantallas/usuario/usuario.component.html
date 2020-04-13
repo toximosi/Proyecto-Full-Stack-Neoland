@@ -1,0 +1,32 @@
+<div class="interface">
+
+    <!-- 👇 INICIO -- Contenido genereal rooter ------------------------- -->
+    <div class="container-fluid h-100">
+        <section class="wrapper h-100">
+
+            <!-- 👇 Perfil usuario --  INICIO ------------------------------ -->
+            <div class="row h-100">
+                <!-- 👇 Menu  usuario --  INICIO ------------------------------ -->
+                <div class="col-12">
+                    <app-menu-usuario-perfil></app-menu-usuario-perfil>
+                </div>
+                <!-- 👆 Menu  usuario --  FIN ------------------------------ -->
+                <!-- ==================================================== -->
+                <!-- 👇 Contenido frid --  INICIO ------------------------------ -->
+                <div class="col-4 h-100">
+                    <app-usuario-avatar></app-usuario-avatar>
+                </div>
+                <div class="col-8 h-100">
+                    <router-outlet></router-outlet>
+                </div>
+
+                <!-- 👆 Contenido frid --  FIN ------------------------------ -->
+                <!-- ==================================================== -->
+
+            </div>
+            <!-- 👆 Perfil usuario --  FIN ------------------------------ -->
+
+        </section>
+    </div>
+    <!-- 👆 FIN -- Contenido genereal rooter ------------------------- -->
+</div>

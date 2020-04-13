@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');// parsea la el body
 const cookieParser = require('cookie-parser');//incluir una cookie de seguimiento en el ¿body?
 //const jwtController = require('./middleware/jwt.middleware');
 const { check } = require('express-validator');// valida el body
-//require('dotenv').config();
-require('dotenv').config();//para el archivo de entorno de .env
+const cors = require('cors');
 
+require('dotenv').config();//para el archivo de entorno de .env
 // CONTROLADORES -- importar controladores --------------------------------------------------
 const UsuarioController = require('./controllers/usuario.controller');
 const ObjetoController = require('./controllers/objeto.controller');
@@ -27,6 +27,7 @@ server.use(bodyParser.json());//parseamose el body al estilo json, así puedo ac
 server.use(cookieParser());//incluye una cookie en el navegador para saber si el usuario esta registrado
 //server.use(jwtController.checkToken());
 //server.us(express.static('static'));//servidor estático:
+server.use(cors());
 
 // 👇 AQUÍ EMPIEZA LA API -------------------------------------------
 //! ENDPOINTS ---------------------------------------------------------
@@ -50,9 +51,9 @@ server.get("/usuarios-conversacion", UsuarioController.UsuarioConversacion);//ob
 server.get("/usuarios-completo", UsuarioController.UsuarioCompleto);//obtener las conversaciones del usuario
 server.post("/login", [
     //check('alias').isString().escape().trim(),
-    //check('nombre').isString().escape().trim(),
-    //check('email').isEmail().trim(),
-    check('password').isString().trim(),
+    check('nombre').isString(),
+    check('email').isEmail(),
+    check('password').isString(),
 ], UsuarioController.UsuarioLogin);//login con hash
 //* usuario FIN -------------------------------------------------------
 

@@ -186,10 +186,10 @@ exports.UsuarioCompleto = async (req, res) => {
 };
 
 exports.UsuarioLogin = async (req, res) => {
-    const ID = req.body.ID;
+    //const ID = req.body.ID;
     //  const alias = req.body.alias;
-    //  const nombre = req.body.nombre;
-    //  const mail = req.body.mail;
+    const nombre = req.body.nombre;
+    const email = req.body.email;
     const password = req.body.password;
 
     const errors = validationResult(req);//Ejecuta las validaciones 
@@ -198,24 +198,31 @@ exports.UsuarioLogin = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const usuario = await UsuarioModel.UsuarioVerIdModel(ID);
-            const coincidencia = await bcrypt.compare(password, usuario[0].password);
-            if (coincidencia) {
-                jwt.sign(
-                    { "userID": usuario.ID },
-                    secret.jwt_clave,
-                    (error, token) => {
-                        if (error) {
-                            res.send("Error Token: " + error);
-                        } else {
-                            res.cookie("cookie_lostthing", token);
-                            res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado" });
-                        };
-                    });
-                //res.send({ "message": " 👍 Ok, tu contraseña coincide" })
+            const usuario = await UsuarioModel.UsuarioLoginModel(nombre, email);
+            console.log(usuario)
+            if (usuario.lenght > 0) {
+                const coincidencia = await bcrypt.compare(password, usuario[0].password);
+
+                if (coincidencia) {
+                    jwt.sign(
+                        { "userID": usuario.ID },
+                        secret.jwt_clave,
+                        (error, token) => {
+                            if (error) {
+                                res.send("Error Token: " + error);
+                            } else {
+                                res.cookie("cookie_lostthing", token);
+                                res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado" });
+                            };
+                        });
+                    //res.send({ "message": " 👍 Ok, tu contraseña coincide" })
+                } else {
+                    res.status(400).send({ "error": " 🙅 Las contraseñas no coinciden" })
+                };
+
             } else {
-                res.status(400).send({ "error": " 🙅 Las contraseñas no coinciden" })
-            };
+                return res.json({ "error": " 👨‍🎤 El usuario nombre y email no coincide" });
+            }
         };
     } catch (error) {
         res.send("Error UsuarioCambiarControler: " + error);
