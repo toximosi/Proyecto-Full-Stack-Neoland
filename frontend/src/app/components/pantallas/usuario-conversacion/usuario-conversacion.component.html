@@ -2,10 +2,15 @@
 <div class="col-12">
     <div class="usuario-conversacion">
         <h1>conversacion</h1>
-        <div class="media">
+        <h2>conversacion Recibidas</h2>{{usuarioA|json}}
+        {{conversacionR|json}}
+        <div class="media" *ngFor="let mensaje of conversacionR">
             <img src="..." class="mr-3" alt="...">
             <div class="media-body">
+                <p>de: </p>
+
                 <h5 class="mt-0">Media heading</h5>
+                <p>de: </p>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
                 odio,
                 vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
@@ -13,6 +18,7 @@
                 lacinia congue felis in faucibus.
             </div>
         </div>
+
     </div>
 </div>
 <!-- 👆 Conversaciones --  FIN ------------------------------ -->

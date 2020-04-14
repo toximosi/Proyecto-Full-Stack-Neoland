@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { UsuarioModule } from 'src/app/models/usuario.module';
+import { UsuarioComponent } from '../usuario/usuario.component';
 
 @Component({
   selector: 'app-usuario-avatar',
@@ -8,9 +9,17 @@ import { Router } from '@angular/router';
 })
 export class UsuarioAvatarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  @Input() usuario: any = {};
+  @Input() id: number;
+
+  constructor(private usuarioComponent: UsuarioComponent) { }
 
   ngOnInit(): void {
+
+    /* this.id = 0; */
+
+    /*     this.usuario = this.usuarioComponent.UsuarioDatos(); */
+
   }
 
 }

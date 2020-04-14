@@ -47,8 +47,8 @@ server.post("/usuario/nuevo", [
 server.put("/usuario/cambiar", UsuarioController.UsuarioCambiar);// modificar usuario
 server.delete("/usuario/borrar/:ID", UsuarioController.UsuarioBorrar);// ver usuario por ID
 //Extra
-server.get("/usuarios-conversacion", UsuarioController.UsuarioConversacion);//obtener las conversaciones del usuario
-server.get("/usuarios-completo", UsuarioController.UsuarioCompleto);//obtener las conversaciones del usuario
+server.get("/usuario-conversacion", UsuarioController.UsuarioConversacion);//obtener las conversaciones del usuario
+server.get("/usuario-completo", UsuarioController.UsuarioCompleto);//obtener las conversaciones del usuario
 server.post("/login", [
     //check('alias').isString().escape().trim(),
     check('nombre').isString(),

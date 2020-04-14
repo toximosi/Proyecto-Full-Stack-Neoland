@@ -57,7 +57,7 @@
               }
               &.texto {
                 font-size: $fontSmaller;
-                line-height: 1.6rem;
+                line-height: 1rem;
                 transform: translateX(-14px);
                 opacity: 0;
               }
@@ -82,7 +82,7 @@
               }
               .texto {
                 padding: 0 $spaceSmall;
-                font-weight: $fontBold;
+                /* font-weight: $fontBold; */
                 transform: translateX($spaceSmall);
               }
               &::before {

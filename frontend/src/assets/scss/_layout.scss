@@ -11,7 +11,7 @@ body {
 .interface {
   min-height: calc(100% - #{$anchoMenu * 2});
   max-height: max-content;
-  padding: 0 $anchoMenu;
+  padding: ($anchoMenu * 2) $anchoMenu;
   margin: 0 $anchoMenu;
   border-radius: $EsquinaRedondeadaMedia;
   background-color: $colorBgGrisClaro;

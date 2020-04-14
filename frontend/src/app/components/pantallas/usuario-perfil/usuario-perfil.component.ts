@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UsuarioModule } from 'src/app/models/usuario.module';
+import { UsuarioComponent } from '../usuario/usuario.component';
 
 
 @Component({
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usuario-perfil.component.scss']
 })
 export class UsuarioPerfilComponent implements OnInit {
-  constructor() { }
+
+  @Input() usuario: any = {};
+  @Input() id: number;
+
+
+  constructor(private usuarioComponent: UsuarioComponent) { }
 
   ngOnInit(): void {
+
+    /* this.usuario = this.usuarioComponent.usuario */
+
+
   }
 
 }

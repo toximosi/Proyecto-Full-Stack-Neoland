@@ -1,17 +1,17 @@
-html {
+/* html {
   font-size: $fontSizeInicialAjuste;
-}
+} */
 body {
   font: {
-    family: $fontFamilyBase;
-    size: $fontMedium;
+    /* family: $fontFamilyBase; */
+    /* size: $fontMedium; */
     weight: 400; //regular
     color: $colorFontBase;
   }
 }
-.content {
+/* .content {
   font-size: 1 rem;
-}
+} */
 
 /*Headings -------------------------------------------
 h1{
@@ -63,6 +63,11 @@ stronger {
 }
 
 //Links
+a {
+  img {
+    border: none;
+  }
+}
 a.a-normal {
   text-decoration: none;
   color: $colorFontBase;

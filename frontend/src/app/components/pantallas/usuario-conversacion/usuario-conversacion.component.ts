@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-usuario-conversacion',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuarioConversacionComponent implements OnInit {
 
+  @Input() usuario: any = {};
+  @Input() id: number;
+  conversacionR: any = {};
+  usuarioA: any = {}
   constructor() { }
 
   ngOnInit(): void {
+    this.usuarioA = this.usuario[this.id];
+    this.conversacionR = this.usuarioA.conversacionesEnviada;
   }
 
 }

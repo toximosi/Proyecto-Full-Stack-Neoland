@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
+
 export class ObjetoModule {
   ID: number;
   nombre: string;
@@ -23,4 +24,5 @@ export class ObjetoModule {
   latitud_encontrado: number;
   longitud_encontrado: number;
   fk_usuario: number;
+  fk_objetotipo: number;
 }
