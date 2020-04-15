@@ -1,4 +1,6 @@
 const ObjetoModel = require('../models/objeto.model');
+const ObjetoFamiliaModel = require('../models/objetofamilia.model');
+const ObjetoTipoModel = require('../models/objetotipo.model');
 const { validationResult } = require('express-validator');// valida el body
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
@@ -100,3 +102,25 @@ exports.ObjetoBorrar = async (req, res) => {
         res.send("Error ObjetBorrarController: " + error);
     };
 };
+
+//Extras ---------------------------------------------------
+//realacion entre objeto y la familia
+exports.ObjetoCompleto = async (req, res) => {
+    try {
+
+        const objeto = await ObjetoModel.ObjetoVerModel();
+
+        for (let o of objeto) {
+            const tipo = await ObjetoModel.ObjetoTipoModel(o.fk_objetotipo);
+            o.tipo = tipo;
+            for (let t of tipo) {
+                const familia = await ObjetoFamiliaModel.ObjetoFamiliaVerIdModel(t.fk_objetofamilia);
+                t.familia = familia
+            }
+        }
+        const data = objeto;
+        res.send(data);
+    } catch (error) {
+        res.send("Error ObjetoFamilia: " + error)
+    }
+}

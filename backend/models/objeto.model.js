@@ -56,3 +56,15 @@ exports.ObjetoBorrarModel = (ID) => {
             .catch(error => reject("Error ObjetoBorrarModel: " + error));
     });
 };
+
+//Extras --------------------------------------------------------
+//obtener el objeto con sus características
+exports.ObjetoTipoModel = (ID) => {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM objetotipo WHERE ID = ?;`, [ID])
+            .then(result => resolve(result))
+            .catch(error => reject("Error ObjetoCompletoModel: " + error));
+    });
+
+
+}

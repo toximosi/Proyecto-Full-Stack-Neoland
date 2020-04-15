@@ -48,3 +48,13 @@ exports.ObjetoFamiliaBorrarModel = (ID) => {
             .catch(error => reject("Error ObjetoFamiliaBorrarModel: " + error));
     });
 };
+
+//Extras -------------------------------------------
+//Relacion entre objeto tipo y objeto familia
+exports.ObjetoFamiliaTipoModel = (ID) => {
+    return new Promise((resolve, reject) => {
+        const data = connection.query(`SELECT * from objetotipo WHERE fk_objetofamilia = ?`, [ID])
+            .then(result => resolve(result))
+            .catch(error => reject("Error ObjetoFamiliaTipoModel: " + error));
+    })
+}

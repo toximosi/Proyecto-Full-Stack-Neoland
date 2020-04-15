@@ -9,4 +9,11 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class AlarmaModule { }
+export class AlarmaModule {
+
+  ID: number;
+  imagen: string;
+  titulo: string;
+  texto: string;
+
+}

@@ -87,10 +87,11 @@ exports.ConversacionMensaje = async (req, res) => {
         //console.log("entro1");
         const data = await ConversacionModel.ConversacionVerModel();
         for (let mensaje of data) {
-            console.log("entro2");
+            /* console.log("entro2"); */
             const mensajes = await ConversacionModel.ConversacionMensajeModel(mensaje.ID);
             mensaje.mensajes = mensajes;
         };
+
         res.send(data);
     } catch (error) { res.send("Error ConversacionMensaje " + error) };
 };

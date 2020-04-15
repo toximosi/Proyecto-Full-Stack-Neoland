@@ -94,7 +94,7 @@ exports.UsuarioObjetoModel = (ID) => {
 
 exports.UsuarioObjetoFamiliaModel = (ID) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM objetofamilia fa WHERE fa.fk_objeto = ?;`, [ID])
+        connection.query(`SELECT * FROM objetofamilia WHERE ID = ?;`, [ID])
             .then(result => resolve(result))
             .catch(error => reject("Error UsuarioObjetoFamiliaModel: " + error));
     });
@@ -102,7 +102,7 @@ exports.UsuarioObjetoFamiliaModel = (ID) => {
 
 exports.UsuarioObjetoFamiliaTipoModel = (ID) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM objetotipo tip WHERE tip.fk_objetofamilia = ?;`, [ID])
+        connection.query(`SELECT * FROM objetotipo WHERE ID = ?;`, [ID])
             .then(result => resolve(result))
             .catch(error => reject("Error UsuarioObjetoFamiliaTipoModel: " + error));
     });

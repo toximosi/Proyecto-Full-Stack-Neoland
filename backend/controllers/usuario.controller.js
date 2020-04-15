@@ -141,9 +141,28 @@ exports.UsuarioConversacion = async (req, res) => {
 exports.UsuarioCompleto = async (req, res) => {
     try {
         const data = await UsuarioModel.UsuarioVerModel();
-        for (let objeto of data) {
-            const objetos = await UsuarioModel.UsuarioObjetoModel(objeto.ID);
+        for (let d of data) {
+            const objeto = await UsuarioModel.UsuarioObjetoModel(d.ID);
 
+            for (let o of objeto) {
+                if (o.perdido == 1) {
+                    d.objetoPerdido = objeto;
+                }
+                if (o.encontrado == 1) {
+                    d.objetoEncontrado = objeto;
+                }
+
+                const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(o.fk_objetotipo);
+
+                o.tipo = tipo;
+                for (let t of tipo) {
+                    const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(t.fk_objetofamilia);
+                    t.familia = familia
+                }
+
+
+
+            }
             //console.log(objetos[0].perdido);
             /*             if (objetos[0].perdido == 1) {
                             objeto.objetosPerdido = objetos;
@@ -151,7 +170,7 @@ exports.UsuarioCompleto = async (req, res) => {
                         if (objetos[0].encontrado == 1) {
                             objetos.objetosEncontado = objeto;
                         } */
-            objeto.objetos = objetos;
+            /* objeto.objetos = objetos;
             for (let f of objetos) {
                 const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(f.ID);
                 f.familia = familia;
@@ -159,7 +178,7 @@ exports.UsuarioCompleto = async (req, res) => {
                     const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(t.ID);
                     t.tipo = tipo;
                 };
-            };
+            }; */
         };
 
         for (let conversacion of data) {
@@ -186,7 +205,7 @@ exports.UsuarioCompleto = async (req, res) => {
 };
 
 exports.UsuarioLogin = async (req, res) => {
-    //const ID = req.body.ID;
+    const ID = req.body.ID;
     //  const alias = req.body.alias;
     const nombre = req.body.nombre;
     const email = req.body.email;

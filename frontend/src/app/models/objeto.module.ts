@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class ObjetoModule {
+
   ID: number;
   nombre: string;
   foto: string;
@@ -25,4 +26,5 @@ export class ObjetoModule {
   longitud_encontrado: number;
   fk_usuario: number;
   fk_objetotipo: number;
+
 }

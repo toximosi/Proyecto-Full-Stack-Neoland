@@ -75,6 +75,7 @@ server.post("/objeto/nuevo", [
 ], ObjetoController.ObjetoNuevo);// incluir objeto
 server.put("/objeto/cambiar", ObjetoController.ObjetoCambiar);// cambiar objeto
 server.delete("/objeto/borrar/:ID", ObjetoController.ObjetoBorrar);// borrar objeto por id
+server.get("/objeto-completo", ObjetoController.ObjetoCompleto);//obtener el objeto con su tipo y familia
 //* objeto FIN --------------------------------------------------------
 
 //* 👌 objetofamilia INICIO -----------------------------------------------------
@@ -86,6 +87,7 @@ server.post("/objetofamilia/nuevo", [
 ], ObjetoFamiliaController.ObjetioFamiliaNuevo);// incluir objetofamilia
 server.put("/objetofamilia/cambiar", ObjetoFamiliaController.ObjetoFamiliaCambiar);//cambiar objetofamilia
 server.delete("/objetofamilia/borrar/:ID", ObjetoFamiliaController.ObjetoFamiliaBorrar);// borrar objetofamilia
+server.get("/objetofamilia-completo", ObjetoFamiliaController.ObjetoFamiliaTipo);//obtener la realcion de onjetosfamilia y objetos tipo
 //* objetofamilia FIN --------------------------------------------------------
 
 //*👌 objetoTipo INICIO -----------------------------------------------------
