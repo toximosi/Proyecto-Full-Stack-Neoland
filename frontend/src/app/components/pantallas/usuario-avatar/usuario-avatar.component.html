@@ -1,14 +1,15 @@
 <!-- 👇 Usuario avatar --  INICIO ------------------------------ -->
 
 
+
 <div class="menu-usuario-lat">
     <div class="avatar">
         <a class="editar" href="" alt="editar imagen" title="editar imagen"></a>
         <img src="../../../../assets/img/user-avatar.jpg" title="usuario.alias" alt="usuario.alias">
     </div>
     <div class="contenido">
-        <h2 class="alias"> <strong>@{{ usuario[id].alias }}</strong></h2>
-        <div class="nombre">{{ usuario[id].nombre }} {{ usuario[id].apellidos }}</div>
+        <h2 class="alias"> <strong>@{{ arrUsuario[id].alias }}</strong></h2>
+        <div class="nombre">{{ arrUsuario[id].nombre }} {{ arrUsuario[id].apellidos }}</div>
         <div>objetos perdidos: </div>
         <div>objetos encontrados: </div>
         <div>⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️</div>
@@ -17,3 +18,4 @@
     </div>
 </div>
 <!-- 👆 Usuario avatar--  FIN ------------------------------ -->
+<!-- {{ arrUsuario[id]|json }} -->

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioModule } from 'src/app/models/usuario.module';
-import { UsuarioComponent } from '../usuario/usuario.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
+
 
 @Component({
   selector: 'app-usuario-avatar',
@@ -9,17 +10,27 @@ import { UsuarioComponent } from '../usuario/usuario.component';
 })
 export class UsuarioAvatarComponent implements OnInit {
 
-  @Input() usuario: any = {};
-  @Input() id: number;
+  arrUsuario: UsuarioModule[];
+  id: number;
 
-  constructor(private usuarioComponent: UsuarioComponent) { }
 
-  ngOnInit(): void {
+  constructor(private usuarioService: UsuarioService) {
+    this.id = 0;
+    this.arrUsuario = [];
+  }
 
-    /* this.id = 0; */
+  async ngOnInit(): Promise<any> {
 
-    /*     this.usuario = this.usuarioComponent.UsuarioDatos(); */
+    this.id = 0;
 
+    this.arrUsuario = await this.usuarioService.UsuarioCompleto();
+    /* usuario = this.arrUsuario[this.id]; */
+
+    /* this.usuarioService.UsuarioCompleto()
+      .then((pUsuario) => {
+        this.arrUsuario = pUsuario;
+      })
+      .catch(error => console.log("Error UsuarioVer: " + error)); */
   }
 
 }
