@@ -10,10 +10,12 @@ import { UsuarioComponent } from './components/pantallas/usuario/usuario.compone
 import { UsuarioConversacionComponent } from './components/pantallas/usuario-conversacion/usuario-conversacion.component';
 import { UsuarioObjetoComponent } from './components/pantallas/usuario-objeto/usuario-objeto.component';
 import { LoginComponent } from './components/pantallas/login/login.component';
+import { ObjetoComponent } from './components/pantallas/objeto/objeto.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/inicio' },
   { path: 'inicio', pathMatch: 'full', component: InicioComponent },
+  { path: 'objeto', pathMatch: 'full', component: ObjetoComponent },
   {
     path: 'usuario', component: UsuarioComponent,
     children: [

@@ -1,15 +1,9 @@
 @import "../../import.scss";
 
 .nav-footer {
-<<<<<<< .merge_file_oL3elT
   /* z-index: 50; */
   /* @include positionAbsolute(auto, 0); */
   @include flexCenter(row, center, flex-end);
-=======
-  z-index: 200;
-  @include positionAbsolute(auto, 0);
-  @include flexCenter(row, center, end);
->>>>>>> .merge_file_XOvqwa
   flex-direction: column;
   @include marcosInternos($spaceSmall);
   padding-right: $anchoMenu;
