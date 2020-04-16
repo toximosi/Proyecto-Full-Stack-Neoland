@@ -23,13 +23,24 @@ export class ObjetoModule {
   fecha_encontrado: any;
   latitud_encontrado: number;
   longitud_encontrado: number;
-  fk_usuario: number;
-  fk_objetotipo: number;
+  /* fk_usuario: number; */
+  /* fk_objetotipo: number; */
+  usuario: {
+    ID: number;
+    alias: string;
+    /* nombre: string; */
+    /* apellidos: string; */
+    /* edad: number; */
+    email: string;
+    /*password: string;*/
+    foto: string;
+    /* fecha_alta: any; */
+  }
   tipo: {
     ID: number;
     tipo: string;
     icono: string;
-    fk_objetofamilia: number;
+    /* fk_objetofamilia: number; */
     familia:
     {
       ID: number;

@@ -19,7 +19,7 @@ export class UsuarioModule {
   edad: number;
   email: string;
   password: string;
-  avatar: string;
+  foto: string;
   fecha_alta: any;
   objetoPerdido: {
     ID: number;
@@ -87,12 +87,48 @@ export class UsuarioModule {
       asunto: string;
       fecha_inicio: any;
       fk_usuario: number;
-      mensajes: {
+      emisorNombre: {
         ID: number;
-        emisor: number;
+        alias: string;
+        /* nombre: string; */
+        /* apellidos: string; */
+        /* edad: number; */
+        email: string;
+        /* password: string; */
+        foto: string;
+        fecha_alta: any;
+      };
+      receptorNombre:
+      {
+        ID: number;
+        alias: string;
+        /* nombre: string; */
+        /* apellidos: string; */
+        edad: number;
+        email: string;
+        /* password: string; */
+        foto: string;
+        fecha_alta: any;
+      };
+      mensajes:
+      {
+        ID: number;
+        /* emisor: number; */
         fecha: any;
         texto: string;
-        fk_conversacion: number;
+        /* fk_conversacion: number; */
+        emisorNombre:
+        {
+          ID: number;
+          alias: string;
+          /* nombre: string; */
+          /* apellidos: string; */
+          /* edad: number; */
+          email: string;
+          /* password: string; */
+          foto: string;
+          fecha_alta: any;
+        }
       };
     }
   conversacionesEnviada:
@@ -103,12 +139,48 @@ export class UsuarioModule {
       asunto: string;
       fecha_inicio: any;
       fk_usuario: number;
-      mensajes: {
+      emisorNombre: {
         ID: number;
-        emisor: number;
+        alias: string;
+        /* nombre: string; */
+        /* apellidos: string; */
+        /* edad: number; */
+        email: string;
+        /* password: string; */
+        foto: string;
+        fecha_alta: any;
+      };
+      receptorNombre:
+      {
+        ID: number;
+        alias: string;
+        /* nombre: string; */
+        /* apellidos: string; */
+        edad: number;
+        email: string;
+        /* password: string; */
+        foto: string;
+        fecha_alta: any;
+      };
+      mensajes:
+      {
+        ID: number;
+        /* emisor: number; */
         fecha: any;
         texto: string;
-        fk_conversacion: number;
+        /* fk_conversacion: number; */
+        emisorNombre:
+        {
+          ID: number;
+          alias: string;
+          /* nombre: string; */
+          /* apellidos: string; */
+          /* edad: number; */
+          email: string;
+          /* password: string; */
+          foto: string;
+          fecha_alta: any;
+        }
       };
     };
 };

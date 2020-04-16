@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class AlarmaModule {
 
   ID: number;
-  imagen: string;
+  foto: string;
   titulo: string;
   texto: string;
 

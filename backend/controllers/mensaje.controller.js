@@ -1,4 +1,5 @@
 const MensajeModel = require('../models/mensaje.model');
+const UsuarioModel = require('../models/usuario.model');
 const { validationResult } = require('express-validator');// valida el body
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE

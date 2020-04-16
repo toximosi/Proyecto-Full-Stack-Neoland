@@ -1,4 +1,6 @@
 const ConversacionModel = require('../models/conversacion.model');
+const UsuarioModel = require('../models/usuario.model');
+const UsuarioController = require('../controllers/usuario.controller');
 //const MensajeModel = require('../models/mensaje.model');
 const { validationResult } = require('express-validator');// valida el body
 
@@ -86,10 +88,19 @@ exports.ConversacionMensaje = async (req, res) => {
     try {
         //console.log("entro1");
         const data = await ConversacionModel.ConversacionVerModel();
-        for (let mensaje of data) {
+
+        for (let d of data) {
             /* console.log("entro2"); */
-            const mensajes = await ConversacionModel.ConversacionMensajeModel(mensaje.ID);
-            mensaje.mensajes = mensajes;
+            const emisornombre = await UsuarioModel.UsuarioVerIdModel(d.emisor);
+            d.emisorNombre = emisornombre;
+            const receptornombre = await UsuarioModel.UsuarioVerIdModel(d.receptor);
+            d.receptorNombre = receptornombre;
+            const mensajes = await ConversacionModel.ConversacionMensajeModel(d.ID);
+            for (let m of mensajes) {
+                d.mensajes = mensajes;
+                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
+                m.emisorNombre = emisorNombre;
+            }
         };
         res.send(data);
     } catch (error) { res.send("Error ConversacionMensaje " + error) };

@@ -151,34 +151,14 @@ exports.UsuarioCompleto = async (req, res) => {
                 if (o.encontrado == 1) {
                     d.objetoEncontrado = objeto;
                 }
-
                 const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(o.fk_objetotipo);
 
                 o.tipo = tipo;
                 for (let t of tipo) {
                     const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(t.fk_objetofamilia);
                     t.familia = familia
-                }
-
-
-
-            }
-            //console.log(objetos[0].perdido);
-            /*             if (objetos[0].perdido == 1) {
-                            objeto.objetosPerdido = objetos;
-                        }
-                        if (objetos[0].encontrado == 1) {
-                            objetos.objetosEncontado = objeto;
-                        } */
-            /* objeto.objetos = objetos;
-            for (let f of objetos) {
-                const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(f.ID);
-                f.familia = familia;
-                for (let t of familia) {
-                    const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(t.ID);
-                    t.tipo = tipo;
                 };
-            }; */
+            };
         };
 
         for (let conversacion of data) {
@@ -186,16 +166,34 @@ exports.UsuarioCompleto = async (req, res) => {
             conversacion.conversacionesRecibida = conversaciones;
 
             for (let mensaje of conversaciones) {
+                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
+                mensaje.emisorNombre = emisorNombre;
+                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
+                mensaje.receptorNombre = receptorNombre;
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
-            };
+                for (let m of mensajes) {
+                    mensaje.mensajes = mensajes;
+                    const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
+                    m.emisorNombre = emisorNombre;
+                }
 
+            };
             const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
             conversacion.conversacionesEnviada = conversacionesEnv;
 
             for (let mensaje of conversacionesEnv) {
+                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
+                mensaje.emisorNombre = emisorNombre;
+                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
+                mensaje.receptorNombre = receptorNombre;
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
+                for (let m of mensajes) {
+                    mensaje.mensajes = mensajes;
+                    const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
+                    m.emisorNombre = emisorNombre;
+                }
             };
         };
         res.send(data);
@@ -218,34 +216,14 @@ exports.UsuarioCompletoID = async (req, res) => {
                 if (o.encontrado == 1) {
                     d.objetoEncontrado = objeto;
                 }
-
                 const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(o.fk_objetotipo);
 
                 o.tipo = tipo;
                 for (let t of tipo) {
                     const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(t.fk_objetofamilia);
                     t.familia = familia
-                }
-
-
-
-            }
-            //console.log(objetos[0].perdido);
-            /*             if (objetos[0].perdido == 1) {
-                            objeto.objetosPerdido = objetos;
-                        }
-                        if (objetos[0].encontrado == 1) {
-                            objetos.objetosEncontado = objeto;
-                        } */
-            /* objeto.objetos = objetos;
-            for (let f of objetos) {
-                const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(f.ID);
-                f.familia = familia;
-                for (let t of familia) {
-                    const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(t.ID);
-                    t.tipo = tipo;
                 };
-            }; */
+            };
         };
 
         for (let conversacion of data) {
@@ -253,16 +231,34 @@ exports.UsuarioCompletoID = async (req, res) => {
             conversacion.conversacionesRecibida = conversaciones;
 
             for (let mensaje of conversaciones) {
+                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
+                mensaje.emisorNombre = emisorNombre;
+                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
+                mensaje.receptorNombre = receptorNombre;
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
-            };
+                for (let m of mensajes) {
+                    mensaje.mensajes = mensajes;
+                    const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
+                    m.emisorNombre = emisorNombre;
+                }
 
+            };
             const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
             conversacion.conversacionesEnviada = conversacionesEnv;
 
             for (let mensaje of conversacionesEnv) {
+                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
+                mensaje.emisorNombre = emisorNombre;
+                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
+                mensaje.receptorNombre = receptorNombre;
                 const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
                 mensaje.mensajes = mensajes;
+                for (let m of mensajes) {
+                    mensaje.mensajes = mensajes;
+                    const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
+                    m.emisorNombre = emisorNombre;
+                }
             };
         };
         res.send(data);

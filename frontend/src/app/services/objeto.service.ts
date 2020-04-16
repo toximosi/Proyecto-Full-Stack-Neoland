@@ -23,7 +23,7 @@ export class ObjetoService {
     return this.http.get<any[]>(`${this.baseUrl}/objeto/${ID}`).toPromise();
   };
 
-  Objeto(): Promise<any[]> {
+  ObjetoCompleto(): Promise<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/objeto-completo`).toPromise();
   };
 

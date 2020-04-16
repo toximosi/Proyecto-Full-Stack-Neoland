@@ -6,22 +6,23 @@
         https://getbootstrap.com/docs/4.4/components/media-object/
         <div class="media-body" *ngFor="let con of conversacion">
             <h5 class="mt-0">{{con.asunto}}</h5>
-            {{con.ID}} - Emisor: {{con.emisor}} - Receptor {{con.receptor}} <br>
+            {{con.ID}} - Emisor: {{con.emisorNombre[0].alias}} - Receptor {{con.receptorNombre[0].alias}} <br>
             - {{con.fecha_inicio}}
 
-            <div class="media mt-3" *ngFor="let men of mensajes">
+            <div class="media mt-3" *ngFor="let men of con.mensajes">
                 <a class="mr-3" href="#">
-                    <img style="width: 100px; height: 100px;" src="../../../../assets/img/user-avatar.jpg" class="mr-3"
+                    <img style="width: 100px; height: 100px;" src="{{ men.emisorNombre[0].foto}}" class="mr-3"
                         alt="...">
                 </a>
                 <div class="media-body">
-                    <h5 class="mt-0">Media heading</h5>
-                    <h5 class="mt-0">{{men.emisor}} dice:</h5>
-                    <p>{{men.fecha}}</p>
-                    <p>{{men.texto}}</p>
+                    <div class="fecha">{{men.fecha}}</div>
+                    <h5 class="mt-0">{{men.emisorNombre[0].alias}} dice:</h5>
+
+                    <div class="texto">{{men.texto}}</div>
                 </div>
             </div>
-            <button _ngcontent-mkk-c50="" type="submit" class="btn btn-primary">Responder</button>
+            <button _ngcontent-mkk-c50="" type="submit" class="btn btn-primary">Mandar un mensaje a
+                {{con.emisorNombre[0].alias}}</button>
         </div>
 
     </div>
