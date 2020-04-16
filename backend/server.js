@@ -49,6 +49,7 @@ server.delete("/usuario/borrar/:ID", UsuarioController.UsuarioBorrar);// ver usu
 //Extra
 server.get("/usuario-conversacion", UsuarioController.UsuarioConversacion);//obtener las conversaciones del usuario
 server.get("/usuario-completo", UsuarioController.UsuarioCompleto);//obtener las conversaciones del usuario
+server.get("/usuario-completo/:ID", UsuarioController.UsuarioCompletoID);//obtener las conversaciones del usuario
 server.post("/login", [
     //check('alias').isString().escape().trim(),
     check('nombre').isString(),
@@ -88,6 +89,7 @@ server.post("/objetofamilia/nuevo", [
 server.put("/objetofamilia/cambiar", ObjetoFamiliaController.ObjetoFamiliaCambiar);//cambiar objetofamilia
 server.delete("/objetofamilia/borrar/:ID", ObjetoFamiliaController.ObjetoFamiliaBorrar);// borrar objetofamilia
 server.get("/objetofamilia-completo", ObjetoFamiliaController.ObjetoFamiliaTipo);//obtener la realcion de onjetosfamilia y objetos tipo
+
 //* objetofamilia FIN --------------------------------------------------------
 
 //*👌 objetoTipo INICIO -----------------------------------------------------
@@ -112,7 +114,7 @@ server.post("/conversacion/nuevo", [
 server.put("/conversacion/cambiar", ConversacionController.ConversacionCambiar);//cambiar conversacion
 server.delete("/conversacion/borrar/:ID", ConversacionController.ConversacionBorrar);//borrar conversacion
 //Extra
-server.get("/conversacion-mensaje", ConversacionController.ConversacionMensaje)// ver conversacion
+server.get("/conversacion-completo", ConversacionController.ConversacionMensaje)// ver conversacion
 //* conversacion FIN -------------------------------------------------------- */
 
 //* 👌 mensaje INICIO -----------------------------------------------------

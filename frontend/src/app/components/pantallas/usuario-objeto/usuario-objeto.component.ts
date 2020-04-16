@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ObjetoModule } from 'src/app/models/objeto.module';
 import { ObjetoService } from 'src/app/services/objeto.service';
-import { UsuarioModule } from 'src/app/models/usuario.module';
 import { UsuarioComponent } from '../usuario/usuario.component';
 
 @Component({
@@ -15,7 +14,6 @@ export class UsuarioObjetoComponent implements OnInit {
   @Input() id: number;
 
   objeto: ObjetoModule[];
-
 
   constructor(private objetoService: ObjetoService, private usuarioComponent: UsuarioComponent) { }
 

@@ -56,7 +56,6 @@ exports.ObjetoBorrarModel = (ID) => {
             .catch(error => reject("Error ObjetoBorrarModel: " + error));
     });
 };
-
 //Extras --------------------------------------------------------
 //obtener el objeto con sus características
 exports.ObjetoTipoModel = (ID) => {

@@ -108,13 +108,21 @@ exports.UsuarioObjetoFamiliaTipoModel = (ID) => {
     });
 };
 
-/* exports.UsuarioLoginModel = (ID, password, email) => {
+
+exports.UsuarioMailModel = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM usuario WHERE ID = ?;`, [ID])
-            .then(result => resolve(result))
+        connection.query(`SELECT * FROM usuario WHERE email = ?;`, [email])
+            .then(usuario => {
+                if (usuario.length === 1) {
+                    resolve(usuario);
+                } else {
+                    resolve(null);
+                }
+            })
             .catch(error => reject("Error UsuarioLoginModel: " + error));
     });
-}; */
+};
+
 exports.UsuarioLoginModel = (nombre, email) => {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM usuario WHERE nombre = ? AND email = ?;`, [nombre, email])

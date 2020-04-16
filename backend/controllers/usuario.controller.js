@@ -1,7 +1,7 @@
 const UsuarioModel = require('../models/usuario.model');
 const secret = require('../secret/secrets');
 const { validationResult } = require('express-validator');// valida el body
-const bcrypt = require('bcrypt');//hashear contraseñas
+const bcrypt = require('bcryptjs');//hashear contraseñas
 const jwt = require('jsonwebtoken');//token para que se mantenga la sesión abierta del usuario
 
 
@@ -204,13 +204,80 @@ exports.UsuarioCompleto = async (req, res) => {
     };
 };
 
+exports.UsuarioCompletoID = async (req, res) => {
+    const ID = req.params.ID;//sacamos del path param el id del usuario
+    try {
+        const data = await UsuarioModel.UsuarioVerIdModel(ID);
+        for (let d of data) {
+            const objeto = await UsuarioModel.UsuarioObjetoModel(d.ID);
+
+            for (let o of objeto) {
+                if (o.perdido == 1) {
+                    d.objetoPerdido = objeto;
+                }
+                if (o.encontrado == 1) {
+                    d.objetoEncontrado = objeto;
+                }
+
+                const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(o.fk_objetotipo);
+
+                o.tipo = tipo;
+                for (let t of tipo) {
+                    const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(t.fk_objetofamilia);
+                    t.familia = familia
+                }
+
+
+
+            }
+            //console.log(objetos[0].perdido);
+            /*             if (objetos[0].perdido == 1) {
+                            objeto.objetosPerdido = objetos;
+                        }
+                        if (objetos[0].encontrado == 1) {
+                            objetos.objetosEncontado = objeto;
+                        } */
+            /* objeto.objetos = objetos;
+            for (let f of objetos) {
+                const familia = await UsuarioModel.UsuarioObjetoFamiliaModel(f.ID);
+                f.familia = familia;
+                for (let t of familia) {
+                    const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(t.ID);
+                    t.tipo = tipo;
+                };
+            }; */
+        };
+
+        for (let conversacion of data) {
+            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
+            conversacion.conversacionesRecibida = conversaciones;
+
+            for (let mensaje of conversaciones) {
+                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
+                mensaje.mensajes = mensajes;
+            };
+
+            const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
+            conversacion.conversacionesEnviada = conversacionesEnv;
+
+            for (let mensaje of conversacionesEnv) {
+                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
+                mensaje.mensajes = mensajes;
+            };
+        };
+        res.send(data);
+    } catch (error) {
+        res.send("Error UsuarioCompletoID:" + error);
+    };
+};
+
 exports.UsuarioLogin = async (req, res) => {
-    const ID = req.body.ID;
+    //const ID = req.body.ID;
     //  const alias = req.body.alias;
     const nombre = req.body.nombre;
     const email = req.body.email;
     const password = req.body.password;
-
+    console.log(password);
     const errors = validationResult(req);//Ejecuta las validaciones 
 
     try {
@@ -218,10 +285,15 @@ exports.UsuarioLogin = async (req, res) => {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
             const usuario = await UsuarioModel.UsuarioLoginModel(nombre, email);
-            console.log(usuario)
-            if (usuario.lenght > 0) {
-                const coincidencia = await bcrypt.compare(password, usuario[0].password);
-
+            /* console.log(usuario[0]);
+            console.log(usuario.length);
+            console.log(usuario[0].password);
+            console.log(password); */
+            if (usuario.length > 0) {
+                const coincidencia = bcrypt.compareSync(password, usuario[0].password);
+                console.log(coincidencia);
+                /* console.log("coincidencia: " + coincidencia)
+                console.log("usuario[0].password: " + usuario[0].password) */
                 if (coincidencia) {
                     jwt.sign(
                         { "userID": usuario.ID },
@@ -247,3 +319,11 @@ exports.UsuarioLogin = async (req, res) => {
         res.send("Error UsuarioCambiarControler: " + error);
     };
 };
+/* const createToken = (user) => {
+    const obj = {
+        id: user.id,
+        createdAt: moment().unix(),
+        expiredAt: moment().add(15, 'days').unix()
+    }
+    return jwt.sign(obj, secret.jwt_clave);
+} */

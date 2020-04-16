@@ -83,7 +83,6 @@ exports.ObjetoFamiliaBorrar = async (req, res) => {
         res.send("Error ObjetoFamiliaBrorrar: " + error);
     };
 };
-
 //Extras-------------------------------------------------------
 //Relacion entre objeto tipo y objeto familia
 exports.ObjetoFamiliaTipo = async (req, res) => {

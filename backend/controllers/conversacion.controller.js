@@ -91,7 +91,6 @@ exports.ConversacionMensaje = async (req, res) => {
             const mensajes = await ConversacionModel.ConversacionMensajeModel(mensaje.ID);
             mensaje.mensajes = mensajes;
         };
-
         res.send(data);
     } catch (error) { res.send("Error ConversacionMensaje " + error) };
 };

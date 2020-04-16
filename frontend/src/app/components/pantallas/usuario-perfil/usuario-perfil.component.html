@@ -2,41 +2,45 @@
 <div class="col-8 h-100">
 
     <div class="usuario-perfil">
-        <h2> {{ usuario[id].nombre }} Estos son tus datos. </h2>
+        <h2><strong>{{ arrUsuario[id].alias }}</strong> estos son tus datos. </h2>
         <h3>¿Quiere cambiarlos?</h3>
         <div class="formulario">
             <form>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Alias</label>
                     <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ usuario[id].alias }}">
+                        placeholder="{{ arrUsuario[id].alias }}">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
+                    <label for="exampleInputEmail1">Email </label>
                     <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ usuario[id].email }}">
+                        placeholder="{{ arrUsuario[id].email }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre </label>
+                    <input type="text" class="form-control form-control-lg" type="text"
+                        placeholder="{{ arrUsuario[id].nombre }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Apellidos </label>
+                    <input type="text" class="form-control form-control-lg" type="text"
+                        placeholder="{{ arrUsuario[id].apellidos }}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Contraseña <strong>Actual</strong></label>
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" placeholder="Escribe tu actual contraseña">
+                    <a class="small" href="" alt="recordar contraseña" title="recordar contraseña">No te acuerdas de la
+                        contraseña, <strong>¿te la
+                            recordamos?</strong></a>
                 </div>
+
                 <div class="form-group">
                     <label for="exampleInputPassword1">Contraseña <strong>Nueva</strong></label>
-                    <input type="email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre</label>
-                    <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ usuario[id].nombre }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Apellidos</label>
-                    <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ usuario[id].apellidos }}">
+                    <input type="email" class="form-control" placeholder="Escribe la nueva contraseña">
                 </div>
 
-
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Cambiar</button>
             </form>
         </div>
     </div>

@@ -1,22 +1,27 @@
 <!-- 👇 conversaciones --  INICIO ------------------------------ -->
 <div class="col-12">
-    <div class="usuario-conversacion">
+    <div class="usuario-conversacion" style="flex-direction: column;">
         <h1>conversacion</h1>
-        <h2>conversacion Recibidas</h2>{{usuarioA|json}}
-        {{conversacionR|json}}
-        <div class="media" *ngFor="let mensaje of conversacionR">
-            <img src="..." class="mr-3" alt="...">
-            <div class="media-body">
-                <p>de: </p>
+        <!-- <h2>conversacion Recibidas</h2> -->
+        https://getbootstrap.com/docs/4.4/components/media-object/
+        <div class="media-body" *ngFor="let con of conversacion">
+            <h5 class="mt-0">{{con.asunto}}</h5>
+            {{con.ID}} - Emisor: {{con.emisor}} - Receptor {{con.receptor}} <br>
+            - {{con.fecha_inicio}}
 
-                <h5 class="mt-0">Media heading</h5>
-                <p>de: </p>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                odio,
-                vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
-                Donec
-                lacinia congue felis in faucibus.
+            <div class="media mt-3" *ngFor="let men of mensajes">
+                <a class="mr-3" href="#">
+                    <img style="width: 100px; height: 100px;" src="../../../../assets/img/user-avatar.jpg" class="mr-3"
+                        alt="...">
+                </a>
+                <div class="media-body">
+                    <h5 class="mt-0">Media heading</h5>
+                    <h5 class="mt-0">{{men.emisor}} dice:</h5>
+                    <p>{{men.fecha}}</p>
+                    <p>{{men.texto}}</p>
+                </div>
             </div>
+            <button _ngcontent-mkk-c50="" type="submit" class="btn btn-primary">Responder</button>
         </div>
 
     </div>

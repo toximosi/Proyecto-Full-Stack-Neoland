@@ -8,14 +8,36 @@ import { ObjetoModule } from '../models/objeto.module';
 })
 
 export class ObjetoService {
+
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:3000/objeto';
+    this.baseUrl = 'http://localhost:3000';
   }
 
-  ObjetoVer(): Promise<ObjetoModule[]> {
-    return this.http.get<ObjetoModule[]>(this.baseUrl).toPromise();
-  }
+  ObjetoVer(): Promise<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/objeto`).toPromise();
+  };
+
+  ObjetoId(ID): Promise<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/objeto/${ID}`).toPromise();
+  };
+
+  Objeto(): Promise<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/objeto-completo`).toPromise();
+  };
+
+  ObjetoNuevo(formValue): Promise<any[]> {
+    return this.http.post<any[]>(`${this.baseUrl}/objeto/nuevo`, formValue).toPromise();
+  };
+
+  ObjetoCambiar(formValue): Promise<any[]> {
+    return this.http.put<any[]>(`${this.baseUrl}/objeto/cambiar`, formValue).toPromise();
+  };
+
+  ObjetoBorrar(ID): Promise<any[]> {
+    return this.http.delete<any[]>(`${this.baseUrl}/objeto/borrar/${ID}`).toPromise();
+  };
+
 
 }

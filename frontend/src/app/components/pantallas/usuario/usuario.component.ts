@@ -9,30 +9,29 @@ import { UsuarioModule } from 'src/app/models/usuario.module';
 })
 export class UsuarioComponent implements OnInit {
 
-  id: number = 0;
-  usuario: UsuarioModule[];
+  id: number;
+  arrUsuario: UsuarioModule[];
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService) {
+    this.arrUsuario = [];
+    this.id = 0;
+  }
 
   ngOnInit(): void {
 
-    this.usuarioService.Usuario()
+    /* this.usuarioService.UsuarioId(this.id)
       .then(pUsuario => {
-        this.usuario = pUsuario;
-        //console.log(pUsuario);
-      }).catch(error => console.log("Error UsuarioVer: " + error));
-
-
-    /* this.usuarioService.UsuarioId()
-      .then(pUsuario => {
-        this.usuario = pUsuario;
+        this.arrUsuario = pUsuario;
         console.log(pUsuario);
-      }).catch(error => console.log("Error UsuarioVer: " + error)); */
+      }).catch(error => console.log("Error UsuarioVer: " + error));
+    console.log */
 
+    /* this.usuarioService.Usuario()
+          .then(pUsuario => {
+            this.arrUsuario = pUsuario;
+            //console.log(pUsuario);
+          }).catch(error => console.log("Error UsuarioVer: " + error)); */
 
-    /* this.usuarioService.UsuarioVer()
-      .then(response => { console.log(response) })
-      .catch(error => console.log("Error UsuarioVer: " + error)); */
   }
 
 

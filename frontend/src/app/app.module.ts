@@ -19,7 +19,6 @@ import { MenuPrincipalComponent } from './components/menus/menu-principal/menu-p
 import { MenuUsuarioComponent } from './components/menus/menu-usuario/menu-usuario.component';
 import { MenuUsuarioPerfilComponent } from './components/menus/menu-usuario-perfil/menu-usuario-perfil.component';
 
-
 //Pantallas ---------------------------------------------------------------------------------------------------------
 import { InicioComponent } from './components/pantallas/inicio/inicio.component';
 import { MapaComponent } from './components/pantallas/mapa/mapa.component';
@@ -58,7 +57,8 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
     UsuarioConversacionComponent,
     UsuarioObjetoComponent,
     UsuarioAvatarComponent,
-    LoginComponent, ObjetoComponent
+    LoginComponent,
+    ObjetoComponent
   ],
   imports: [
     BrowserModule,

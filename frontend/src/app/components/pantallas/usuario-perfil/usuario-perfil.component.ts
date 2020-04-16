@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioModule } from 'src/app/models/usuario.module';
-import { UsuarioComponent } from '../usuario/usuario.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
@@ -10,16 +10,23 @@ import { UsuarioComponent } from '../usuario/usuario.component';
 })
 export class UsuarioPerfilComponent implements OnInit {
 
-  @Input() usuario: any = {};
+  /* @Input() arrUsuario: any = {};
   @Input() id: number;
 
+  usuario: UsuarioModule[]; */
+  arrUsuario: UsuarioModule[];
+  id: number;
 
-  constructor(private usuarioComponent: UsuarioComponent) { }
+  constructor(private usuarioService: UsuarioService) {
+    this.id = 0;
+    this.arrUsuario = [];
 
-  ngOnInit(): void {
+  }
 
+  async ngOnInit(): Promise<any> {
+    this.arrUsuario = await this.usuarioService.UsuarioCompleto();
+    /*  this.usuario = this.arrUsuario; */
     /* this.usuario = this.usuarioComponent.usuario */
-
 
   }
 

@@ -21,7 +21,7 @@ export class UsuarioModule {
   password: string;
   avatar: string;
   fecha_alta: any;
-  objetos: {
+  objetoPerdido: {
     ID: number;
     nombre: string;
     foto: string;
@@ -36,20 +36,48 @@ export class UsuarioModule {
     longitud_encontrado: null;
     fk_usuario: number;
     fk_objetotipo: number;
-    familia: {
+    tipo:
+    {
       ID: number;
-      familia: string;
-      color: string;
-      fk_objeto: number;
-      tipo:
-      {
+      tipo: string;
+      icono: string;
+      fk_objetofamilia: number;
+      familia: {
         ID: number;
-        tipo: string;
-        icono: string;
-        fk_objetofamilia: number;
+        familia: string;
+        color: string;
+        fk_objeto: number;
       };
     };
-
+  };
+  objetoEncontrado: {
+    ID: number;
+    nombre: string;
+    foto: string;
+    descripcion: string;
+    perdido: number;
+    encontrado: number;
+    fecha_perdida: any;
+    latitud_perdida: number;
+    longitud_perdida: number;
+    fecha_encontrado: null;
+    latitud_encontrado: null;
+    longitud_encontrado: null;
+    fk_usuario: number;
+    fk_objetotipo: number;
+    tipo:
+    {
+      ID: number;
+      tipo: string;
+      icono: string;
+      fk_objetofamilia: number;
+      familia: {
+        ID: number;
+        familia: string;
+        color: string;
+        fk_objeto: number;
+      };
+    };
   };
   conversacionesRecibida:
     {

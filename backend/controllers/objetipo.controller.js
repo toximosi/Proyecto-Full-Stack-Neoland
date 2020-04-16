@@ -7,6 +7,7 @@ const { validationResult } = require('express-validator');// valida el body
 exports.ObjetoTipoNuevo = async (req, res) => {
     const tipo = req.body.tipo;
     const icono = req.body.icono;
+
     const errors = validationResult(req);//Ejecuta las validaciones 
 
     try {

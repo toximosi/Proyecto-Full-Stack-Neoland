@@ -48,7 +48,6 @@ exports.ObjetoFamiliaBorrarModel = (ID) => {
             .catch(error => reject("Error ObjetoFamiliaBorrarModel: " + error));
     });
 };
-
 //Extras -------------------------------------------
 //Relacion entre objeto tipo y objeto familia
 exports.ObjetoFamiliaTipoModel = (ID) => {
