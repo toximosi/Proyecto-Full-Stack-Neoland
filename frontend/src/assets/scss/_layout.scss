@@ -16,6 +16,24 @@ body {
   border-radius: $EsquinaRedondeadaMedia;
   background-color: $colorBgGrisClaro;
   /* overflow: hidden; */
+  &.interface-flex {
+    @include flexCenter;
+  }
+  &.interface-sinpadding {
+    padding: 0;
+  }
+}
+agm-map {
+  height: calc(100% - #{$anchoMenu * 2});
+
+  .agm-map-container-inner {
+    border-radius: $EsquinaRedondeadaMedia;
+    margin: 0 50px;
+    margin: 0 $anchoMenu;
+  }
+}
+section {
+  position: relative;
 }
 app-root {
   width: 100%;
@@ -37,6 +55,30 @@ app-root {
 .container-fluid {
   height: 100%;
 }
+/* agm-map {
+  height: 500px;
+} */
+/* app-mapa {
+  position: absolute;
+  top: $anchoMenu;
+  left: 0;
+  height: 100%;
+  display: inline-block;
+  width: 100%;
+
+  agm-map {
+    height: 100%;
+    display: inline-block;
+    width: 100%;
+
+    .agm-map-container-inner {
+      height: 100% !important;
+      display: inline-block;
+      width: 100% !important;
+      overflow: initial !important;
+    }
+  }
+} */
 /* .row {
 } */
 article,
@@ -48,3 +90,22 @@ div-flex {
 }
 @import "_estilos-texto";
 @import "_animacion";
+/* app-inicio {
+  height: 100%;
+  background: red;
+  display: inline-block;
+  width: 100%;
+}
+google-map {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+  display: inline-block;
+  .map-container {
+    display: inline-block;
+    position: relative;
+    height: 100% !important;
+    width: 100% !important;
+  }
+}
+ */

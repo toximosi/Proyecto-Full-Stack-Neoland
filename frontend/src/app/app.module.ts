@@ -1,5 +1,6 @@
 // ! Este componente es el centro de conexion de todos los componentes, aquí importaremos la mayoria de los elementos.
 //-------------------------------------------------------------------------------------------------------------------
+//Propios de angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+//Externos
+/* import { GoogleMapsModule } from '@angular/google-maps'; */
+import { AgmCoreModule } from '@agm/core';
 // importacion Font-iconos de font awesome: https://fontawesome.com/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //-------------------------------------------------------------------------------------------------------------------
@@ -61,11 +65,18 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
     ObjetoComponent
   ],
   imports: [
+    //Propios de angular
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    //Externos
+    /*    GoogleMapsModule, */
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyACyqb1GcgGrU696T7TxEB786PGn-urjNw',
+      libraries: ['places']
+    }),
     // Font iconos de font awesome: https://fontawesome.com/
     FontAwesomeModule
   ],

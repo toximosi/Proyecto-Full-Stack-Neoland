@@ -17,6 +17,7 @@ const ObjetoTipoController = require('./controllers/objetipo.controller');
 const ConversacionController = require('./controllers/conversacion.controller');
 const MensajeController = require('./controllers/mensaje.controller');
 const AlarmaController = require('./controllers/alarma.controller');
+const FicticioController = require('./controllers/ficticio.controller');
 
 //* 👌 montamos el servidor, Oh yeah!!  -----------------------------
 const server = express();
@@ -139,6 +140,20 @@ server.post("/alarma/nuevo", [
 server.put("/alarma/cambiar", AlarmaController.AlarmaCambiar); // cambiar alarmas
 server.delete("/alarma/borrar/:ID", AlarmaController.AlarmaBorrar);// borrar alarma
 //* alarma FIN -------------------------------------------------------- */
+
+//* 👌 ficticio INICIO -----------------------------------------------------
+server.get("/ficticio", FicticioController.FicticioVer);// ver Ficticios
+server.get("/ficticio/:ID", FicticioController.FicticioVerId);// ver Ficticios id
+server.post("/ficticio/nuevo", [
+    check('nombre').isAlphanumeric().trim(),
+    check('foto').isAlphanumeric().trim(),
+    check('descripcion').isAlphanumeric().escape().trim(),
+    check('latitud').isNumeric().trim(),
+    check('longitud').isNumeric().trim()
+], FicticioController.FicticioNuevo); // incluir Ficticios
+server.put("/ficticio/cambiar", FicticioController.FicticioCambiar); // cambiar Ficticios
+server.delete("/ficticio/borrar/:ID", FicticioController.FicticioBorrar);// borrar Ficticio
+//* ficticio FIN -------------------------------------------------------- */
 
 //*Testeamos --- fuciona los Endpoints? -------------------------------
 server.get("/test", (req, res) => { res.send(" 🖐 Hola Mundo!!!!"); });
