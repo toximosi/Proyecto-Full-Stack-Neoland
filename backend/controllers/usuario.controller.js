@@ -21,7 +21,7 @@ exports.UsuarioNuevo = async (req, res) => {
     const edad = req.body.edad;
     const email = req.body.email;
     const password = hash;//passwoord hasheada
-    const avatar = req.body.avatar;
+    const foto = req.body.foto;
     //! la fecha la incluye directamente mysql
 
     const errors = validationResult(req);//Ejecuta las validaciones 
@@ -36,14 +36,14 @@ exports.UsuarioNuevo = async (req, res) => {
 
             if (email !== secret.email_contacto) {
                 if (UsuarioDuplicado[0].email !== email) {
-                    const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+                    const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, foto);
                     res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
 
                 } else {
                     res.send({ "message": " 👨‍🎤 usuario duplicado con el mismo email !!!", "email": email });
                 };
             } else {
-                const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, avatar);
+                const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, foto);
                 res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
             }
         };
@@ -85,7 +85,7 @@ exports.UsuarioCambiar = async (req, res) => {
     const edad = req.body.edad;
     const email = req.body.email;
     const password = req.body.password;
-    const avatar = req.body.avatar;
+    const foto = req.body.foto;
 
     const errors = validationResult(req)//Ejecuta las validaciones
 
@@ -93,7 +93,7 @@ exports.UsuarioCambiar = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await UsuarioModel.UsuarioCambiarModel(ID, alias, nombre, apellidos, edad, email, password, avatar);
+            const data = await UsuarioModel.UsuarioCambiarModel(ID, alias, nombre, apellidos, edad, email, password, foto);
 
             if (data.affectedRows > 0) {
                 res.send({ "message": `👨‍🎤 Usuari@ ${alias} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });

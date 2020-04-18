@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');// valida el body
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
 exports.AlarmaNuevo = async (req, res) => {
-    const imagen = req.body.imagen;
+    const foto = req.body.foto;
     const titulo = req.body.titulo;
     const texto = req.body.texto;
 
@@ -14,7 +14,7 @@ exports.AlarmaNuevo = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await AlarmaModel.AlarmaNuevoModel(imagen, titulo, texto);
+            const data = await AlarmaModel.AlarmaNuevoModel(foto, titulo, texto);
             res.send({ "message": " 🐨 Alarma creada !!!", "ID": data.insertId });
         };
     } catch (error) {
@@ -47,7 +47,7 @@ exports.AlarmaVerId = async (req, res) => {
 // crrUd : UPLOAD --> actualizar objetos por su id
 exports.AlarmaCambiar = async (req, res) => {
     const ID = req.body.ID;
-    const imagen = req.body.imagen;
+    const foto = req.body.foto;
     const titulo = req.body.titulo;
     const texto = req.body.texto;
 
@@ -57,7 +57,7 @@ exports.AlarmaCambiar = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await AlarmaModel.AlarmaCambiarModel(ID, imagen, titulo, texto);
+            const data = await AlarmaModel.AlarmaCambiarModel(ID, foto, titulo, texto);
 
             if (data.affectedRows > 0) {
                 res.send({ "message": `🐨 Alarma ${titulo} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });

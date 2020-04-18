@@ -42,7 +42,7 @@ server.post("/usuario/nuevo", [
     check('edad').isNumeric(),
     check('email').isEmail().trim(),
     check('password').isString().trim(),
-    check('avatar').isString().trim()
+    check('foto').isString().trim()
 ], UsuarioController.UsuarioNuevo);// incluir usuario
 server.put("/usuario/cambiar", UsuarioController.UsuarioCambiar);// modificar usuario
 server.delete("/usuario/borrar/:ID", UsuarioController.UsuarioBorrar);// ver usuario por ID
@@ -132,7 +132,7 @@ server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar 
 server.get("/alarma", AlarmaController.AlarmaVer);// ver alarmas
 server.get("/alarma/:ID", AlarmaController.AlarmaVerId);// ver alarmas id
 server.post("/alarma/nuevo", [
-    check('imagen').isAlphanumeric().trim(),
+    check('foto').isAlphanumeric().trim(),
     check('titulo').isAlphanumeric().escape().trim(),
     check('texto').isAlphanumeric().trim()
 ], AlarmaController.AlarmaNuevo); // incluir alarmas

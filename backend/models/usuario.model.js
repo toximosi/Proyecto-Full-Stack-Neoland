@@ -2,10 +2,10 @@ const connection = require('./db.model');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo usuario
-exports.UsuarioNuevoModel = (alias, nombre, apellidos, edad, email, password, avatar) => {
+exports.UsuarioNuevoModel = (alias, nombre, apellidos, edad, email, password, foto) => {
     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO usuario (alias, nombre, apellidos, edad, email, password, avatar)
-            VALUE (?,?,?,?,?,?,?);`, [alias, nombre, apellidos, edad, email, password, avatar])
+        connection.query(`INSERT INTO usuario (alias, nombre, apellidos, edad, email, password, foto)
+            VALUE (?,?,?,?,?,?,?);`, [alias, nombre, apellidos, edad, email, password, foto])
             .then(result => resolve(result))
             .catch(error => reject("Error UsuarioNuevoModel: " + error));
     });
@@ -30,7 +30,7 @@ exports.UsuarioVerIdModel = (ID) => {
 };
 
 // crrUd : UPLOAD --> actualizar usuario por su id
-exports.UsuarioCambiarModel = (ID, alias, nombre, apellidos, edad, email, password, avatar) => {
+exports.UsuarioCambiarModel = (ID, alias, nombre, apellidos, edad, email, password, foto) => {
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE usuario SET
             alias = ?,
@@ -39,8 +39,8 @@ exports.UsuarioCambiarModel = (ID, alias, nombre, apellidos, edad, email, passwo
             edad = ?,
             email = ?,
             password = ?,
-            avatar = ?
-            WHERE ID = ${ID};`, [alias, nombre, apellidos, edad, email, password, avatar])
+            foto = ?
+            WHERE ID = ${ID};`, [alias, nombre, apellidos, edad, email, password, foto])
             .then(result => resolve(result))
             .catch(error => reject("Error UsuarioCambiarModel: " + error));
     });

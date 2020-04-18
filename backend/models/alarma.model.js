@@ -2,9 +2,9 @@ const connection = require('./db.model');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
-exports.AlarmaNuevoModel = ({ imagen, titulo, texto }) => {
+exports.AlarmaNuevoModel = ({ foto, titulo, texto }) => {
     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO alarma (imagen, titulo, texto) VALUES (?,?,?);`, [imagen, titulo, texto])
+        connection.query(`INSERT INTO alarma (foto, titulo, texto) VALUES (?,?,?);`, [foto, titulo, texto])
             .then(result => resolve(result))
             .catch(error => reject("Error AlarmaNuevoModel: " + error));
     });
@@ -31,13 +31,13 @@ exports.AlarmaVerIdModel = (ID) => {
     });
 }
 // crrUd : UPLOAD --> actualizar objetos por su id
-exports.AlarmaCambiarModel = ({ ID, imagen, titulo, texto }) => {
+exports.AlarmaCambiarModel = ({ ID, foto, titulo, texto }) => {
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE alarma SET
-            imagen = ?,
+            foto = ?,
             titulo = ?,
             texto = ?
-            WHERE ID = ${ID};`, [imagen, titulo, texto])
+            WHERE ID = ${ID};`, [foto, titulo, texto])
             .then(result => resolve(result))
             .catch(error => reject("Error AlarmaCambiarModel: " + error));
     });
