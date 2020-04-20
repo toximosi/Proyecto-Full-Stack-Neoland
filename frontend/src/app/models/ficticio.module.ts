@@ -14,8 +14,9 @@ export class FicticioModule {
   ID: number;
   nombre: string;
   foto: string;
+  icono: string;
   descripcion: string;
-  latitud: string;
-  longitud: string;
+  latitud: number;
+  longitud: number;
 
 }

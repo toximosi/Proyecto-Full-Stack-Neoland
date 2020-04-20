@@ -42,16 +42,22 @@ import { ObjetoService } from './services/objeto.service';
 import { ConversacionService } from './services/conversacion.service';
 import { ObjetoComponent } from './components/pantallas/objeto/objeto.component';
 
+//Pipes ---------------------------------------------------------------------------------------------------------
+import { NoimagePipe } from './pipes/noimage.pipe';
+import { UrlimgPipe } from './pipes/urlimg.pipe';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    //menus ---------------
     MenuTopComponent,
     MenuFooterComponent,
     MenuPrincipalComponent,
     MenuUsuarioComponent,
     MenuUsuarioPerfilComponent,
+    //pantallas ---------------
     InicioComponent,
     UsuarioPerfilComponent,
     MapaComponent,
@@ -62,7 +68,10 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
     UsuarioObjetoComponent,
     UsuarioAvatarComponent,
     LoginComponent,
-    ObjetoComponent
+    ObjetoComponent,
+    //pipes ---------------
+    NoimagePipe,
+    UrlimgPipe
   ],
   imports: [
     //Propios de angular

@@ -13,7 +13,7 @@
                             <!-- 👇 Objetos inicial --  INICIO ------------------------------ -->
                             <div class="card-columns">
                                 <div class="card" *ngFor="let o of arrObjeto">
-                                    <img src="{{o.foto}}" class="card-img-top" alt="...">
+                                    <img src="{{o.foto | urlimg }}" class="card-img-top" alt="...">
 
                                     <div class="card-body">
                                         <h5 class="card-title">{{o.nombre}}</h5>
@@ -27,7 +27,7 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item ">
                                             <div class="usuario"><strong>@{{o.usuario[0].alias}}</strong><img
-                                                    src="{{o.usuario[0].foto}}" alt="@{{o.usuario[0].alias}}"
+                                                    src="{{o.usuario[0].foto |urlimg }}" alt="@{{o.usuario[0].alias}}"
                                                     title="@{{o.usuario[0].alias}}">
                                             </div>
                                         </li>

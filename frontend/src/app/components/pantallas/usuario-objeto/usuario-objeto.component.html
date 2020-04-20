@@ -7,7 +7,7 @@
         <div class="card-columns">
 
             <div class="card text-center" *ngFor="let objeto of objeto">
-                <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="{{objeto.nombre}}">
+                <img src="{{objeto.foto | urlimg}}" class="card-img-top" alt="{{objeto.nombre}}">
                 <div class="card-body">
                     <h5 class="card-title">{{objeto.nombre}}</h5>
                     <p class="card-text">"{{objeto.descripcion}}"</p>
@@ -72,13 +72,13 @@
 </div>
 <!-- 👆 Objetos perdidos --  FIN ------------------------------ -->
 <!-- 👇 Objetos encontrados usuario --  INICIO ------------------------------ -->
-<div class="col-12">
+<!-- <div class="col-12">
     <div class="usuario-objeto">
-        <h1>Objetos Encontrados por "usuario[id].nombre"</h1>
+        <h1>Objetos Encontrados por @{{ usuario.alias }}</h1>
         <div class="card mb-6" style="max-width: 540px;">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="objeto perdido">
+                    <img src="{{ objeto.foto | urlimg}}" class="card-img-top" alt="objeto perdido">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -191,5 +191,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- 👆 Objetos encontrados --  FIN ------------------------------ -->

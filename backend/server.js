@@ -98,7 +98,7 @@ server.get("/objetotipo", ObjetoTipoController.ObjetoTipoVer)// ver objetoTipo
 server.get("/objetotipo/:ID", ObjetoTipoController.ObjetoTipoVerId)// ver objetotipo por ID
 server.post("/objetotipo/nuevo", [
     check('tipo').isAlpha().escape().trim(),
-    check('icono').isAlphanumeric().trim()
+    check('icono').isString().trim()
 ], ObjetoTipoController.ObjetoTipoNuevo); // incluir objetoTipo
 server.put("/objetotipo/cambiar", ObjetoTipoController.ObjetoTipoCambiar);// cambiar objeto tipo
 server.delete("/objetotipo/borrar/:ID", ObjetoTipoController.ObjetoTipoBorrar); //borrar objeto tipo por ID
@@ -110,7 +110,7 @@ server.get("/conversacion/:ID", ConversacionController.ConversacionVerId); //ver
 server.post("/conversacion/nuevo", [
     check('emisor').isNumeric(),
     check('receptor').isNumeric(),
-    check('asunto').isAlphanumeric().escape().trim()
+    check('asunto').isString().escape().trim()
 ], ConversacionController.ConversacionNuevo); // incluir conversacion
 server.put("/conversacion/cambiar", ConversacionController.ConversacionCambiar);//cambiar conversacion
 server.delete("/conversacion/borrar/:ID", ConversacionController.ConversacionBorrar);//borrar conversacion
@@ -123,7 +123,7 @@ server.get("/mensaje", MensajeController.MensajeVer);// ver mensaje
 server.get("/mensaje/:ID", MensajeController.MensajeVerId);// ver mensaje por id
 server.post("/mensaje/nuevo", [
     check('emisor').isNumeric(),
-    check('texto').isAlphanumeric().escape().trim()
+    check('texto').isString().escape().trim()
 ], MensajeController.MensajeNuevo); // incluir mensaje
 server.put("/mensaje/cambiar", MensajeController.MensajeCambiar); // cambiar mensaje
 server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar mensaje
@@ -133,9 +133,9 @@ server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar 
 server.get("/alarma", AlarmaController.AlarmaVer);// ver alarmas
 server.get("/alarma/:ID", AlarmaController.AlarmaVerId);// ver alarmas id
 server.post("/alarma/nuevo", [
-    check('foto').isAlphanumeric().trim(),
-    check('titulo').isAlphanumeric().escape().trim(),
-    check('texto').isAlphanumeric().trim()
+    check('foto').isString().trim(),
+    check('titulo').isString().escape().trim(),
+    check('texto').isString().trim()
 ], AlarmaController.AlarmaNuevo); // incluir alarmas
 server.put("/alarma/cambiar", AlarmaController.AlarmaCambiar); // cambiar alarmas
 server.delete("/alarma/borrar/:ID", AlarmaController.AlarmaBorrar);// borrar alarma
@@ -145,11 +145,12 @@ server.delete("/alarma/borrar/:ID", AlarmaController.AlarmaBorrar);// borrar ala
 server.get("/ficticio", FicticioController.FicticioVer);// ver Ficticios
 server.get("/ficticio/:ID", FicticioController.FicticioVerId);// ver Ficticios id
 server.post("/ficticio/nuevo", [
-    check('nombre').isAlphanumeric().trim(),
-    check('foto').isAlphanumeric().trim(),
-    check('descripcion').isAlphanumeric().escape().trim(),
-    check('latitud').isNumeric().trim(),
-    check('longitud').isNumeric().trim()
+    check('nombre').isString().trim(),
+    check('foto').isString().trim(),
+    check('icono').isString().trim(),
+    check('descripcion').isString().escape().trim(),
+    check('latitud').isNumeric(),
+    check('longitud').isNumeric()
 ], FicticioController.FicticioNuevo); // incluir Ficticios
 server.put("/ficticio/cambiar", FicticioController.FicticioCambiar); // cambiar Ficticios
 server.delete("/ficticio/borrar/:ID", FicticioController.FicticioBorrar);// borrar Ficticio

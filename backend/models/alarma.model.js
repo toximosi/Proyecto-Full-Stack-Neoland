@@ -2,7 +2,7 @@ const connection = require('./db.model');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
-exports.AlarmaNuevoModel = ({ foto, titulo, texto }) => {
+exports.AlarmaNuevoModel = (foto, titulo, texto) => {
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO alarma (foto, titulo, texto) VALUES (?,?,?);`, [foto, titulo, texto])
             .then(result => resolve(result))
@@ -31,7 +31,7 @@ exports.AlarmaVerIdModel = (ID) => {
     });
 }
 // crrUd : UPLOAD --> actualizar objetos por su id
-exports.AlarmaCambiarModel = ({ ID, foto, titulo, texto }) => {
+exports.AlarmaCambiarModel = (ID, foto, titulo, texto) => {
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE alarma SET
             foto = ?,

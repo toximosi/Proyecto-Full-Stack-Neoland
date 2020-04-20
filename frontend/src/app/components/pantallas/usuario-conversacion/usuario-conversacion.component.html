@@ -11,7 +11,7 @@
 
             <div class="media mt-3" *ngFor="let men of con.mensajes">
                 <a class="mr-3" href="#">
-                    <img style="width: 100px; height: 100px;" src="{{ men.emisorNombre[0].foto}}" class="mr-3"
+                    <img style="width: 100px; height: 100px;" src="{{ men.emisorNombre[0].foto | urlimg}}" class="mr-3"
                         alt="...">
                 </a>
                 <div class="media-body">

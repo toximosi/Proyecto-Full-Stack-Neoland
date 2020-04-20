@@ -4,7 +4,6 @@ const { validationResult } = require('express-validator');// valida el body
 const bcrypt = require('bcryptjs');//hashear contraseñas
 const jwt = require('jsonwebtoken');//token para que se mantenga la sesión abierta del usuario
 
-
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo usuario
 exports.UsuarioNuevo = async (req, res) => {

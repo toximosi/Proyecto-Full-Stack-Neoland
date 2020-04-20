@@ -15,6 +15,7 @@ export class MapaComponent implements OnInit {
   visitante: number;
   zoom: number;
   // initial center position for the map
+  address: string;
 
   isFulled = true;
   screenOptions = {
@@ -41,5 +42,4 @@ export class MapaComponent implements OnInit {
         this.lng = position.coords.longitude;
       }) */
   }
-
 };

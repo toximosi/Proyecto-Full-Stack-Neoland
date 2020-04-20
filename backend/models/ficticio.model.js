@@ -2,9 +2,9 @@ const connection = require('./db.model');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
-exports.FicticioNuevoModel = ({ nombre, foto, descripcion, latitud, longitud }) => {
+exports.FicticioNuevoModel = (nombre, foto, icono, descripcion, latitud, longitud) => {
     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO Ficticio (foto, titulo, texto) VALUES (?,?,?,?,?);`, [nombre, foto, descripcion, latitud, longitud])
+        connection.query(`INSERT INTO ficticio (nombre, foto, icono, descripcion, latitud, longitud) VALUES (?,?,?,?,?,?);`, [nombre, foto, icono, descripcion, latitud, longitud])
             .then(result => resolve(result))
             .catch(error => reject("Error FicticioNuevoModel: " + error));
     });
@@ -23,7 +23,7 @@ exports.FicticioVerModel = () => {
 exports.FicticioVerIdModel = (ID) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const data = await connection.query(`SELECT * FROM Ficticio WHERE ID = ${ID};`);
+            const data = await connection.query(`SELECT * FROM ficticio WHERE ID = ${ID};`);
             resolve(data);
         } catch (error) {
             reject("Error FicticioVerIdModel: " + error);
@@ -31,15 +31,16 @@ exports.FicticioVerIdModel = (ID) => {
     });
 }
 // crrUd : UPLOAD --> actualizar objetos por su id
-exports.FicticioCambiarModel = ({ nombre, foto, descripcion, latitud, longitud }) => {
+exports.FicticioCambiarModel = (ID, nombre, foto, icono, descripcion, latitud, longitud) => {
     return new Promise((resolve, reject) => {
-        connection.query(`UPDATE Ficticio SET
+        connection.query(`UPDATE ficticio SET
             nombre =?,
             foto = ?,
+            icono = ?,
             descripcion = ?,
             latitud = ?,
             longitud = ?
-            WHERE ID = ${ID};`, [nombre, foto, descripcion, latitud, longitud])
+            WHERE ID = ${ID};`, [nombre, foto, icono, descripcion, latitud, longitud])
             .then(result => resolve(result))
             .catch(error => reject("Error FicticioCambiarModel: " + error));
     });
@@ -48,7 +49,7 @@ exports.FicticioCambiarModel = ({ nombre, foto, descripcion, latitud, longitud }
 // crruD : DELETED ID --> borrar  un objetos por su id
 exports.FicticioBorrarModel = (ID) => {
     return new Promise((resolve, reject) => {
-        connection.query(`DELETE FROM Ficticio WHERE ID=?;`, [ID])
+        connection.query(`DELETE FROM ficticio WHERE ID=?;`, [ID])
             .then(result => resolve(result))
             .catch(error => reject("Error FicticioBorrarModel: " + error));
     });

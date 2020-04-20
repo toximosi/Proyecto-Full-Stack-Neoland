@@ -4,11 +4,12 @@ const { validationResult } = require('express-validator');// valida el body
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
 exports.FicticioNuevo = async (req, res) => {
-    const nombre = req.body.foto;
+    const nombre = req.body.nombre;
     const foto = req.body.foto;
-    const descripcion = req.body.titulo;
-    const latitud = req.body.texto;
-    const longitud = req.body.texto;
+    const icono = req.body.icono;
+    const descripcion = req.body.descripcion;
+    const latitud = req.body.latitud;
+    const longitud = req.body.longitud;
 
     const errors = validationResult(req);//Ejecuta las validaciones
 
@@ -16,11 +17,11 @@ exports.FicticioNuevo = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await FicticioModel.FicticioNuevoModel(nombre, foto, descripcion, latitud, longitud);
+            const data = await FicticioModel.FicticioNuevoModel(nombre, foto, icono, descripcion, latitud, longitud);
             res.send({ "message": " 🐨 Ficticio creada !!!", "ID": data.insertId });
         };
     } catch (error) {
-        res.send("Error FicticioNuevoModel: " + error);
+        res.send("Error FicticioNuevoController: " + error);
     };
 };
 
@@ -30,7 +31,7 @@ exports.FicticioVer = async (req, res) => {
         const data = await FicticioModel.FicticioVerModel();
         res.send(data);
     } catch (error) {
-        res.send("Error FicticioVerModel: " + error);
+        res.send("Error FicticioVerController: " + error);
     };
 };
 
@@ -42,18 +43,19 @@ exports.FicticioVerId = async (req, res) => {
         const data = await FicticioModel.FicticioVerIdModel(ID);
         res.send(data);
     } catch (error) {
-        res.send("Error FicticioVerId: " + error);
+        res.send("Error FicticioVerIdController: " + error);
     }
 }
 
 // crrUd : UPLOAD --> actualizar objetos por su id
 exports.FicticioCambiar = async (req, res) => {
     const ID = req.body.ID;
-    const nombre = req.body.foto;
+    const nombre = req.body.nombre;
     const foto = req.body.foto;
-    const descripcion = req.body.titulo;
-    const latitud = req.body.texto;
-    const longitud = req.body.texto;
+    const icono = req.body.icono;
+    const descripcion = req.body.descripcion;
+    const latitud = req.body.latitud;
+    const longitud = req.body.longitud;
 
     const errors = validationResult(req);//Ejecuta las validaciones
 
@@ -61,7 +63,7 @@ exports.FicticioCambiar = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await FicticioModel.FicticioCambiarModel(ID, nombre, foto, descripcion, latitud, longitud);
+            const data = await FicticioModel.FicticioCambiarModel(ID, nombre, foto, icono, descripcion, latitud, longitud);
 
             if (data.affectedRows > 0) {
                 res.send({ "message": `🐨 Ficticio ${titulo} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
