@@ -8,11 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
 //Externos
-/* import { GoogleMapsModule } from '@angular/google-maps'; */
-import { AgmCoreModule } from '@agm/core';
+//Para el mapa:
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 // importacion Font-iconos de font awesome: https://fontawesome.com/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 //-------------------------------------------------------------------------------------------------------------------
 //Componentes
 //-------------------------------------------------------------------------------------------------------------------
@@ -45,6 +47,7 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
 //Pipes ---------------------------------------------------------------------------------------------------------
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { UrlimgPipe } from './pipes/urlimg.pipe';
+import { Mapa2Component } from './components/pantallas/mapa2/mapa2.component';
 
 
 
@@ -71,7 +74,8 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     ObjetoComponent,
     //pipes ---------------
     NoimagePipe,
-    UrlimgPipe
+    UrlimgPipe,
+    Mapa2Component
   ],
   imports: [
     //Propios de angular
@@ -81,9 +85,9 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     HttpClientModule,
     FormsModule,
     //Externos
-    /*    GoogleMapsModule, */
+    /*GoogleMapsModule AGM */
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyACyqb1GcgGrU696T7TxEB786PGn-urjNw',
+      apiKey: 'AIzaSyDoipmxNZuSdkJAdzIYkWcqa7ua3dBbV7c',
       libraries: ['places']
     }),
     // Font iconos de font awesome: https://fontawesome.com/
@@ -94,7 +98,9 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     LoginService,
     UsuarioService,
     ObjetoService,
-    ConversacionService
+    ConversacionService,
+    /*GoogleMapsModule AGM */
+    GoogleMapsAPIWrapper
   ],
   bootstrap: [AppComponent]
 })
