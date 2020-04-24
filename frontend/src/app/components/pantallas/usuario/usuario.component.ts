@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { UsuarioModule } from 'src/app/models/usuario.module';
+import { UsuarioModel } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-usuario',
@@ -10,7 +10,7 @@ import { UsuarioModule } from 'src/app/models/usuario.module';
 export class UsuarioComponent implements OnInit {
 
   id: number;
-  arrUsuario: UsuarioModule[];
+  arrUsuario: UsuarioModel[];
 
   constructor(private usuarioService: UsuarioService) {
     this.arrUsuario = [];

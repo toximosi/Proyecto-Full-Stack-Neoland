@@ -1,16 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-
-export class ObjetoModule {
+export class ObjetoModel {
   ID: number;
   nombre: string;
   foto: string;

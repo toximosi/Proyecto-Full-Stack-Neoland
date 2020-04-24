@@ -1,15 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-export class ConversacionModule {
+export class ConversacionModel {
   ID: number;
   emisor: number;
   receptor: number;

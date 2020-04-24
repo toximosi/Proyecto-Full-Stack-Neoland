@@ -47,9 +47,8 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
 //Pipes ---------------------------------------------------------------------------------------------------------
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { UrlimgPipe } from './pipes/urlimg.pipe';
-import { Mapa2Component } from './components/pantallas/mapa2/mapa2.component';
 
-
+/* import { secret } from './../../secret/secret.js'; */
 
 @NgModule({
   declarations: [
@@ -74,8 +73,7 @@ import { Mapa2Component } from './components/pantallas/mapa2/mapa2.component';
     ObjetoComponent,
     //pipes ---------------
     NoimagePipe,
-    UrlimgPipe,
-    Mapa2Component
+    UrlimgPipe
   ],
   imports: [
     //Propios de angular
@@ -87,7 +85,9 @@ import { Mapa2Component } from './components/pantallas/mapa2/mapa2.component';
     //Externos
     /*GoogleMapsModule AGM */
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDoipmxNZuSdkJAdzIYkWcqa7ua3dBbV7c',
+      apiKey: 'AIzaSyBWZrpJI2-LQx7EzfmcCx1RXF0abidsIm8',
+      //Mario
+      /* apiKey: 'AIzaSyB9CobDD06h6vgzmUpmoKIpCgSXc43B7B0', */
       libraries: ['places']
     }),
     // Font iconos de font awesome: https://fontawesome.com/
@@ -104,4 +104,6 @@ import { Mapa2Component } from './components/pantallas/mapa2/mapa2.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

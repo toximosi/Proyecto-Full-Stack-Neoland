@@ -1,16 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-
-export class UsuarioModule {
+export class UsuarioModel {
 
   ID: number;
   alias: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ObjetoService } from 'src/app/services/objeto.service';
-import { ObjetoModule } from 'src/app/models/objeto.module';
+import { ObjetoModel } from 'src/app/models/objeto.model';
 
 @Component({
   selector: 'app-objeto',
@@ -10,7 +10,7 @@ import { ObjetoModule } from 'src/app/models/objeto.module';
 export class ObjetoComponent implements OnInit {
 
 
-  arrObjeto: ObjetoModule[];
+  arrObjeto: ObjetoModel[];
 
   constructor(private objetoService: ObjetoService) {
     this.arrObjeto = [];

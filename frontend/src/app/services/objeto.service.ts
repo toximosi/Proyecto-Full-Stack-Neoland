@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ObjetoModule } from '../models/objeto.module';
+import { ObjetoModel } from '../models/objeto.model';
 
 
 @Injectable({

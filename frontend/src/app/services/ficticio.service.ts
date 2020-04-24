@@ -12,15 +12,11 @@ export class FicticioService {
   }
 
   FicticioVer(): Promise<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/conversacion`).toPromise();
+    return this.http.get<any[]>(`${this.baseUrl}/ficticio`).toPromise();
   };
 
   FicticioId(ID): Promise<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/ficticio/${ID}`).toPromise();
-  };
-
-  Ficticio(): Promise<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/ficticio-completa`).toPromise();
   };
 
   FicticioNuevo(formValue): Promise<any[]> {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UsuarioModule } from '../models/usuario.module';
+import { UsuarioModel } from '../models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  arrUsuario: UsuarioModule[];
+  arrUsuario: UsuarioModel[];
   baseUrl: string;
 
   constructor(private http: HttpClient) {

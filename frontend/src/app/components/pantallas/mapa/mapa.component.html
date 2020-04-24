@@ -5,32 +5,44 @@
 <!--<section class="wrapper h-100"> -->
 
 
-<div class="contenido-mapa">
+<!-- <div class="contenido-mapa">
     <div class="input-group mb-3">
-        <!--  <form (ngSubmit)="showLocation()">
+         <form (ngSubmit)="showLocation()">
             <input [(ngModel)]="address" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
                 placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
             </div>
-        </form> -->
+        </form> 
     </div>
     direccion:{{direccion}}, latitud:{{lat}}, longitud:{{lng}}
-</div>
+</div>-->
 <!-- 👇 Mapa  -- INICIO ------------------------------ -->
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true">
 
     <!-- 👇 Marcadores  -- INICIO ------------------------------ -->
-    <agm-marker [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen" [zIndex]="100">
         <!-- Muestra un bocadillo en la marca-->
         <agm-info-window>
-            Bocadillo
+            Tu, turu ru<br>:P
         </agm-info-window>
-
-
-
+    </agm-marker>
+    <!-- <agm-marker [latitude]="ficticio[0].latitud" [longitude]="ficticio[0].longitud" [iconUrl]=" ficticio[0].icono "></agm-marker> -->
+    <agm-marker *ngFor="let f of ficticio" [latitude]="f.latitud" [longitude]="f.longitud" [iconUrl]="f.icono">
+        <agm-info-window>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{f.foto}}" alt="{{f.nombre}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{f.nombre}}</h5>
+                    <p class="card-text">{{f.descripcion}}</p>
+                    <!-- <p class="card-text">{{f.direccion}}</p> -->
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                </div>
+            </div>
+        </agm-info-window>
     </agm-marker>
     <!-- 👆 Marcadores  --  FIN ------------------------------ -->
+
 
 </agm-map>
 <!-- 👆 Mapa --  FIN ------------------------------ -->

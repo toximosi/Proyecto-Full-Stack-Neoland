@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ConversacionService } from 'src/app/services/conversacion.service';
-import { ConversacionModule } from 'src/app/models/conversacion.module';
+import { ConversacionModel } from 'src/app/models/conversacion.model';
 
 @Component({
   selector: 'app-usuario-conversacion',
@@ -10,7 +10,7 @@ import { ConversacionModule } from 'src/app/models/conversacion.module';
 export class UsuarioConversacionComponent implements OnInit {
 
   id: number = 0;
-  conversacion: ConversacionModule[];
+  conversacion: ConversacionModel[];
   mensajes: any[];
 
   constructor(private conversacionService: ConversacionService) { }

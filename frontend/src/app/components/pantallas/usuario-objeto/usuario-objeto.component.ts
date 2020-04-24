@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ObjetoModule } from 'src/app/models/objeto.module';
+import { ObjetoModel } from 'src/app/models/objeto.model';
 import { ObjetoService } from 'src/app/services/objeto.service';
 import { UsuarioComponent } from '../usuario/usuario.component';
 
@@ -13,7 +13,7 @@ export class UsuarioObjetoComponent implements OnInit {
   @Input() usuario: any = {};
   @Input() id: number;
 
-  objeto: ObjetoModule[];
+  objeto: ObjetoModel[];
 
   constructor(private objetoService: ObjetoService, private usuarioComponent: UsuarioComponent) { }
 

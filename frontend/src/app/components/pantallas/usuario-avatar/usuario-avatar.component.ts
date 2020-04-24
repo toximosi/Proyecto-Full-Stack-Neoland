@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UsuarioModule } from 'src/app/models/usuario.module';
+import { UsuarioModel } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 
@@ -10,9 +10,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class UsuarioAvatarComponent implements OnInit {
 
-  arrUsuario: UsuarioModule[];
+  arrUsuario: UsuarioModel[];
   id: number;
-
 
   constructor(private usuarioService: UsuarioService) {
     this.id = 0;
