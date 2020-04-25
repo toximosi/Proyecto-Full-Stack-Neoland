@@ -6,10 +6,10 @@ export class ObjetoModel {
   descripcion: string;
   perdido: number;
   encontrado: number;
-  fecha_perdida: any;
-  latitud_perdida: number;
-  longitud_perdida: number;
-  fecha_encontrado: any;
+  fecha_perdido: Date;
+  latitud_perdido: number;
+  longitud_perdido: number;
+  fecha_encontrado: Date;
   latitud_encontrado: number;
   longitud_encontrado: number;
   /* fk_usuario: number; */

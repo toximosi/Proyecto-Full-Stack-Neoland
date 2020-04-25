@@ -13,7 +13,7 @@ export class UsuarioObjetoComponent implements OnInit {
   @Input() usuario: any = {};
   @Input() id: number;
 
-  objeto: ObjetoModel[];
+  arrObjeto: ObjetoModel[];
 
   constructor(private objetoService: ObjetoService, private usuarioComponent: UsuarioComponent) { }
 
@@ -28,7 +28,7 @@ export class UsuarioObjetoComponent implements OnInit {
     this.objetoService.ObjetoVer()
       .then(
         pObjeto => {
-          this.objeto = pObjeto;
+          this.arrObjeto = pObjeto;
           //console.log(this.objeto);
         })
       .catch(error => console.log("Error ObjetoVer: " + error))

@@ -4,25 +4,32 @@
         <h1>conversacion</h1>
         <!-- <h2>conversacion Recibidas</h2> -->
         https://getbootstrap.com/docs/4.4/components/media-object/
-        <div class="media-body" *ngFor="let con of conversacion">
-            <h5 class="mt-0">{{con.asunto}}</h5>
-            {{con.ID}} - Emisor: {{con.emisorNombre[0].alias}} - Receptor {{con.receptorNombre[0].alias}} <br>
-            - {{con.fecha_inicio}}
+        <div class="conversacion">
+            <div class="media-body" *ngFor="let con of conversacion">
+                <h5 class="mt-0">{{con.asunto}}</h5>
+                {{con.ID}} - Emisor: {{con.emisorNombre[0].alias}} - Receptor {{con.receptorNombre[0].alias}} <br>
+                - {{con.fecha_inicio}}
 
-            <div class="media mt-3" *ngFor="let men of con.mensajes">
-                <a class="mr-3" href="#">
-                    <img style="width: 100px; height: 100px;" src="{{ men.emisorNombre[0].foto | urlimg}}" class="mr-3"
-                        alt="...">
-                </a>
-                <div class="media-body">
-                    <div class="fecha">{{men.fecha}}</div>
-                    <h5 class="mt-0">{{men.emisorNombre[0].alias}} dice:</h5>
+                <div class="media mt-3" *ngFor="let men of con.mensajes">
 
-                    <div class="texto">{{men.texto}}</div>
+                    <img class="mr-3 imagen" src=" {{ men.emisorNombre[0].foto | urlimg}}" class="mr-3"
+                        alt="{{men.emisorNombre[0].alias}}">
+
+                    <div class="media-body">
+                        <div class="fecha">{{men.fecha}}</div>
+                        <div class="texto"><span style="transform: scaleX(-1);" class="material-icons">
+                                format_quote
+                            </span>{{men.texto}}<span class="material-icons">
+                                format_quote
+                            </span></div>
+                        <h5 class="firma mt-0">@{{men.emisorNombre[0].alias}}</h5>
+                    </div>
                 </div>
+                <button _ngcontent-mkk-c50="" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
+                    Responder a
+                    @{{con.emisorNombre[0].alias}}</button>
+
             </div>
-            <button _ngcontent-mkk-c50="" type="submit" class="btn btn-primary">Mandar un mensaje a
-                {{con.emisorNombre[0].alias}}</button>
         </div>
 
     </div>

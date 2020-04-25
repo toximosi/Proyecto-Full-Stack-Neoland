@@ -1,0 +1,44 @@
+@import "../../import.scss";
+
+@import "../../import.scss";
+
+.usuario-conversacion {
+    .conversacion {
+        .media {
+            img,
+            .imagen {
+                border-radius: 50%;
+                border: 2px solid #ffffff;
+                width: 80px;
+                height: 80px;
+                box-shadow: 0px 6px 2px 1px rgba(0, 0, 0, 0.2);
+            }
+            .media-body {
+                background-color: $colorBg;
+                padding: $spaceMedium;
+                border-radius: $EsquinaRedondeadaMedia;
+                box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+                position: relative;
+                ::before {
+                    content: " ";
+                    display: inline-block;
+                    position: absolute;
+                    background-color: red;
+                    width: 20px;
+                    height: 20px;
+                    top: 0;
+                    left: 0;
+                }
+                .fecha {
+                    font-size: $fontSmall;
+                }
+                .firma {
+                    text-align: right;
+                }
+            }
+        }
+        .btn {
+            margin-top: 30px;
+        }
+    }
+}

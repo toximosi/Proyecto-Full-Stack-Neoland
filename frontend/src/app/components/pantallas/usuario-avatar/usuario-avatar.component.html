@@ -3,11 +3,11 @@
 <div class="menu-usuario-lat">
     <div class="avatar">
         <a class="editar" href="" alt="editar imagen" title="editar imagen"></a>
-        <img src="{{ arrUsuario[id].foto | urlimg }}" title="usuario.alias" alt="usuario.alias">
+        <img src="{{ arrUsuario[id]?.foto | urlimg }}" title="usuario.alias" alt="usuario.alias">
 
     </div>
 
-    <div class="contenido">
+    <div class="contenido informacion">
         <h2 class="alias"> <strong>@{{ arrUsuario[id].alias }}</strong></h2>
         <div class="nombre">{{ arrUsuario[id].nombre }} {{ arrUsuario[id].apellidos }}</div>
         <div>objetos perdidos: </div>
@@ -24,6 +24,24 @@
         <div>eres un mega explorador</div>
         <div>nivel Indiana Jones</div>
     </div>
+    <!--  <div class="contenido objetos">
+        <h2 class="alias"> <strong>Objetos</strong></h2>
+        <div *ngIf="!(arrUsuario[id]?.objetoPerdido)" class="perdidos">
+            <div>objetos perdidos: </div>
+            <div class="imagen">
+                <div *ngfor="let o of (arrUsuario[id]?.objetoPerdido[0])">
+                    <img src="{{o?.foto}}" alt="" title="">
+                </div>
+            </div>
+        </div>
+        <div class="encontrados">
+            <div>objetos encontrados: </div>
+            <div class="imagen">
+                <img src="" alt="" title="">
+            </div>
+        </div>
+
+    </div> -->
 </div>
 <!-- 👆 Usuario avatar--  FIN ------------------------------ -->
 <!-- {{ arrUsuario[id]|json }} -->

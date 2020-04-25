@@ -1,61 +1,168 @@
 <div class="interface">
+    <!-- ==================================================== -->
+    <!-- 👇 Modal mensaje-- Contenido genereal rooter ------------------------- -->
+    <div id="ModalMensaje" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalMensaje"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Enviar un mensaje a: "nombre" "imagen"</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Asunto del mensaje:</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Asunto">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Mensaje</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- 👆 Modal mensaje--  FIN ------------------------------ -->
+    <!-- 👇 Modal mapa-- Contenido genereal rooter ------------------------- -->
+    <div id="ModalMapa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalMapa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true">
+                        <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen" [zIndex]="100">
+                            <agm-info-window>
+                                Tu, turu ru<br>:P
+                            </agm-info-window>
+                        </agm-marker>
+                    </agm-map>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 👆 Modal mapa--  FIN ------------------------------ -->
+    <!-- ==================================================== -->
     <!-- 👇 INICIO -- Contenido genereal rooter ------------------------- -->
-    <div class="container-fluid h-100">
-        <section class="wrapper h-100">
+    <div class="container-fluid">
+        <section class="wrapper">
             <!-- 👇 Pantalla inicial --  INICIO ------------------------------ -->
-            <div class="row h-100">
-                <article class="h-100">
-                    <div class="col-12 h-100">
-                        <!-- ==================================================== -->
-                        <!-- 👇 Contenido frid --  INICIO ------------------------------ -->
+            <div class="row">
+
+                <div class="col-12 col-xl-3">
+                    <h1>Objetos perdidos<br>y encontrados</h1>
+                    <div class="buscador">
+                        <div class="form-group">
+                            <form>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Recipient's username"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button"
+                                            id="button-addon2">Buscar</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="objetos-muestras">
+                            <div class="objeto-muestra-imagen" *ngFor="let o of arrObjeto">
+                                <a
+                                    href="/objeto#{{o?.usuario[0].ID}}{{o?.usuario[0].nombre| slice:1:2}}{{o?.nombre| slice:1:2}}{{o?.usuario[0].apellido| slice:1:2}}">
+                                    <img src="{{o.foto | urlimg }}" class="card-img-top"
+                                        alt="objeto {{o.nombre}} de {{o?.usuario[0].nombre}}"
+                                        title="objeto {{o.nombre}} de {{o?.usuario[0].nombre}}"></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-xl-9">
+                    <!-- ==================================================== -->
+                    <!-- 👇 Contenido frid --  INICIO ------------------------------ -->
+                    <article>
                         <div class="div-flex">
                             <!-- 👇 Objetos inicial --  INICIO ------------------------------ -->
                             <div class="card-columns">
-                                <div class="card" *ngFor="let o of arrObjeto">
-                                    <img src="{{o.foto | urlimg }}" class="card-img-top" alt="...">
+                                <div *ngFor="let o of arrObjeto">
+                                    <div id="{{o?.usuario[0].ID}}{{o?.usuario[0].nombre| slice:1:2}}{{o?.nombre| slice:1:2}}{{o?.usuario[0].apellido| slice:1:2}}"
+                                        class="card">
+                                        <img src="{{o?.foto | urlimg }}" class="card-img-top"
+                                            alt="objeto {{o?.nombre}} de {{o?.usuario[0].nombre}} {{o?.usuario[0].apellido}}"
+                                            title="objeto
+                                            {{o?.nombre}} de {{o?.usuario[0].nombre}} {{o?.usuario[0].apellido}}">
+                                        <!-- {{o?.usuario[0].ID}}{{o?.usuario[0].nombre| slice:1:2}}{{o?.nombre| slice:1:2}}{{o?.usuario[0].apellido| slice:1:2}} -->
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{o.nombre}}</h5>
+                                            <p class="card-text"><span style="transform: scaleX(-1);"
+                                                    class="material-icons">
+                                                    format_quote
+                                                </span>{{o.descripcion}}<span class="material-icons">
+                                                    format_quote
+                                                </span></p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item ">
+                                                <div class="usuario"><strong>@{{o.usuario[0].alias}}</strong><img
+                                                        src="{{o?.usuario[0].foto |urlimg }}"
+                                                        alt="@{{o?.usuario[0].alias}}" title="@{{o?.usuario[0].alias}}">
+                                                </div>
+                                            </li>
+                                            <li *ngIf="(o?.perdido)==1" class="list-group-item fecha">
 
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{o.nombre}}</h5>
-                                        <p class="card-text"><span style="transform: scaleX(-1);"
-                                                class="material-icons">
-                                                format_quote
-                                            </span>{{o.descripcion}}<span class="material-icons">
-                                                format_quote
-                                            </span></p>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item ">
-                                            <div class="usuario"><strong>@{{o.usuario[0].alias}}</strong><img
-                                                    src="{{o.usuario[0].foto |urlimg }}" alt="@{{o.usuario[0].alias}}"
-                                                    title="@{{o.usuario[0].alias}}">
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item fecha"><span class="material-icons">
-                                                insert_invitation
-                                            </span> Perdido el: "fecha"</li>
-                                        <li class="list-group-item fecha"><span class="material-icons">
-                                                insert_invitation
-                                            </span> Encontrado el: "fecha"</li>
-                                    </ul>
-                                    <div class="card-body botones">
-                                        <a href="#" class="card-link"><span class="material-icons">
-                                                insert_comment
-                                            </span></a>
-                                        <a href="#" class="card-link"><span class="material-icons">
-                                                location_on
-                                            </span></a>
+                                                <span class="material-icons">
+                                                    insert_invitation
+                                                </span> Perdido el: {{o?.fecha_perdido | date : 'yyyy-MM-dd'}}</li>
+                                            <li *ngIf="(o?.encontrado)==1" class=" list-group-item fecha"><span
+                                                    class="material-icons">
+                                                    insert_invitation
+                                                </span> Encontrado el: {{o?.fecha_encontrado | date : 'yyyy-MM-dd'}}
+                                            </li>
+                                        </ul>
+                                        <div class="card-body botones">
+                                            <a href="#Modalmensaje" data-target="#ModalMensaje" data-toggle="modal"
+                                                class="card-link" title="enviar mensaje a {{o?.usuario.alias}}"><span
+                                                    class="material-icons">
+                                                    insert_comment
+                                                </span></a>
+                                            <a href="#ModalMapa" data-target="#ModalMapa" data-toggle="modal"
+                                                class="card-link"
+                                                title="ver el objeto {{o?.nombre}} de {{o?.usuario.alias}}">
+                                                <span class="material-icons">
+                                                    location_on
+                                                </span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- 👆 Objetos inicial --  FIN ------------------------------ -->
                         </div>
-                        <!-- 👆 Contenido frid --  FIN ------------------------------ -->
-                        <!-- ==================================================== -->
-                    </div>
-                </article>
+                    </article>
+                    <!-- 👆 Contenido frid --  FIN ------------------------------ -->
+                    <!-- ==================================================== -->
+                </div>
+
             </div>
             <!-- 👆 Pantalla inicial --  FIN ------------------------------ -->
         </section>
     </div>
 </div>
+<script type="text/javascript">
+    $('#ModaMensaje').modal(options);
+    $('#ModalMapa').modal(options);
+</script>

@@ -2,7 +2,9 @@ import { Component, ElementRef, NgModule, NgZone, OnInit, ViewChild, Application
 import { MapsAPILoader, AgmMap, GoogleMapsAPIWrapper, MouseEvent, AgmGeocoder } from '@agm/core';
 import { FicticioModel } from 'src/app/models/ficticio.model';
 import { FicticioService } from 'src/app/services/ficticio.service';
-
+import { NumberSymbol } from '@angular/common';
+import { FormControl } from '@angular/forms';
+//import { } from 'googlemaps';
 
 /* import { GoogleMap } from '@angular/google-maps'; */
 declare var google;
@@ -15,18 +17,26 @@ declare var google;
 export class MapaComponent implements OnInit {
   //declaracoin de variables
 
-  lat: number;
-  lng: number;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  //plaza callao
+  lat: number = 40.4196577;
+  lng: number = -3.70707;
+  direccion: void;
+  zoom: number;
+
+  latlongs: any = [];
+  latlong: any = {};
+  searchControl: FormControl;
+
   imagen: string;
   urlimg: string = "../../../assets/img/";
 
   ficticio: FicticioModel[];
   arrFicticio: FicticioModel[];
-  numficticio: number = 15;
+  numficticio: number = 10;
 
   visitante: number;
-  zoom: number;
-  direccion: string;
 
   geocoder: any;
   infowindow: any;
@@ -36,45 +46,97 @@ export class MapaComponent implements OnInit {
     position: 2
   };
 
-  constructor(private ficticioSerivice: FicticioService) {
+  constructor(private ficticioSerivice: FicticioService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     this.ficticio = [];
   }
 
   async ngOnInit() {
     //inicializacion de valores
-    this.arrFicticio = await this.ficticioSerivice.FicticioVer();
-    this.zoom = 20;
-    this.geocoder = new google.maps.Geocoder();
+    //plaza callao
+    this.lat;
+    this.lng;
+    this.direccion;
+    this.zoom = 19;
     this.imagen = `${this.urlimg}icon-aqui.png`;
-    //funciones
-    this.ObtenerLatLngnUsuarioNavegador(); //para que el mapa se inicie donde esta el usuario, segun el navegador
-    /* this.infowindow = new google.maps.InfoWindow; */
-    /*    this.MarcaAleatoria(); */
-    setTimeout(this.MarcaAleatoria.bind(this), 3000);
+
+    this.searchControl = new FormControl;
+    this.geocoder = new google.maps.Geocoder();
+    //funciones iniciales
+    //*Lo he anulado para que no haga llamadas cada vez que se carga: 
+    this.setCurrentPosition();//para que el mapa se inicie donde esta el usuario, segun el navegador
+    //buscador de localizacion
+    this.Buscador();
+    this.arrFicticio = await this.ficticioSerivice.FicticioVer();
+    //*Lo he anulado para que no haga llamadas cada vez que se carga:
+    setTimeout(this.MarcaAleatoria.bind(this), 2000);
   }
 
-  private ObtenerLatLngnUsuarioNavegador() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+  private Buscador() {
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: [],
+        componentRestrictions: { 'country': 'es' }
+      });
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          };
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.direccion = this.DireccionTxt(this.lat, this.lng);
+          setTimeout(this.MarcaAleatoria.bind(this), 2000);
+          this.searchControl.reset();
+        });
+      });
+    });
+  }
+
+  private BuscadorRepetirMarcador() {
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: [],
+        componentRestrictions: { 'country': 'es' }
+      });
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          };
+          const latlong = {
+            latitude: place.geometry.location.lat(),
+            longitud: place.geometry.location.lng()
+          };
+          this.latlongs.push(latlong);
+          this.searchControl.reset();
+        });
+      });
+    });
+    //! Incluir este marcador para que se vayan añadiendo marcadores:
+    /* <agm-marker[latitude]="lat"[longitude] = "lng"[iconUrl] = "imagen"[zIndex] = "100" >
+      <agm-info - window * ngFor="let latlong of latlongs"[latitude] = "latlong.latitude"[longitude] = "latlong.longitude" >
+        Tu, turu ru<br>: P
+          < /agm-info-window>
+          < /agm-marker> */
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        const dire = this.DireccionTxt(this.lat, this.lng);
-        /* console.log("this.DireccionTxt: " + dire) */
-
-      });
-    };
+        this.direccion = this.DireccionTxt(this.lat, this.lng);
+      })
+    }
   }
 
   private MarcaAleatoria() {
 
     for (let i = 0; i <= this.numficticio; i++) {
-      const objetnum = Math.random() * ((0 - this.arrFicticio.length) + this.arrFicticio.length);
-      console.log("this.arrFicticio.length" + this.arrFicticio.length);
-      console.log("objetonum" + objetnum);
+      const objetnum = Math.floor(Math.random() * ((this.arrFicticio.length - 0) + 0));
       const newCoor = this.Coordenadas(this.lat, this.lng)
-      /* const newLat = this.lat + (Math.random() * (0.0005 - 0.00005));
-      const newLng = this.lng + (Math.random() * (0.0005 - 0.00005)); */
-
       const ficticionew = new FicticioModel(newCoor[0], newCoor[1]);
       ficticionew.nombre = this.arrFicticio[objetnum].nombre;
       ficticionew.foto = this.urlimg + this.arrFicticio[objetnum].foto;
@@ -99,8 +161,10 @@ export class MapaComponent implements OnInit {
      
        console.log(this.ficticio);} */
   }
+
   private Coordenadas(lat, lng) {
-    const r = 100 / 111300 // = 100 meters
+    /* const r = 100 / 111300 // = 100 meters */
+    const r = 100 / 90000
     const y0 = lat;
     const x0 = lng;
     const u = Math.random()
@@ -119,11 +183,8 @@ export class MapaComponent implements OnInit {
 
   private DireccionTxt(plat, pLng) {
     this.geocoder.geocode({ 'location': { lat: plat, lng: pLng } }, (results, status) => {
-      /* console.log(results);
-      console.log(status); */
       if (status === 'OK') {
         if (results[0]) {
-          /* console.log('aaaa'); */
           this.direccion = results[0].formatted_address;
           // this.searchElementRef.nativeElement.value = results[0].formatted_address);
           // console.log(this.searchElementRef.nativeElement.value);
@@ -134,13 +195,8 @@ export class MapaComponent implements OnInit {
         }
       } else {
         window.alert('Geocoder failed due to: ' + status);
-      }
-
+      };
     });
   };
-
-
-
-
 
 }

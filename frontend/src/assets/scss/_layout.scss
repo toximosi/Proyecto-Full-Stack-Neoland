@@ -5,8 +5,18 @@ body {
   height: 100%;
   width: 100%;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   display: flex;
+  padding: 0 !important;
+}
+.modal-open {
+  overflow: auto !important;
+}
+.modal {
+  padding-right: 0px !important;
 }
 .interface {
   min-height: calc(100% - #{$anchoMenu * 2});

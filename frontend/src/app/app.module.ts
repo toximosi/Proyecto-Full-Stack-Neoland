@@ -7,13 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 //Externos
 //Para el mapa:
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 // importacion Font-iconos de font awesome: https://fontawesome.com/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //-------------------------------------------------------------------------------------------------------------------
 //Componentes
@@ -47,6 +48,7 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
 //Pipes ---------------------------------------------------------------------------------------------------------
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { UrlimgPipe } from './pipes/urlimg.pipe';
+
 
 /* import { secret } from './../../secret/secret.js'; */
 
@@ -82,6 +84,7 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     //Externos
     /*GoogleMapsModule AGM */
     AgmCoreModule.forRoot({
@@ -91,7 +94,8 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
       libraries: ['places']
     }),
     // Font iconos de font awesome: https://fontawesome.com/
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule
   ],
   providers: [
     //aunque los sercivios tienen el "providedIn: 'root'", lo incluimos por si acaso

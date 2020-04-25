@@ -5,16 +5,30 @@
         <h1>Objetos perdidos por "usuario[id].nombre"</h1>
 
         <div class="card-columns">
+            <button class="btn btn-primary">Crear objeto</button>
+            <div class="card text-center" *ngFor="let o of arrObjeto">
 
-            <div class="card text-center" *ngFor="let objeto of objeto">
-                <img src="{{objeto.foto | urlimg}}" class="card-img-top" alt="{{objeto.nombre}}">
+                <img src="{{o?.foto | urlimg}}" class="card-img-top" alt="{{o?.nombre}}">
+                <div class="estado">
+                    <span *ngIf="(o?.perdido) == 1">Perdido</span>
+                    <span *ngIf="(((o?.perdido) == 1) && ((o?.encontrado) == 1))"> / </span>
+                    <span *ngIf="(o?.encontrado) == 1">Encontrado</span>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{objeto.nombre}}</h5>
-                    <p class="card-text">"{{objeto.descripcion}}"</p>
+
+                    <h5 class=" card-title">{{o?.nombre}}</h5>
+                    <p class="card-text">"{{o?.descripcion}}"</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><span>Perdido</span> | <span>Encontrado</span></li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li *ngIf="(o?.perdido)==1" class="list-group-item fecha">
+
+                        <span class="material-icons">
+                            insert_invitation
+                        </span> Perdido el: {{o?.fecha_perdido | date : 'yyyy-MM-dd'}}</li>
+                    <li *ngIf="(o?.encontrado)==1" class=" list-group-item fecha"><span class="material-icons">
+                            insert_invitation
+                        </span> Encontrado el: {{o?.fecha_encontrado | date : 'yyyy-MM-dd'}}</li>
+
                     <li class="list-group-item">Vestibulum at eros</li>
                 </ul>
                 <div class="card-body">

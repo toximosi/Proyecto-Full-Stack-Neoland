@@ -5,8 +5,11 @@
     </span>
   </div>
   <div class="registro">
-    <div><strong>Que alegría verte</strong>, ¿quieres <a [routerLink]="['login']" routerLinkActive="active"
-        class=" a-color" href="#" title="iniciar sesión" alt="iniciar sesión">
+    <div><strong>Que alegría verte</strong>, ¿quieres
+      <!-- <a [routerLink]="['login']" routerLinkActive="active"
+        class=" a-color" href="#" title="iniciar sesión" alt="iniciar sesión"> -->
+      <a class="a-color" data-toggle="modal" href="#ModalLogin" title="iniciar sesión" alt="iniciar sesión">
+
         iniciar
         sesión </a> o <a [routerLink]="['registro']" routerLinkActive="active" class="a-color" title="registrate"
         alt="registrate"> registrate </a>?</div>

@@ -4,35 +4,36 @@ const moment = require('moment');
 const fs = require('fs');
 const secret = require('../secret/secrets');
 
-
 //Token por head
-exports.checkToken = (req, res, next) => {
+exports.checkTokenHeader = (req, res, next) => {
     // Compruebo si el token está presente en las cabeceras
     if (!req.headers['user-token']) {
-        return res.json({ error: 'Debes incluir el token' });
+        return res.json({ "error": 'Debes incluir el token' });
     }
-
     // Compruebo si el token es correcto
     const userToken = req.headers['user-token'];
-    let obj = {};
+    let obj = {
+        /* "usuarioID: usuario.ID,
+        "createdAt": moment().unix(),
+        "expiredAt": moment().add(15, 'days').unix() */
+    };
     try {
         obj = jwt.verify(userToken, secret.jwt_clave)
     } catch (err) {
-        return res.json({ error: 'El token es incorrecto' })
+        return res.json({ "error": 'El token es incorrecto' })
     }
-
     // Compruebo si el token está caducado
     if (moment().unix() > obj.expiredAt) {
-        return res.json({ error: 'El token está caducado' });
+        return res.json({ "error": 'El token está caducado' });
     }
 
-    req.usuarioId = obj.id;
-    fs.appendFileSync('./registro.log', `${moment().format('DD-MM-YYYY hh:mm.ss')} USER:${req.usuarioId} ${req.method} ${req.url}\n`)
+    req.usuarioID = obj.id;
+    fs.appendFileSync('./registro.log', `${moment().format('DD-MM-YYYY hh:mm.ss')} USER:${req.usuarioID} ${req.method} ${req.url}\n`)
 
     next();
 }
 
-exports.checkAdmin = async (req, res, next) => {
+/* exports.checkAdmin = async (req, res, next) => {
 
     const isAdmin = await User.isAdmin(req.usuarioId);
 
@@ -41,9 +42,11 @@ exports.checkAdmin = async (req, res, next) => {
     } else {
         res.json({ error: 'El usuario debe ser administrador' });
     }
-}
+} */
+
+
 //Token por body
-/* exports.checkToken = (req, res, next) => {
+exports.checkTokenBody = (req, res, next) => {
     if (req.path !== "/login" && req.path !== "/usuario/nuevo") {
         if (req.cookies["cookie_lostthing"] !== undefined) {
             jwt.verify(
@@ -64,4 +67,4 @@ exports.checkAdmin = async (req, res, next) => {
     } else {
         next();
     };
-}; */
+};

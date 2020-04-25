@@ -2,9 +2,9 @@ const connection = require('./db.model');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
-exports.ObjetoNuevoModel = (nombre, foto, descripcion, perdido, encontrado, fecha_perdida, latitud_perdida, longitud_perdida, fecha_encontrado, latitud_encontrado, longitud_encontrado) => {
+exports.ObjetoNuevoModel = (nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado) => {
     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO objeto (nombre, foto, descripcion, perdido, encontrado, fecha_perdida, latitud_perdida, longitud_perdida, fecha_encontrado, latitud_encontrado, longitud_encontrado) VALUE (?,?,?,?,?,?,?,?,?,?,?);`, [nombre, foto, descripcion, perdido, encontrado, fecha_perdida, latitud_perdida, longitud_perdida, fecha_encontrado, latitud_encontrado, longitud_encontrado])
+        connection.query(`INSERT INTO objeto (nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado) VALUE (?,?,?,?,?,?,?,?,?,?,?);`, [nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado])
             .then(result => resolve(result))
             .catch(error => reject("Error ObjetoNuevoModel: " + error));
     });
@@ -28,7 +28,7 @@ exports.ObjetoVerIdModel = (ID) => {
 };
 
 // crrUd : UPLOAD --> actualizar objetos por su id
-exports.ObjetoCambiarModel = (ID, nombre, foto, descripcion, perdido, encontrado, fecha_perdida, latitud_perdida, longitud_perdida, fecha_encontrado, latitud_encontrado, longitud_encontrado) => {
+exports.ObjetoCambiarModel = (ID, nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado) => {
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE objeto SET
             nombre = ?,
@@ -36,13 +36,13 @@ exports.ObjetoCambiarModel = (ID, nombre, foto, descripcion, perdido, encontrado
             descripcion = ?,
             perdido = ?,
             encontrado = ?,
-            fecha_perdida = ?,
-            latitud_perdida = ?,
-            longitud_perdida = ?,
+            fecha_perdido = ?,
+            latitud_perdido = ?,
+            longitud_perdido = ?,
             fecha_encontrado = ?,
             latitud_encontrado = ?,
             longitud_encontrado = ?
-            WHERE ID= ${ID};`, [nombre, foto, descripcion, perdido, encontrado, fecha_perdida, latitud_perdida, longitud_perdida, fecha_encontrado, latitud_encontrado, longitud_encontrado])
+            WHERE ID= ${ID};`, [nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado])
             .then(result => resolve(result))
             .catch(error => reject("Error ObjetoCambiarModel: " + error));
     });

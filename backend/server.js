@@ -4,9 +4,9 @@ const express = require('express');// express --> para crear el servidor
 const helmet = require('helmet');// helmet --> para ayudarnos con la seguridad del servidor
 const bodyParser = require('body-parser');// parsea la el body
 const cookieParser = require('cookie-parser');//incluir una cookie de seguimiento en el ¿body?
-//const jwtController = require('./middleware/jwt.middleware');
 const { check } = require('express-validator');// valida el body
 const cors = require('cors');
+//const middlewares = require('./middlewares/jwt.middleware')//importamos los middleware
 
 require('dotenv').config();//para el archivo de entorno de .env
 // CONTROLADORES -- importar controladores --------------------------------------------------
@@ -27,11 +27,16 @@ server.use(helmet());//Servidor protegido :)
 server.use(bodyParser.json());//parseamose el body al estilo json, así puedo acceder a sus propiedades como si fuera  un objeto
 server.use(cookieParser());//incluye una cookie en el navegador para saber si el usuario esta registrado
 //server.use(jwtController.checkToken());
-//server.us(express.static('static'));//servidor estático:
-server.use(cors());
+//server.use(express.static('static'));//servidor estático:
+//server.use(express.static(path.join(__dirname, 'public')));//servidor estático:
+server.use(cors());//si no se pone esto va a dar problemas entre llamadas de localhoster
 
 // 👇 AQUÍ EMPIEZA LA API -------------------------------------------
 //! ENDPOINTS ---------------------------------------------------------
+
+//server.post("/objeto-prueba", ObjetoController.ObjetoVer);
+
+
 
 //* 👌 usuario INICIO ----------------------------------------------------
 server.get("/usuario", UsuarioController.UsuarioVer);// ver usuario
@@ -53,9 +58,9 @@ server.get("/usuario-completo", UsuarioController.UsuarioCompleto);//obtener las
 server.get("/usuario-completo/:ID", UsuarioController.UsuarioCompletoID);//obtener las conversaciones del usuario
 server.post("/login", [
     //check('alias').isString().escape().trim(),
-    check('nombre').isString(),
+    /* check('nombre').isString(), */
     check('email').isEmail(),
-    check('password').isString(),
+    check('password').isString()
 ], UsuarioController.UsuarioLogin);//login con hash
 //* usuario FIN -------------------------------------------------------
 
@@ -68,9 +73,9 @@ server.post("/objeto/nuevo", [
     check('descripcion').isAlphanumeric().trim(),
     check('perdido').isNumeric(),
     check('encontrado').isNumeric(),
-    check('fecha_perdida').isAlphanumeric(),
-    check('latitud_perdida').isNumeric(),
-    check('longitud_perdida').isNumeric(),
+    check('fecha_perdido').isAlphanumeric(),
+    check('latitud_perdido').isNumeric(),
+    check('longitud_perdido').isNumeric(),
     check('fecha_encontrado').isAlphanumeric(),
     check('latitud_encontrado').isNumeric(),
     check('longitud_encontrado').isNumeric()

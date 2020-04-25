@@ -3,6 +3,7 @@ const secret = require('../secret/secrets');
 const { validationResult } = require('express-validator');// valida el body
 const bcrypt = require('bcryptjs');//hashear contraseñas
 const jwt = require('jsonwebtoken');//token para que se mantenga la sesión abierta del usuario
+const moment = require('moment');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo usuario
@@ -76,6 +77,7 @@ exports.UsuarioVerId = async (req, res) => {
 };
 //crrUd : UPLOAD --> actualizar usuario
 exports.UsuarioCambiar = async (req, res) => {
+    const hash = await bcrypt.hash(req.body.password, 14);//hashear la contraseña para que tenga más seguridad
 
     const ID = req.body.ID;
     const alias = req.body.alias;
@@ -83,7 +85,7 @@ exports.UsuarioCambiar = async (req, res) => {
     const apellidos = req.body.apellidos;
     const edad = req.body.edad;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = hash;//passwoord hasheada
     const foto = req.body.foto;
 
     const errors = validationResult(req)//Ejecuta las validaciones
@@ -272,7 +274,7 @@ exports.UsuarioLogin = async (req, res) => {
     const nombre = req.body.nombre;
     const email = req.body.email;
     const password = req.body.password;
-    console.log(password);
+    /* console.log(password); */
     const errors = validationResult(req);//Ejecuta las validaciones 
 
     try {
@@ -280,25 +282,25 @@ exports.UsuarioLogin = async (req, res) => {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
             const usuario = await UsuarioModel.UsuarioLoginModel(nombre, email);
-            /* console.log(usuario[0]);
-            console.log(usuario.length);
-            console.log(usuario[0].password);
-            console.log(password); */
             if (usuario.length > 0) {
                 const coincidencia = bcrypt.compareSync(password, usuario[0].password);
-                console.log(coincidencia);
-                /* console.log("coincidencia: " + coincidencia)
-                console.log("usuario[0].password: " + usuario[0].password) */
                 if (coincidencia) {
                     jwt.sign(
-                        { "userID": usuario.ID },
+                        {
+                            // crear Token con las siguientes características:
+                            "usuarioID": usuario.ID,
+                            "createdAt": moment().unix(),
+                            "expiredAt": moment().add(15, 'days').unix()
+                        },
                         secret.jwt_clave,
                         (error, token) => {
                             if (error) {
                                 res.send("Error Token: " + error);
                             } else {
                                 res.cookie("cookie_lostthing", token);
-                                res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado" });
+                                //! incluir en el header???????????
+                                //res.send("user-token", token);
+                                res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado", "token": token });
                             };
                         });
                     //res.send({ "message": " 👍 Ok, tu contraseña coincide" })
@@ -314,6 +316,8 @@ exports.UsuarioLogin = async (req, res) => {
         res.send("Error UsuarioCambiarControler: " + error);
     };
 };
+
+// crear Token con las siguientes características:
 /* const createToken = (user) => {
     const obj = {
         id: user.id,

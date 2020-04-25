@@ -17,9 +17,9 @@ export class UsuarioModel {
     descripcion: string;
     perdido: number;
     encontrado: number;
-    fecha_perdida: any;
-    latitud_perdida: number;
-    longitud_perdida: number;
+    fecha_perdido: any;
+    latitud_perdido: number;
+    longitud_perdido: number;
     fecha_encontrado: null;
     latitud_encontrado: null;
     longitud_encontrado: null;
@@ -46,9 +46,9 @@ export class UsuarioModel {
     descripcion: string;
     perdido: number;
     encontrado: number;
-    fecha_perdida: any;
-    latitud_perdida: number;
-    longitud_perdida: number;
+    fecha_perdido: any;
+    latitud_perdido: number;
+    longitud_perdido: number;
     fecha_encontrado: null;
     latitud_encontrado: null;
     longitud_encontrado: null;
