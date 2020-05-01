@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');// parsea la el body
 const cookieParser = require('cookie-parser');//incluir una cookie de seguimiento en el ¿body?
 const { check } = require('express-validator');// valida el body
 const cors = require('cors');
-//const middlewares = require('./middlewares/jwt.middleware')//importamos los middleware
+const middlewares = require('./middlewares/jwt.middleware')//importamos los middleware
 
 require('dotenv').config();//para el archivo de entorno de .env
 // CONTROLADORES -- importar controladores --------------------------------------------------
@@ -21,7 +21,7 @@ const FicticioController = require('./controllers/ficticio.controller');
 
 //* 👌 montamos el servidor, Oh yeah!!  -----------------------------
 const server = express();
-
+require('dotenv').config();
 //* MIDDLEWARE al ataque!!!! 
 server.use(helmet());//Servidor protegido :)
 server.use(bodyParser.json());//parseamose el body al estilo json, así puedo acceder a sus propiedades como si fuera  un objeto
@@ -34,12 +34,12 @@ server.use(cors());//si no se pone esto va a dar problemas entre llamadas de loc
 // 👇 AQUÍ EMPIEZA LA API -------------------------------------------
 //! ENDPOINTS ---------------------------------------------------------
 
-//server.post("/objeto-prueba", ObjetoController.ObjetoVer);
+/* server.get("/objeto-prueba", middlewares.checkTokenHeader, ObjetoController.ObjetoVer); */
 
 
 
 //* 👌 usuario INICIO ----------------------------------------------------
-server.get("/usuario", UsuarioController.UsuarioVer);// ver usuario
+server.get("/usuario", middlewares.checkTokenHeader, UsuarioController.UsuarioVer);// ver usuario
 server.get("/usuario/:ID", UsuarioController.UsuarioVerId);// ver usuario por ID
 server.post("/usuario/nuevo", [
     check('alias').isString().escape().trim(),
@@ -167,7 +167,11 @@ server.get("/test", (req, res) => { res.send(" 🖐 Hola Mundo!!!!"); });
 //! LISTEN --------------------------------------------------------------
 // --> llamada al servidor en el puerto 3000
 //const PORT = process.env.PORT;
+
 const PORT = process.argv[2];
+console.log(process.env.PORT);
+
 server.listen(process.env.PORT || PORT, () => {
+
     console.log(`👾 Servidor escuchando en el puerto ${PORT} 👾`);
 });//nodemon server.js 3000

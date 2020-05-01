@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-usuario',
@@ -9,22 +11,32 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 })
 export class UsuarioComponent implements OnInit {
 
+
   id: number;
   arrUsuario: UsuarioModel[];
 
-  constructor(private usuarioService: UsuarioService) {
+  constructor(private usuarioService: UsuarioService, private router: Router) {
     this.arrUsuario = [];
     this.id = 0;
+
   }
 
   ngOnInit(): void {
+    this.usuarioService.UsuarioVer()
+      .then(res => {
+        /* console.log(res) */
+        if (res['error']) {
+          this.router.navigate['/login'];
+        }
+      })
+      .catch(err => console.log(err));
 
-    /* this.usuarioService.UsuarioId(this.id)
+    this.usuarioService.UsuarioId(this.id)
       .then(pUsuario => {
         this.arrUsuario = pUsuario;
-        console.log(pUsuario);
-      }).catch(error => console.log("Error UsuarioVer: " + error));
-    console.log */
+        /*  console.log(pUsuario); */
+      }).catch(error => console.log("Error UsuarioVer: " + error.message));
+
 
     /* this.usuarioService.Usuario()
           .then(pUsuario => {

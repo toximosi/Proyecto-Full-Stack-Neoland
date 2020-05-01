@@ -1,12 +1,10 @@
 import { Component, ElementRef, NgModule, NgZone, OnInit, ViewChild, ApplicationRef } from '@angular/core';
-import { MapsAPILoader, AgmMap, GoogleMapsAPIWrapper, MouseEvent, AgmGeocoder } from '@agm/core';
+import { MapsAPILoader, AgmMap, GoogleMapsAPIWrapper, MouseEvent, AgmGeocoder, InfoWindowManager } from '@agm/core';
 import { FicticioModel } from 'src/app/models/ficticio.model';
 import { FicticioService } from 'src/app/services/ficticio.service';
 import { NumberSymbol } from '@angular/common';
 import { FormControl } from '@angular/forms';
-//import { } from 'googlemaps';
 
-/* import { GoogleMap } from '@angular/google-maps'; */
 declare var google;
 
 @Component({
@@ -16,7 +14,6 @@ declare var google;
 })
 export class MapaComponent implements OnInit {
   //declaracoin de variables
-
   @ViewChild('search')
   public searchElementRef: ElementRef;
   //plaza callao
@@ -30,7 +27,7 @@ export class MapaComponent implements OnInit {
   searchControl: FormControl;
 
   imagen: string;
-  urlimg: string = "../../../assets/img/";
+  /*   urlimg: string;//envirment. */
 
   ficticio: FicticioModel[];
   arrFicticio: FicticioModel[];
@@ -46,8 +43,12 @@ export class MapaComponent implements OnInit {
     position: 2
   };
 
-  constructor(private ficticioSerivice: FicticioService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+  constructor(
+    private ficticioSerivice: FicticioService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) {
     this.ficticio = [];
+    /*     this.urlimg = environment.imgUrl; */
   }
 
   async ngOnInit() {
@@ -57,7 +58,7 @@ export class MapaComponent implements OnInit {
     this.lng;
     this.direccion;
     this.zoom = 19;
-    this.imagen = `${this.urlimg}icon-aqui.png`;
+    this.imagen = `icon-aqui.png`;
 
     this.searchControl = new FormControl;
     this.geocoder = new google.maps.Geocoder();
@@ -139,27 +140,12 @@ export class MapaComponent implements OnInit {
       const newCoor = this.Coordenadas(this.lat, this.lng)
       const ficticionew = new FicticioModel(newCoor[0], newCoor[1]);
       ficticionew.nombre = this.arrFicticio[objetnum].nombre;
-      ficticionew.foto = this.urlimg + this.arrFicticio[objetnum].foto;
-      ficticionew.icono = this.urlimg + this.arrFicticio[objetnum].icono;
+      ficticionew.foto = this.arrFicticio[objetnum].foto;
+      ficticionew.icono = this.arrFicticio[objetnum].icono;
       ficticionew.descripcion = this.arrFicticio[objetnum].descripcion;
       /*  ficticionew.direccion = this.DireccionTxt(ficticionew.latitud, ficticionew.longitud); */
       this.ficticio.push(ficticionew);
-
-      /* console.log(this.ficticio); */
     };
-    /* for (let i = 0; i < this.arrFicticio.length; i++) {
-         const newLat = this.lat + (Math.random() * (0.0005 - 0.00005));
-       const newLng = this.lng + (Math.random() * (0.0005 - 0.00005));
-     
-       const ficticio1 = new FicticioModel(newLat, newLng);
-       ficticio1.nombre = this.arrFicticio[0].nombre;
-       ficticio1.foto = this.urlimg + this.arrFicticio[0].foto;
-       ficticio1.icono = this.urlimg + this.arrFicticio[0].icono;
-       ficticio1.descripcion = this.arrFicticio[0].descripcion;
-     
-       this.ficticio.push(ficticio1);
-     
-       console.log(this.ficticio);} */
   }
 
   private Coordenadas(lat, lng) {
@@ -198,5 +184,21 @@ export class MapaComponent implements OnInit {
       };
     });
   };
+
+  onMouseOver2(infoWindow, gm) {
+    /* this.infoWindowManager.addInfoWindow(infoWindow); */
+    if (gm.lastOpen && gm.lastOpen.isOpen) {
+      gm.lastOpen.close();
+    }
+    gm.lastOpen = infoWindow;
+    infoWindow.open();
+  }
+  onMouseOver(infoWindow, $event: MouseEvent) {
+    infoWindow.open();
+  }
+
+  onMouseOut(infoWindow, $event: MouseEvent) {
+    infoWindow.close();
+  }
 
 }

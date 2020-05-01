@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuarioModel } from '../models/usuario.model';
 
 @Injectable({
@@ -16,11 +16,16 @@ export class UsuarioService {
 
   //Conexión son los endpoint de backend ------------------------------------------
   UsuarioVer(): Promise<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/usuario`).toPromise();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'token': localStorage.getItem('token')
+      })
+    }
+    return this.http.get<any[]>(`${this.baseUrl}/usuario`, httpOptions).toPromise();
   };
 
   UsuarioId(ID): Promise<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/usuario/:${ID}`).toPromise();
+    return this.http.get<any[]>(`${this.baseUrl}/usuario/${ID}`).toPromise();
   };
 
   UsuarioCompleto(): Promise<any[]> {
@@ -28,9 +33,8 @@ export class UsuarioService {
   };
 
   UsuarioCompletoId(ID): Promise<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/usuario-completo/:${ID}`).toPromise();
+    return this.http.get<any[]>(`${this.baseUrl}/usuario-completo/${ID}`).toPromise();
   };
-
 
   UsuarioNuevo(formValue): Promise<any[]> {
     return this.http.post<any[]>(`${this.baseUrl}/usuario/nuevo`, formValue).toPromise();

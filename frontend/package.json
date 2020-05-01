@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.1.0",
+    "@agm/js-marker-clusterer": "^1.1.0",
     "@angular/animations": "^9.0.7",
     "@angular/cdk": "^9.2.1",
     "@angular/common": "~9.0.3",
@@ -38,6 +39,7 @@
     "bootstrap": "^4.4.1",
     "geocoder": "^0.2.3",
     "jquery": "^1.9.1",
+    "js-marker-clusterer": "^1.0.0",
     "material-design-icons": "^3.0.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
@@ -54,6 +56,7 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "agm-overlays": "^2.0.0",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",

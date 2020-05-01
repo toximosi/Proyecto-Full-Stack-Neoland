@@ -5,13 +5,21 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Enviar un mensaje a: "nombre" "imagen"</h5>
+                <div class=" modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Enviar un mensaje a:
+                        {{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}
+                        <img src="{{arrObjeto[objetoSeleccionado]?.usuario[0].foto |urlimg }}"
+                            alt="@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}"
+                            title="@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}">
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- {{arrObjetoVer|json}} -->
+                    <!-- {{arrObjeto[objetoSeleccionado]?.ID}} -->
+                    {{arrObjeto[objetoSeleccionado]?.ID}}
                     <form>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Asunto del mensaje:</label>
@@ -21,6 +29,7 @@
                             <label for="exampleFormControlTextarea1">Mensaje</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
+                        <input type="hidden" name="usuario_id" value="valor usuario">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -36,18 +45,121 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+                    <div class="alias">
+                        <div class="avatar"><img src="{{arrObjeto[objetoSeleccionado]?.usuario[0].foto |urlimg }}"
+                                alt="@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}"
+                                title="@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}"></div>
+                        <strong>@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}</strong>
+                    </div>
+                    <div class="nombre">
+                        <h2>{{arrObjeto[objetoSeleccionado]?.nombre}}</h2>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true">
-                        <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen" [zIndex]="100">
-                            <agm-info-window>
-                                Tu, turu ru<br>:P
-                            </agm-info-window>
-                        </agm-marker>
-                    </agm-map>
+
+                    <!--                     <div
+                        *ngIf="(arrObjeto[objetoSeleccionado]?.perdido==1) && (arrObjeto[objetoSeleccionado]?.encontrado==1)">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                                role="tab" aria-controls="v-pills-home" aria-selected="true">Perdido</a>
+
+                            <a *ngIf="(arrObjeto[objetoSeleccionado]?.perdido==1)" class="nav-link active"
+                                id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                                aria-controls="v-pills-profile" aria-selected="false">Encontrado</a>
+                            <a *ngIf="(arrObjeto[objetoSeleccionado]?.encontrado==0)" class="nav-link"
+                                id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                                aria-controls="v-pills-profile" aria-selected="false">Encontrado</a>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div *ngIf="arrObjeto[objetoSeleccionado]?.perdido==1">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                                aria-labelledby="v-pills-home-tab">
+                                <agm-map [latitude]="arrObjeto[objetoSeleccionado]?.latitud_perdido"
+                                    [longitude]="arrObjeto[objetoSeleccionado]?.longitud_perdido" [zoom]="zoom"
+                                    [fullscreenControl]="true">
+                                    <agm-overlay [latitude]="arrObjeto[objetoSeleccionado]?.latitud_perdido"
+                                        [longitude]="arrObjeto[objetoSeleccionado]?.longitud_perdido">
+                                        <div>
+                                            <img style="cursor: pointer;" [ngClass]="'marca-mapa'"
+                                                src="{{arrObjeto[objetoSeleccionado]?.foto| urlimg}}" />
+                                        </div>
+                                    </agm-overlay>
+                                </agm-map>
+                            </div>
+                        </div>
+
+                        <div *ngIf="(arrObjeto[objetoSeleccionado]?.perdido==0) && (arrObjeto[objetoSeleccionado]?.encontrado==1)"
+                            class="tab-pane fade active" id="v-pills-profile" role="tabpanel"
+                            aria-labelledby="v-pills-profile-tab">
+                            <agm-map [latitude]="arrObjeto[objetoSeleccionado]?.latitud_encontrado"
+                                [longitude]="arrObjeto[objetoSeleccionado]?.longitud_encontrado" [zoom]="zoom"
+                                [fullscreenControl]="true">
+                                <agm-overlay [latitude]="arrObjeto[objetoSeleccionado]?.latitud_encontrado"
+                                    [longitude]="arrObjeto[objetoSeleccionado]?.longitud_encontrado">
+                                    <div>
+                                        <img style="cursor: pointer;" [ngClass]="'marca-mapa'"
+                                            src="{{arrObjeto[objetoSeleccionado]?.foto| urlimg}}" />
+
+                                    </div>
+                                </agm-overlay>
+                            </agm-map>
+                        </div>
+
+                        <div *ngIf="(arrObjeto[objetoSeleccionado]?.perdido==1) && (arrObjeto[objetoSeleccionado]?.encontrado==1)"
+                            class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                            aria-labelledby="v-pills-profile-tab">
+
+                            <agm-map [latitude]="arrObjeto[objetoSeleccionado]?.latitud_encontrado"
+                                [longitude]="arrObjeto[objetoSeleccionado]?.longitud_encontrado" [zoom]="zoom"
+                                [fullscreenControl]="true">
+                                <agm-overlay [latitude]="arrObjeto[objetoSeleccionado]?.latitud_encontrado"
+                                    [longitude]="arrObjeto[objetoSeleccionado]?.longitud_encontrado">
+                                    <div>
+                                        <img style="cursor: pointer;" [ngClass]="'marca-mapa'"
+                                            src="{{arrObjeto[objetoSeleccionado]?.foto| urlimg}}" />
+
+                                    </div>
+                                </agm-overlay>
+                            </agm-map>
+                        </div>
+
+
+                    </div> -->
+                    <div *ngIf="arrObjeto[objetoSeleccionado]?.perdido==1">
+                        <agm-map [latitude]="arrObjeto[objetoSeleccionado]?.latitud_perdido"
+                            [longitude]="arrObjeto[objetoSeleccionado]?.longitud_perdido" [zoom]="zoom"
+                            [fullscreenControl]="true">
+                            <agm-overlay [latitude]="arrObjeto[objetoSeleccionado]?.latitud_perdido"
+                                [longitude]="arrObjeto[objetoSeleccionado]?.longitud_perdido">
+                                <div>
+                                    <img style="cursor: pointer;" [ngClass]="'marca-mapa'"
+                                        src="{{arrObjeto[objetoSeleccionado]?.foto| urlimg}}" />
+                                </div>
+                            </agm-overlay>
+                        </agm-map>
+                    </div>
+                    <div *ngIf="arrObjeto[objetoSeleccionado]?.encontrado==1">
+                        <agm-map [latitude]="arrObjeto[objetoSeleccionado]?.latitud_encontrado"
+                            [longitude]="arrObjeto[objetoSeleccionado]?.longitud_encontrado" [zoom]="zoom"
+                            [fullscreenControl]="true">
+                            <agm-overlay [latitude]="arrObjeto[objetoSeleccionado]?.latitud_encontrado"
+                                [longitude]="arrObjeto[objetoSeleccionado]?.longitud_encontrado">
+                                <div>
+                                    <img style="cursor: pointer;" [ngClass]="'marca-mapa'"
+                                        src="{{arrObjeto[objetoSeleccionado]?.foto| urlimg}}" />
+
+                                </div>
+                            </agm-overlay>
+                        </agm-map>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,6 +177,7 @@
                     <h1>Objetos perdidos<br>y encontrados</h1>
                     <div class="buscador">
                         <div class="form-group">
+
                             <form>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Recipient's username"
@@ -81,8 +194,8 @@
 
                     <div class="row">
                         <div class="objetos-muestras">
-                            <div class="objeto-muestra-imagen" *ngFor="let o of arrObjeto">
-                                <a
+                            <div class="objeto-muestra-imagen animated fadeInLeft" *ngFor="let o of arrObjeto">
+                                <a class=""
                                     href="/objeto#{{o?.usuario[0].ID}}{{o?.usuario[0].nombre| slice:1:2}}{{o?.nombre| slice:1:2}}{{o?.usuario[0].apellido| slice:1:2}}">
                                     <img src="{{o.foto | urlimg }}" class="card-img-top"
                                         alt="objeto {{o.nombre}} de {{o?.usuario[0].nombre}}"
@@ -99,9 +212,11 @@
                         <div class="div-flex">
                             <!-- 👇 Objetos inicial --  INICIO ------------------------------ -->
                             <div class="card-columns">
-                                <div *ngFor="let o of arrObjeto">
+                                <div *ngFor="let o of arrObjeto; let i = index">
+                                    <!-- <div id="{{o?.usuario[0].ID}}{{o?.usuario[0].nombre| slice:1:2}}{{o?.nombre| slice:1:2}}{{o?.usuario[0].apellido| slice:1:2}}"
+    class="card animated fadeInDown delay-{{i}}s"> -->
                                     <div id="{{o?.usuario[0].ID}}{{o?.usuario[0].nombre| slice:1:2}}{{o?.nombre| slice:1:2}}{{o?.usuario[0].apellido| slice:1:2}}"
-                                        class="card">
+                                        class="card animated fadeInDown ">
                                         <img src="{{o?.foto | urlimg }}" class="card-img-top"
                                             alt="objeto {{o?.nombre}} de {{o?.usuario[0].nombre}} {{o?.usuario[0].apellido}}"
                                             title="objeto
@@ -135,15 +250,22 @@
                                             </li>
                                         </ul>
                                         <div class="card-body botones">
-                                            <a href="#Modalmensaje" data-target="#ModalMensaje" data-toggle="modal"
-                                                class="card-link" title="enviar mensaje a {{o?.usuario.alias}}"><span
+                                            <!--  <a href="#Modalmensaje" data-target="#ModalMensaje" data-toggle="modal"
+                                                class="card-link" title="enviar mensaje a {{o?.usuario.alias}}"
+                                                (onclick)="mandarID(o?.ID)" [data-usuario-id]="[o?.ID]"><span
                                                     class="material-icons">
+
                                                     insert_comment
-                                                </span></a>
+                                                </span></a> -->
+                                            <a href="#Modalmensaje" data-target="#ModalMensaje" data-toggle="modal"
+                                                class="card-link" title="enviar mensaje a {{o?.usuario.alias}}"
+                                                (click)="mandarID(i)"><span
+                                                    class="material-icons">insert_comment</span></a>
                                             <a href="#ModalMapa" data-target="#ModalMapa" data-toggle="modal"
                                                 class="card-link"
-                                                title="ver el objeto {{o?.nombre}} de {{o?.usuario.alias}}">
-                                                <span class="material-icons">
+                                                title="ver el objeto {{o?.nombre}} de {{o?.usuario.alias}}"
+                                                (click)="mandarID(i)">
+                                                <span class=" material-icons">
                                                     location_on
                                                 </span></a>
                                         </div>
@@ -164,5 +286,9 @@
 </div>
 <script type="text/javascript">
     $('#ModaMensaje').modal(options);
-    $('#ModalMapa').modal(options);
+
+    //$('#ModalMapa').modal(options);
+    $('#ModalMapa').modal('show', function (e) {
+        console.log("hola cara bola")
+    })
 </script>

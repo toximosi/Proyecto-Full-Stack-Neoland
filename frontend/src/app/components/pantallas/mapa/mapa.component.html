@@ -1,4 +1,5 @@
 <!-- 👇 Mapa  -- INICIO ------------------------------ -->
+
 <!-- 👇 Buscador  -- INICIO ------------------------------ -->
 
 <div class="contenido-mapa">
@@ -10,28 +11,33 @@
                     autocomplete="off" autocapitalize="off" spellcheck="off">
             </form>
         </div>
-        <div class="dirección"><img src="{{imagen}}">{{direccion}}</div>
+        <div class="dirección"><img src="{{imagen| urlimg}}">{{direccion}}</div>
     </div>
 </div>
 <!-- 👆 Buscador --  FIN ------------------------------ -->
 <!-- 👇 Google Mapa  -- INICIO ------------------------------ -->
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true">
+<agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true">
     <!-- 👇 Marcadores  -- INICIO ------------------------------ -->
     <!-- 👇 Marcador localizacion  -- INICIO ------------------------------ -->
-    <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen" [zIndex]="100">
-        <agm-info-window>
+    <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen| urlimg" [zIndex]="100"
+        (mouseOver)="onMouseOver(infoWindow, $event)" (mouseOut)="onMouseOut(infoWindow, $event)">
+        <agm-info-window #infoWindow>
             Tu, turu ru<br>:P
         </agm-info-window>
     </agm-marker>
     <!-- 👆 Marcador localizacion  --  FIN ------------------------------ -->
     <!-- 👇 Marcadores ficticios -- INICIO ------------------------------ -->
-    <agm-marker *ngFor="let f of ficticio" [latitude]="f.latitud" [longitude]="f.longitud" [iconUrl]="f.icono">
-        <agm-info-window>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{f.foto}}" alt="{{f.nombre}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{f.nombre}}</h5>
-                    <p class="card-text">{{f.descripcion}}</p>
+    <agm-marker [animation]="'DROP'" *ngFor="let f of ficticio" [latitude]="f.latitud" [longitude]="f.longitud"
+        [iconUrl]="f.icono | urlimg" (mouseOver)="onMouseOver(infoWindow, $event)"
+        (mouseOut)="onMouseOut(infoWindow, $event)">
+        <agm-info-window #infoWindow>
+            <div class="card-ficiticio">
+                <div class="card">
+                    <div class="imagen"><img class="card-img-top" src="{{f.foto| urlimg}}" alt="{{f.nombre}}"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{f.nombre}}</h5>
+                        <p class="card-text">{{f.descripcion}}</p>
+                    </div>
                 </div>
             </div>
         </agm-info-window>
@@ -40,4 +46,5 @@
     <!-- 👆 Marcadores  --  FIN ------------------------------ -->
 </agm-map>
 <!-- 👆 Google Mapa --  FIN ------------------------------ -->
+
 <!-- 👆 Mapa --  FIN ------------------------------ -->

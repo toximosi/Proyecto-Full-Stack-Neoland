@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alarmas.component.scss']
 })
 export class AlarmasComponent implements OnInit {
-
-  constructor() { }
+  prueba: string;
+  constructor() {
+    this.prueba = "hola";
+  }
 
   ngOnInit(): void {
   }

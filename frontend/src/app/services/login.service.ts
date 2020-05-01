@@ -1,35 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //Para saber si el usuario esta loquedo o no
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
 
+export class LoginService {
+  //presentamos las variables ----------------------------------------------------
+  baseUrl: string;
   estaLogueado: boolean = false;
 
-  constructor(private http: HttpClient) { }
-
-  Login(username: string, password: string) {
-    //llamada POST a mi API 
-    this.http.post("http://localhost:3000/login",
-      {
-        "username": username,
-        "password": password
-      })
-      .subscribe((responseAPI) => {
-        console.log(responseAPI);
-      })
-    //Si la API responde con un OK
-
-    //cambiar la variable estaLogueado
-
-
+  constructor(private http: HttpClient) {
+    //inicializo las varibles ----------------------------------------------------
+    this.baseUrl = 'http://localhost:3000';
   }
 
-
-
+  //Funciones ----------------------------------------------------
+  login(formValue): Promise<any> {
+    return this.http.post<any>(`${this.baseUrl}/login`, formValue).toPromise();
+  }
 }

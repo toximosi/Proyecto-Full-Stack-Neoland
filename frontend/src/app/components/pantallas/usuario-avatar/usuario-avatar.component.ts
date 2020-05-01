@@ -20,8 +20,6 @@ export class UsuarioAvatarComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
 
-    this.id = 0;
-
     this.arrUsuario = await this.usuarioService.UsuarioCompleto();
     /* usuario = this.arrUsuario[this.id]; */
 

@@ -13,7 +13,7 @@ exports.FicticioNuevoModel = (nombre, foto, icono, descripcion, latitud, longitu
 // cRrud : READ --> Leer o ver todos los objetos
 exports.FicticioVerModel = () => {
     return new Promise(async (resolve, reject) => {
-        connection.query('SELECT * FROM Ficticio;')
+        connection.query('SELECT * FROM ficticio;')
             .then(result => resolve(result))
             .catch(error => reject("Error FicticioVerModel: " + error));
     });

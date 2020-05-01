@@ -1,0 +1,98 @@
+<!-- 👇 Mapa  -- INICIO ------------------------------ -->
+
+<!-- 👇 Buscador  -- INICIO ------------------------------ -->
+<div class="contenido-mapa">
+    <h1>En centro de todo!!!</h1>
+    <!-- {{arrObjeto|json}} -->
+</div>
+<!-- 👆 Buscador --  FIN ------------------------------ -->
+<!-- 👇 Google Mapa  -- INICIO ------------------------------ -->
+<agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true">
+    <!-- 👇 Marcadores  -- INICIO ------------------------------ -->
+    <!-- 👇 Marcador localizacion  -- INICIO ------------------------------ -->
+    <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen |urlimg" [zIndex]="100">
+        <agm-info-window>
+            El centro de todo!!!!!!!!!
+        </agm-info-window>
+    </agm-marker>
+    <!-- 👆 Marcador localizacion  --  FIN ------------------------------ -->
+    <!-- 👇 Marcadores objetos -- INICIO ------------------------------ -->
+    <div *ngFor="let obj of arrObjeto">
+        <agm-overlay *ngIf="obj?.perdido==1" [latitude]="obj?.latitud_perdido" [longitude]="obj?.longitud_perdido"
+            (mouseOver)="onMouseOver(infoWindow, $event)" (mouseOut)="onMouseOut(infoWindow, $event)">
+            <div class="objeto-img">
+                <img style="cursor: pointer;" [ngClass]="'marca-mapa'" src="{{obj?.foto| urlimg}}" />
+            </div>
+            <agm-info-window #infoWindow>
+                <div class="card-objeto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i>Perdido:</i> {{obj?.nombre}}</h5>
+                            <p class="card-descripcion"> {{obj?.descripcion}}</p>
+                            <div class="card-pie">
+                                <div class="card-botones">mandar mensaje</div>
+                                <div class="card-usuario">
+                                    <div class="nombre-usuario">@{{obj?.usuario[0].alias}}</div>
+                                    <div class="card-img-avatar"><img src="{{obj?.usuario[0].foto| urlimg}}"
+                                            alt="@{{obj?.usuario[0].alias}}"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </agm-info-window>
+        </agm-overlay>
+
+        <agm-overlay *ngIf="obj?.encontrado==1" [latitude]="obj?.latitud_encontrado"
+            [longitude]="obj?.longitud_encontrado" (mouseOver)="onMouseOver(infoWindow, $event)"
+            (mouseOut)="onMouseOut(infoWindow, $event)">
+            <div class="objeto-img">
+                <img style="cursor: pointer;" [ngClass]="'marca-mapa'" src="{{obj?.foto| urlimg}}" />
+            </div>
+            <agm-info-window #infoWindow>
+                <div class="card-objeto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i>Encontrado:</i> {{obj?.nombre}}</h5>
+                            <p class="card-descripcion"> {{obj?.descripcion}}</p>
+                            <div class="card-pie">
+                                <div class="card-botones">mandar mensaje</div>
+                                <div class="card-usuario">
+                                    <div class="nombre-usuario">@{{obj?.usuario[0].alias}}</div>
+                                    <div class="card-img-avatar"><img src="{{obj?.usuario[0].foto| urlimg}}"
+                                            alt="@{{obj?.usuario[0].alias}}"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </agm-info-window>
+        </agm-overlay>
+    </div>
+
+
+    <!-- 
+    <agm-marker [animation]="'DROP'" *ngFor="let obj of arrObjeto" [latitude]="obj.latitud" [longitude]="obj.longitud"
+        [iconUrl]="obj.icono" (mouseOver)="onMouseOver(infoWindow,gm)">
+        <agm-info-window #infoWindow>
+            <div class="card-ficiticio">
+                <div class="card">
+                    <div class="imagen"><img class="card-img-top" src="{{obj.foto}}" alt="{{obj.nombre}}"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{obj.nombre}}</h5>
+                        <p class="card-text">{{obj.descripcion}}</p>
+                    </div>
+                </div>
+            </div>
+        </agm-info-window>
+    </agm-marker> -->
+    <!-- 👆 Marcadores objetos  --  FIN ------------------------------ -->
+    <!-- 👆 Marcadores  --  FIN ------------------------------ -->
+</agm-map>
+<!-- 👆 Google Mapa --  FIN ------------------------------ -->
+
+<!-- 👆 Mapa --  FIN ------------------------------ -->

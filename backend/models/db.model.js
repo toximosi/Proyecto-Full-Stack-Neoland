@@ -37,6 +37,7 @@ class Database {
     };
 }
 //se pasa la confuración de la bd
+console.log(secrets);
 const connection = new Database(secrets);
 
 // ! EXPORTAR LA CONEXION A LA BASE DE DATOS

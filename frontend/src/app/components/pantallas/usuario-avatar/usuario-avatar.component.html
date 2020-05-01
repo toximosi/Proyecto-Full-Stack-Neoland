@@ -8,8 +8,8 @@
     </div>
 
     <div class="contenido informacion">
-        <h2 class="alias"> <strong>@{{ arrUsuario[id].alias }}</strong></h2>
-        <div class="nombre">{{ arrUsuario[id].nombre }} {{ arrUsuario[id].apellidos }}</div>
+        <h2 class="alias"> <strong>@{{ arrUsuario[id]?.alias }}</strong></h2>
+        <div class="nombre">{{ arrUsuario[id]?.nombre }} {{ arrUsuario[id]?.apellidos }}</div>
         <div>objetos perdidos: </div>
         <div>objetos encontrados: </div>
         <div><span class="material-icons">

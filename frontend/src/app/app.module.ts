@@ -11,10 +11,13 @@ import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 //Externos
 //Para el mapa:
-import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper, InfoWindowManager } from '@agm/core';
+import { AgmOverlays } from "agm-overlays"
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 // importacion Font-iconos de font awesome: https://fontawesome.com/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 //-------------------------------------------------------------------------------------------------------------------
 //Componentes
@@ -28,6 +31,7 @@ import { MenuUsuarioPerfilComponent } from './components/menus/menu-usuario-perf
 
 //Pantallas ---------------------------------------------------------------------------------------------------------
 import { InicioComponent } from './components/pantallas/inicio/inicio.component';
+import { CentroComponent } from './components/pantallas/centro/centro.component';
 import { MapaComponent } from './components/pantallas/mapa/mapa.component';
 import { UsuarioPerfilComponent } from './components/pantallas/usuario-perfil/usuario-perfil.component';
 import { AlarmasComponent } from './components/pantallas/alarmas/alarmas.component';
@@ -50,6 +54,7 @@ import { NoimagePipe } from './pipes/noimage.pipe';
 import { UrlimgPipe } from './pipes/urlimg.pipe';
 
 
+
 /* import { secret } from './../../secret/secret.js'; */
 
 @NgModule({
@@ -64,6 +69,7 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     //pantallas ---------------
     InicioComponent,
     UsuarioPerfilComponent,
+    CentroComponent,
     MapaComponent,
     Error404Component,
     AlarmasComponent,
@@ -76,6 +82,7 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     //pipes ---------------
     NoimagePipe,
     UrlimgPipe
+
   ],
   imports: [
     //Propios de angular
@@ -83,16 +90,20 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    //formularios
     FormsModule,
+    /* FormControl, */
     ReactiveFormsModule,
     //Externos
     /*GoogleMapsModule AGM */
+    AgmOverlays,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBWZrpJI2-LQx7EzfmcCx1RXF0abidsIm8',
       //Mario
       /* apiKey: 'AIzaSyB9CobDD06h6vgzmUpmoKIpCgSXc43B7B0', */
       libraries: ['places']
     }),
+    AgmJsMarkerClustererModule,
     // Font iconos de font awesome: https://fontawesome.com/
     FontAwesomeModule,
     NgbModule
@@ -104,7 +115,8 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     ObjetoService,
     ConversacionService,
     /*GoogleMapsModule AGM */
-    GoogleMapsAPIWrapper
+    GoogleMapsAPIWrapper,
+    /* InfoWindowManager */
   ],
   bootstrap: [AppComponent]
 })

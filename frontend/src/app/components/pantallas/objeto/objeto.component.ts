@@ -10,38 +10,54 @@ import { AgmMap } from '@agm/core';
 })
 export class ObjetoComponent implements OnInit {
 
-
   arrObjeto: ObjetoModel[];
+  objetoSeleccionado: number;
 
+  //ID: number;
   //Mapa---------------------------------->
+
   lat: number;
   lng: number;
   zoom: number;
   direccion: void;
+  estado: string;
   geocoder: any;
   imagen: string;
+  styleMark: any;
 
   constructor(private objetoService: ObjetoService) {
-    this.arrObjeto = [];
+    this.arrObjeto = []
+    this.objetoSeleccionado = 0;
+    this.estado;
   }
 
   async ngOnInit(): Promise<any> {
 
     this.arrObjeto = await this.objetoService.ObjetoCompleto();
-    console.log(this.arrObjeto);
+
+    console.log(this.arrObjeto)
 
     //Mapa ------------------------------------>
+
     this.lat;
     this.lng;
     this.direccion;
     this.zoom = 19;
     this.imagen = `icon-aqui.png`;
+    this.styleMark = {
+      width: '50px',
+      border: '10px solid red'
+
+    }
   }
 
-
-
-
-
+  mandarID(pID) {
+    /* console.log(pID); */
+    /* this.arrObjetoVer = this.objetoService.ObjetoId(pID).then((res) => { this.arrObjetoVer = res }); */
+    /* this.objetoService.ObjetoId(pID).then((res) => { this.arrObjetoVer = res }); */
+    this.objetoSeleccionado = pID;
+    /* console.log(this.arrObjetoVer); */
+  }
 
   //Mapa --------------------------------------------------------->
   private setCurrentPosition() {
@@ -61,7 +77,7 @@ export class ObjetoComponent implements OnInit {
           // this.searchElementRef.nativeElement.value = results[0].formatted_address);
           // console.log(this.searchElementRef.nativeElement.value);
           // infowindow.setContent(results[0].formatted_address);
-          console.log(this.direccion);
+          //console.log(this.direccion);
         } else {
           window.alert('No results found');
         }

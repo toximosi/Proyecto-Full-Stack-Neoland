@@ -12,6 +12,42 @@
   /* background-color: rgba(255, 255, 255, 0.7); */
   border-radius: $EsquinaRedondeadaMedia;
 }
+
+agm-map {
+  //--- En _layout.css hay modicficaciones de etilos
+  height: calc(100% - #{$anchoMenu * 2});
+  .agm-map-container-inner {
+    border-radius: $EsquinaRedondeadaMedia;
+    margin: 0 50px;
+    margin: 0 $anchoMenu;
+  }
+  .card-ficiticio {
+    .card {
+      border: 0px;
+      position: relative;
+      margin-top: 30px;
+      text-align: center;
+      .imagen {
+        @include flexCenter;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        position: absolute;
+        top: -130px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $colorBg;
+        padding: $spaceSmall;
+        overflow: hidden;
+        box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}
 /* .pantalla-inicio {
 }
  */

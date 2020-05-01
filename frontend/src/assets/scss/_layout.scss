@@ -33,15 +33,7 @@ body {
     padding: 0;
   }
 }
-agm-map {
-  height: calc(100% - #{$anchoMenu * 2});
 
-  .agm-map-container-inner {
-    border-radius: $EsquinaRedondeadaMedia;
-    margin: 0 50px;
-    margin: 0 $anchoMenu;
-  }
-}
 section {
   position: relative;
 }
@@ -50,47 +42,12 @@ app-root {
 }
 .wrapper {
   height: 100%;
-
-  /* width: 100%;
-  
-  .container-fluid,
-  .row {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-  } */
 }
-/* section {
-} */
+
 .container-fluid {
   height: 100%;
 }
-/* agm-map {
-  height: 500px;
-} */
-/* app-mapa {
-  position: absolute;
-  top: $anchoMenu;
-  left: 0;
-  height: 100%;
-  display: inline-block;
-  width: 100%;
 
-  agm-map {
-    height: 100%;
-    display: inline-block;
-    width: 100%;
-
-    .agm-map-container-inner {
-      height: 100% !important;
-      display: inline-block;
-      width: 100% !important;
-      overflow: initial !important;
-    }
-  }
-} */
-/* .row {
-} */
 article,
 article > div,
 div-flex {
@@ -98,24 +55,24 @@ div-flex {
   width: 100%;
   height: 100%;
 }
-@import "_estilos-texto";
-@import "_animacion";
-/* app-inicio {
-  height: 100%;
-  background: red;
-  display: inline-block;
-  width: 100%;
+//mapa agm------------------------------------------------
+.gm-style-iw-t {
+  bottom: 56px !important;
 }
-google-map {
-  position: relative;
-  width: 100% !important;
-  height: 100% !important;
-  display: inline-block;
-  .map-container {
-    display: inline-block;
-    position: relative;
-    height: 100% !important;
-    width: 100% !important;
+.gm-style .gm-style-iw-c,
+.gm-style .gm-style-iw-d {
+  overflow: initial !important;
+  padding-top: 20px;
+}
+
+button.gm-ui-hover-effect {
+  background-color: $colorPrincipal !important;
+  color: $colorBg !important;
+  border-radius: 50%;
+  &:hover {
+    background-color: $colorPrincipalHover !important;
   }
 }
- */
+
+@import "_estilos-texto";
+@import "_animacion";

@@ -53,10 +53,12 @@ exports.UsuarioNuevo = async (req, res) => {
 };
 // cRrud : READ --> Leer o ver todos los usuarios
 exports.UsuarioVer = async (req, res) => {
+    /* console.log("try") */
     try {
         const data = await UsuarioModel.UsuarioVerModel();
         res.send(data);
     } catch (error) {
+        /* console.log("catch") */
         res.send("Error UsuarioVerController:" + error);
     };
 };
@@ -299,7 +301,7 @@ exports.UsuarioLogin = async (req, res) => {
                             } else {
                                 res.cookie("cookie_lostthing", token);
                                 //! incluir en el header???????????
-                                //res.send("user-token", token);
+                                res.cookie("user-token", token);
                                 res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado", "token": token });
                             };
                         });

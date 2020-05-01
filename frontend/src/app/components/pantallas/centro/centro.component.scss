@@ -1,0 +1,72 @@
+@import "../../import.scss";
+@import "../mapa/mapa.component.scss";
+
+agm-map {
+    .agm-map-container-inne {
+        margin: 0 !important;
+    }
+    .objeto-img {
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #e8d4bd;
+            box-shadow: $Sombra;
+            transform: scale(1);
+            &:hover {
+                transform: scale(4);
+                border: 0px;
+                border-radius: $EsquinaRedondeadaMedia;
+            }
+        }
+    }
+
+    .card-objeto {
+        .card {
+            border: none;
+            .card-title {
+                i {
+                    color: $colorPrincipal;
+                    font-style: italic;
+                    font-size: 1.2rem;
+                }
+            }
+            .card-body {
+                width: 250px;
+                /* .card-descripcion {
+                } */
+                .card-pie {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .card-botones {
+                        color: $colorPrincipalHover;
+                    }
+                    .card-usuario {
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        .nombre-usuario {
+                            display: inline-block;
+                            text-align: right;
+                            margin-right: 10px;
+                            font-weight: bold;
+                        }
+                        .card-img-avatar {
+                            display: inline-table;
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            img {
+                                width: 100%;
+                                height: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
