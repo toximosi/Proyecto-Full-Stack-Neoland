@@ -1,49 +1,78 @@
 <!-- 👇 Perfil usuario --  INICIO ------------------------------ -->
-<div class="col-8 h-100">
+<div class="col-8 offset-md-2">
 
     <div class="usuario-perfil">
-        <h2><strong>{{ arrUsuario[id]?.alias }}</strong> estos son tus datos. </h2>
+        <h2><strong>@{{ arrUsuarioId[0]?.alias}}</strong> estos son tus datos. </h2>
         <h3>¿Quiere cambiarlos?</h3>
-        {{arrUsuario.length}}
-        <div class="formulario" *ngIf="arrUsuario.length>0">
-            <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <!-- {{arrUsuarioId[0].length}} -->
+        <div class="">
+            <form [formGroup]="formularioUsuario" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Alias</label>
-                    <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ arrUsuario[id]?.alias }}" formControlName="alias">
+                    <label for="DatosUsuario">Alias</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" type="text"
+                            placeholder="{{ arrUsuarioId[0]?.alias }}" formControlName="alias">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email </label>
-                    <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ arrUsuario[id]?.email }}" formControlName="email">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre </label>
-                    <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ arrUsuario[id]?.nombre }}" formControlName="nombre">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Apellidos </label>
-                    <input type="text" class="form-control form-control-lg" type="text"
-                        placeholder="{{ arrUsuario[id]?.apellidos }}" formControlName="apellido">
+                    <label for="DatosUsuario">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><span class="material-icons">mail_outline</span></div>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" type="text"
+                            placeholder="{{ arrUsuarioId[0]?.email }}" formControlName="email">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Contraseña *</label>
-                    <input type="email" class="form-control" placeholder="Escribe tu actual contraseña"
-                        formControlName="password" required>
-                    <a class="small" href="" alt="recordar contraseña" title="recordar contraseña">No te acuerdas de la
-                        contraseña, <strong>¿te la
-                            recordamos?</strong></a>
+                    <label for="DatosUsuario">Nombre</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><span class="material-icons">face</span></div>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" type="text"
+                            placeholder="{{ arrUsuarioId[0]?.nombre }}" formControlName="nombre">
+                    </div>
                 </div>
-
                 <div class="form-group">
+                    <label for="DatosUsuario">Apellidos </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><span class="material-icons">
+                                    face
+                                </span></div>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" type="text"
+                            placeholder="{{ arrUsuarioId[0]?.apellidos }}" formControlName="apellidos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Contraseña<span class="asterisco"
+                            style="color: red;">*</span></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><span class="material-icons">
+                                    vpn_key
+                                </span></div>
+                        </div>
+                        <input type="password" class="form-control form-control-lg" placeholder=""
+                            formControlName="password">
+                        <!-- <a class="small" href="" alt="recordar contraseña" title="recordar contraseña">No te acuerdas de la
+                                contraseña, <strong>¿te la
+                                    recordamos?</strong></a> -->
+                    </div>
+                </div>
+                <!-- <div class="form-group">
                     <label for="exampleInputPassword1">Contraseña <strong>Nueva</strong></label>
                     <input type="email" class="form-control" placeholder="Escribe la nueva contraseña"
                         formControlName="passwordNew">
+                </div> -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Cambiar</button>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Cambiar</button>
             </form>
         </div>
     </div>

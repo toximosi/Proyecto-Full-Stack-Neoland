@@ -33,14 +33,10 @@ server.use(cors());//si no se pone esto va a dar problemas entre llamadas de loc
 
 // 👇 AQUÍ EMPIEZA LA API -------------------------------------------
 //! ENDPOINTS ---------------------------------------------------------
-
-/* server.get("/objeto-prueba", middlewares.checkTokenHeader, ObjetoController.ObjetoVer); */
-
-
-
 //* 👌 usuario INICIO ----------------------------------------------------
 server.get("/usuario", middlewares.checkTokenHeader, UsuarioController.UsuarioVer);// ver usuario
-server.get("/usuario/:ID", UsuarioController.UsuarioVerId);// ver usuario por ID
+/* server.get("/usuario", UsuarioController.UsuarioVer);// ver usuario */
+server.get("/usuario/:ID", middlewares.checkTokenHeader, UsuarioController.UsuarioVerId);// ver usuario por ID
 server.post("/usuario/nuevo", [
     check('alias').isString().escape().trim(),
     check('nombre').isString().escape().trim(),
@@ -62,23 +58,34 @@ server.post("/login", [
     check('email').isEmail(),
     check('password').isString()
 ], UsuarioController.UsuarioLogin);//login con hash
+server.post("/usuario/registro", [
+    check('alias').isString().escape().trim(),
+    check('nombre').isString().escape().trim(),
+    check('apellidos').isString().escape().trim(),
+    check('edad').isNumeric(),
+    check('email').isEmail().trim(),
+    check('password').isString().trim(),
+    check('foto').isString().trim()
+], UsuarioController.UsuarioRegistro);// incluir usuario --> Registrar
 //* usuario FIN -------------------------------------------------------
 
 //* 👌 objeto INICIO -----------------------------------------------------
 server.get("/objeto", ObjetoController.ObjetoVer);// ver objeto
 server.get("/objeto/:ID", ObjetoController.ObjetoVerId);// ver objeto por id
 server.post("/objeto/nuevo", [
-    check('nombre').isAlpha().escape().trim(),
-    check('foto').isAlphanumeric().trim(),
-    check('descripcion').isAlphanumeric().trim(),
+    check('nombre').isString().escape().trim(),
+    check('foto').isString().trim(),
+    check('descripcion').isString().trim(),
     check('perdido').isNumeric(),
+    check('direccion_perdido').isString(),
     check('encontrado').isNumeric(),
-    check('fecha_perdido').isAlphanumeric(),
-    check('latitud_perdido').isNumeric(),
-    check('longitud_perdido').isNumeric(),
-    check('fecha_encontrado').isAlphanumeric(),
-    check('latitud_encontrado').isNumeric(),
-    check('longitud_encontrado').isNumeric()
+    check('fecha_perdido'),
+    check('latitud_perdido'),
+    check('longitud_perdido'),
+    check('fecha_encontrado'),
+    check('latitud_encontrado'),
+    check('longitud_encontrado'),
+    check('fk_usuario').isNumeric()
 ], ObjetoController.ObjetoNuevo);// incluir objeto
 server.put("/objeto/cambiar", ObjetoController.ObjetoCambiar);// cambiar objeto
 server.delete("/objeto/borrar/:ID", ObjetoController.ObjetoBorrar);// borrar objeto por id
@@ -120,7 +127,8 @@ server.post("/conversacion/nuevo", [
 server.put("/conversacion/cambiar", ConversacionController.ConversacionCambiar);//cambiar conversacion
 server.delete("/conversacion/borrar/:ID", ConversacionController.ConversacionBorrar);//borrar conversacion
 //Extra
-server.get("/conversacion-completo", ConversacionController.ConversacionMensaje)// ver conversacion
+server.get("/conversacion-completo", ConversacionController.ConversacionCompleta)// ver conversacion
+server.get("/conversacion-completo/:ID", ConversacionController.ConversacionMensajeId)// ver conversacion
 //* conversacion FIN -------------------------------------------------------- */
 
 //* 👌 mensaje INICIO -----------------------------------------------------
@@ -128,7 +136,8 @@ server.get("/mensaje", MensajeController.MensajeVer);// ver mensaje
 server.get("/mensaje/:ID", MensajeController.MensajeVerId);// ver mensaje por id
 server.post("/mensaje/nuevo", [
     check('emisor').isNumeric(),
-    check('texto').isString().escape().trim()
+    check('texto').isString().escape().trim(),
+    check('fk_conversacion').isNumeric(),
 ], MensajeController.MensajeNuevo); // incluir mensaje
 server.put("/mensaje/cambiar", MensajeController.MensajeCambiar); // cambiar mensaje
 server.delete("/mensaje/borrar/:ID", MensajeController.MensajeBorrar);// borrar mensaje
@@ -167,11 +176,8 @@ server.get("/test", (req, res) => { res.send(" 🖐 Hola Mundo!!!!"); });
 //! LISTEN --------------------------------------------------------------
 // --> llamada al servidor en el puerto 3000
 //const PORT = process.env.PORT;
-
 const PORT = process.argv[2];
-console.log(process.env.PORT);
-
+/* console.log(process.env.PORT); */
 server.listen(process.env.PORT || PORT, () => {
-
     console.log(`👾 Servidor escuchando en el puerto ${PORT} 👾`);
 });//nodemon server.js 3000

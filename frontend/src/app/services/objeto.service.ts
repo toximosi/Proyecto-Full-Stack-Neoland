@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ObjetoModel } from '../models/objeto.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class ObjetoService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:3000';
+    this.baseUrl = environment.hostUrl;
   }
 
   ObjetoVer(): Promise<any[]> {

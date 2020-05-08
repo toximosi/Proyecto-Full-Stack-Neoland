@@ -1,0 +1,65 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Únete al Loser Club!!!!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- 👇 registrarse usuario --  INICIO ------------------------------ -->
+            <div class="usuario-perfil">
+                <div class="titulo">
+
+                </div>
+                <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                    <div class="form-row">
+                        <div class="form-group col-5">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                placeholder="Nombre" formControlName="nombre">
+                        </div>
+                        <div class="form-group col-7">
+                            <label for="exampleInputEmail1">Apellidos</label>
+                            <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                placeholder="Apellidos" formControlName="apellidos">
+                        </div>
+                        <div class="form-group col-7">
+                            <label for="exampleInputEmail1">Alias</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                    placeholder="Alias" formControlName="alias">
+                            </div>
+
+                        </div>
+                        <div class="form-group col-5">
+                            <label for="exampleInputEmail1">Edad</label>
+                            <input type="number" class="form-control form-control-lg" aria-label="Default"
+                                placeholder="Edad" formControlName="edad" min="10" max="99">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control form-control-lg" aria-label="Default"
+                                placeholder="email@email.com" formControlName="email">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" aria-label="Default" formControlName="password">
+                        </div>
+                        <div class="form-group col-12">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Aceptar</button></div>
+                    </div>
+                    <!-- {{errorMesage}} -->
+                </form>
+            </div>
+            <!-- 👆 registrarse usuario --  FIN ------------------------------ -->
+        </div>
+        <!--  <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+    </div>
+</div>

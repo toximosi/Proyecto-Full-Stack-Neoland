@@ -7,11 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu-footer.component.scss']
 })
 export class MenuFooterComponent implements OnInit {
+  //Variable
+  fecha: Date;
+  ano: number;
 
+  constructor(private router: Router) {
+    this.fecha = new Date();
 
-  constructor(private router: Router) { }
+  }
 
   ngOnInit(): void {
+    this.ano = this.fecha.getFullYear();
+
   }
 
 

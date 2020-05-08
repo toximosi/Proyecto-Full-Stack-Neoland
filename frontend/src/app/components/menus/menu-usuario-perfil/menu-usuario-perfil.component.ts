@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,11 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MenuUsuarioPerfilComponent implements OnInit {
 
 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  }
 
   ngOnInit(): void {
-
 
   }
 

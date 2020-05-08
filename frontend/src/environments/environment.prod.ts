@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  imgUrl: 'http://lostthing.toximosi.es/img/',
+
 };

@@ -8,6 +8,7 @@ exports.MensajeNuevo = async (req, res) => {
     const emisor = req.body.emisor;
     //! la fecha la da el servidor
     const texto = req.body.texto;
+    const fk_conversacion = req.body.fk_conversacion;
 
     const errors = validationResult(req);//Ejecuta las validaciones 
 
@@ -16,7 +17,7 @@ exports.MensajeNuevo = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await MensajeModel.MensajeNuevoModel(emisor, texto);
+            const data = await MensajeModel.MensajeNuevoModel(emisor, texto, fk_conversacion);
             res.send({ "message": " 📨 mensaje creado !!!", "ID": data.insertId });
         };
     } catch (error) {
@@ -45,6 +46,7 @@ exports.MensajeVerId = async (req, res) => {
         res.send("Error MensajeVerIdController: " + error);
     };
 };
+
 // crrUd : UPLOAD --> actualizar mensajes por su id
 exports.MensajeCambiar = async (req, res) => {
     const ID = req.body.ID;
@@ -84,5 +86,17 @@ exports.MensajeBorrar = async (req, res) => {
         };
     } catch (error) {
         res.send("Error MensajeBorrarController: " + error);
+    };
+};
+
+//objeter el mansaje segun la conversacion a la que pertenece
+exports.MensajeConversacionId = async (req, res) => {
+    const ID = req.params.ID;
+
+    try {
+        const data = await MensajeModel.MensajeConversacionId(ID);
+        res.send(data);
+    } catch (error) {
+        res.send("Error MensajeConversacionIdController: " + error);
     };
 };

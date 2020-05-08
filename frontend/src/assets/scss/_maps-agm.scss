@@ -1,0 +1,32 @@
+//mapa agm------------------------------------------------
+.gm-style-iw-t {
+    bottom: 56px !important;
+}
+.gm-style .gm-style-iw-c,
+.gm-style .gm-style-iw-d {
+    overflow: initial !important;
+    padding-top: 20px;
+}
+
+button.gm-ui-hover-effect {
+    background-color: $colorPrincipal !important;
+    color: $colorBg !important;
+    border-radius: 50%;
+    &:hover {
+        background-color: $colorPrincipalHover !important;
+    }
+}
+agm-map {
+    //--- En _layout.css hay modificaciones de etilos
+    height: calc(100% - #{$anchoMenu * 2});
+    .agm-map-container-inner {
+        border-radius: $EsquinaRedondeadaMedia;
+        margin: 0 50px;
+        margin: 0 $anchoMenu;
+    }
+}
+#ModalMapa {
+    .agm-map-container-inner {
+        margin: 0px;
+    }
+}

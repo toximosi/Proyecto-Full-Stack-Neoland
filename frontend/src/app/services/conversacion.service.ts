@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,11 @@ export class ConversacionService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:3000';
+    this.baseUrl = environment.hostUrl;
   }
 
+
+  //Conexión son los endpoint de backend ------------------------------------------
   ConversacionVer(): Promise<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/conversacion`).toPromise();
   };
@@ -34,6 +37,14 @@ export class ConversacionService {
 
   ConversacionBorrar(ID): Promise<any[]> {
     return this.http.delete<any[]>(`${this.baseUrl}/conversacion/borrar/${ID}`).toPromise();
+  };
+
+  ConversacionCompletaVer(): Promise<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/conversacion-completo`).toPromise();
+  };
+
+  ConversacionCompletaId(ID): Promise<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/conversacion-completo/${ID}`).toPromise();
   };
 
 }

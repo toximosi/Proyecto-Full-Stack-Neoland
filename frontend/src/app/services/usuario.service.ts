@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuarioModel } from '../models/usuario.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  arrUsuario: UsuarioModel[];
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:3000';
+    this.baseUrl = environment.hostUrl;
   }
 
   //Conexión son los endpoint de backend ------------------------------------------
   UsuarioVer(): Promise<any[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'token': localStorage.getItem('token')
-      })
-    }
-    return this.http.get<any[]>(`${this.baseUrl}/usuario`, httpOptions).toPromise();
+    return this.http.get<any[]>(`${this.baseUrl}/usuario`).toPromise();
   };
 
   UsuarioId(ID): Promise<any[]> {
@@ -45,7 +40,7 @@ export class UsuarioService {
   };
 
   UsuarioBorrar(ID): Promise<any[]> {
-    return this.http.delete<any[]>(`${this.baseUrl}/usuario/borrar/:${ID}`).toPromise();
+    return this.http.delete<any[]>(`${this.baseUrl}/usuario/borrar/${ID}`).toPromise();
   };
 
 

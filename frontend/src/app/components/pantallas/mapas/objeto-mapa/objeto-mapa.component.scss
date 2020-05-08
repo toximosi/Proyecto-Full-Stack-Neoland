@@ -1,4 +1,4 @@
-@import "../../import.scss";
+@import "../../../import.scss";
 
 .contenido-mapa {
   z-index: 10;
@@ -14,7 +14,7 @@
 }
 
 agm-map {
-  //--- En _layout.css hay modicficaciones de etilos
+  //--- En _layout.css hay modificaciones de etilos
   height: calc(100% - #{$anchoMenu * 2});
   .agm-map-container-inner {
     border-radius: $EsquinaRedondeadaMedia;
@@ -48,28 +48,3 @@ agm-map {
     }
   }
 }
-/* .pantalla-inicio {
-}
- */
-
-/* app-mapa {
-  position: absolute;
-  top: $anchoMenu;
-  left: 0;
-  height: 100%;
-  display: inline-block;
-  width: 100%;
-
-  agm-map {
-    height: 100%;
-    display: inline-block;
-    width: 100%;
-
-    .agm-map-container-inner {
-      height: 100% !important;
-      display: inline-block;
-      width: 100% !important;
-      overflow: initial !important;
-    }
-  }
-} */

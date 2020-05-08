@@ -1,0 +1,9 @@
+//Card---------------------------------------
+.card-body {
+    .card-title {
+        font-weight: bolder;
+    }
+}
+.card-body.botones {
+    @include flexCenter();
+}

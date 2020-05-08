@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   hostUrl: 'http://localhost:3000',
-  imgUrl: '../../../assets/img/'
+  /*  imgUrl: '../../../assets/img/', */
+  imgUrl: 'http://lostthing.toximosi.es/img/',
+  /* ID: 2 */
 
 
 

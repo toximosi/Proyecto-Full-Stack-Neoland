@@ -1,0 +1,118 @@
+<!-- 👇 crear objeto --  INICIO ------------------------------ -->
+<div class="col-8 offset-md-2">
+    <div class="crear-objeto" style="flex-direction: column;">
+        <h1>Cachis, ¿has perdido algo?</h1>
+        <p>Tranqui, <strong>@{{arrUsuarioId[0]?.alias}}</strong>, secate las lagrimillas, que nosotros te ayudamos.
+            <br>Rellena la información que hay a continuación 👇 y vemaos si alguién lo ha encontrado</p>
+        <!-- 👇 formualrio usuario --  INICIO ------------------------------ -->
+        <div class="formulario-crear-objeto">
+            <form [formGroup]="formObjetoCrear" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <label for="CrearObjeto">Nombre del objeto*</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><span
+                                        class="material-icons">forward</span></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                placeholder="Nombre" formControlName="nombre" required>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-6">
+                            <label for="CrearObjeto">perdido</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                    placeholder="si" formControlName="perdido">
+                            </div>
+                        </div> -->
+                    <div class="form-group col-6">
+                        <label for="CrearObjeto">fecha de perdida*</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><span
+                                        class="material-icons">today</span></span>
+                            </div>
+                            <input type="date" class="form-control form-control-lg" aria-label="Default" placeholder=""
+                                formControlName="fecha_perdido" required>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="CrearObjeto">Estado*</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><span
+                                        class="material-icons">bug_report</span></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                placeholder="Perdido" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="CrearObjeto">Descipción*</label>
+                        <textarea class="form-control form-control-lg" id="eCrearObjetoTextarea" rows="3"
+                            formControlName="descripcion" required></textarea>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label for="exampleInputPassword1">Dirección*</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text" id="inputGroupPrepend"><span
+                                        class="material-icons">my_location</span></span>
+                            </div>
+                            <!-- <input type="text" class="form-control" id="place" #search [formControl]="searchControl"
+                                    autocomplete="off" autocapitalize="off" spellcheck="off"> -->
+                            <input type="text" class="form-control" id="place" #search [formControl]="searchControl"
+                                autocomplete="off" autocapitalize="off" spellcheck="off" [placeholder]="direccion">
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]="true"
+                        [scrollwheel]="false">
+                        <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="imagen| urlimg" [zIndex]="100">
+                        </agm-marker>
+                    </agm-map>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="CrearObjeto">Latitud</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><span
+                                        class="material-icons">location_on</span></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                [placeholder]="lat" formControlName="latitud_perdido">
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="CrearObjeto">Longitud</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend"><span
+                                        class="material-icons">location_on</span></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" aria-label="Default"
+                                [placeholder]="lng" formControlName="longitud_perdido">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group col-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Aceptar</button></div>
+                </div>
+                <!-- {{errorMesage}} -->
+            </form>
+        </div>
+        <!-- 👆 formulario --  FIN ------------------------------ -->
+
+
+    </div>
+</div>
+<!-- 👆 crear objeto --  FIN ------------------------------ -->

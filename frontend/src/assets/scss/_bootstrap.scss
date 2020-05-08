@@ -1,0 +1,10 @@
+.btn-primary {
+    background-color: $colorPrincipal;
+    border-color: $colorPrincipal;
+    &:hover {
+        background-color: $colorPrincipalClaro;
+        border-color: $colorPrincipalClaro;
+        color: $colorPrincipalHover;
+        box-shadow: inset $Sombra;
+    }
+}

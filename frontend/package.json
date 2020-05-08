@@ -35,6 +35,8 @@
     "@googlemaps/google-maps-services-js": "^2.5.5",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@popperjs/core": "^2.3.3",
+    "@sweetalert2/ngx-sweetalert2": "^8.1.0",
+    "@types/jquery": "^3.3.38",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
     "geocoder": "^0.2.3",
@@ -43,6 +45,7 @@
     "material-design-icons": "^3.0.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
+    "sweetalert2": "^9.10.12",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

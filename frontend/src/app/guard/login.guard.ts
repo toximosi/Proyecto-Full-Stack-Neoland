@@ -14,8 +14,8 @@ export class LoginGuard implements CanActivate {
 
   constructor(private router: Router) { }
   canActivate() {
-    console.log("paseeeeeeee")
-    if (localStorage.getItem('token')) {
+    // console.log("paseeeeeeee") 
+    if (localStorage.getItem('user-token')) {
       return true;
     } else {
       this.router.navigate(['/login']);

@@ -5,6 +5,7 @@ const fs = require('fs');
 const secret = require('../secret/secrets');
 
 //Token por head
+/* localStorage.getItem('user-token') */
 exports.checkTokenHeader = (req, res, next) => {
     // Compruebo si el token está presente en las cabeceras
     if (!req.headers['user-token']) {
@@ -62,7 +63,7 @@ exports.checkTokenBody = (req, res, next) => {
                     };
                 });
         } else {
-            res.statue(401).send({ "menssage": "🙅 No estas autentificado", "loginURL": "/login" });
+            res.status(401).send({ "menssage": "🙅 No estas autentificado", "loginURL": "/login" });
         };
     } else {
         next();

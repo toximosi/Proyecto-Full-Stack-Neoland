@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CentroComponent } from './centro.component';
+import { AgujerosMapaComponent } from './agujeros-mapa.component';
 
 describe('CentroComponent', () => {
-  let component: CentroComponent;
-  let fixture: ComponentFixture<CentroComponent>;
+  let component: AgujerosMapaComponent;
+  let fixture: ComponentFixture<AgujerosMapaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CentroComponent ]
+      declarations: [AgujerosMapaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CentroComponent);
+    fixture = TestBed.createComponent(AgujerosMapaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

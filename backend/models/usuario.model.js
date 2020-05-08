@@ -74,6 +74,14 @@ exports.UsuarioConversacionEnvidaModel = (ID) => {
             .catch(error => reject("Error UsuarioConversacionModel: " + error));
     });
 };
+exports.UsuarioConversacionRecibidoModel = (ID) => {
+    return new Promise((resolve, reject) => {
+        //conseguir las conversaciones y los mensajes realcionados
+        connection.query(`SELECT * FROM conversacion con WHERE con.receptor = ?;`, [ID])
+            .then(result => resolve(result))
+            .catch(error => reject("Error UsuarioConversacionModel: " + error));
+    });
+};
 
 exports.UsuarioConversacionMensajeModel = (ID) => {
     return new Promise((resolve, reject) => {
@@ -107,7 +115,6 @@ exports.UsuarioObjetoFamiliaTipoModel = (ID) => {
             .catch(error => reject("Error UsuarioObjetoFamiliaTipoModel: " + error));
     });
 };
-
 
 exports.UsuarioMailModel = (email) => {
     return new Promise((resolve, reject) => {

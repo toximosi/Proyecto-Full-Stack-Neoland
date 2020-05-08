@@ -13,6 +13,7 @@ exports.ObjetoNuevo = async (req, res) => {
     const foto = req.body.foto;
     const descripcion = req.body.descripcion;
     const perdido = req.body.perdido;
+    const direccion_perdido = req.body.direccion_perdido;
     const encontrado = req.body.encontrado;
     const fecha_perdido = req.body.fecha_perdido;
     const latitud_perdido = req.body.latitud_perdido;
@@ -20,6 +21,8 @@ exports.ObjetoNuevo = async (req, res) => {
     const fecha_encontrado = req.body.fecha_encontrado;
     const latitud_encontrado = req.body.latitud_encontrado;
     const longitud_encontrado = req.body.longitud_encontrado;
+    const fk_usuario = req.body.fk_usuario;
+
 
     const errors = validationResult(req);//Ejecuta las validaciones 
 
@@ -27,7 +30,7 @@ exports.ObjetoNuevo = async (req, res) => {
         if (!errors.isEmpty()) {
             res.status(400).send({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await ObjetoModel.ObjetoNuevoModel(nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado);
+            const data = await ObjetoModel.ObjetoNuevoModel(nombre, foto, descripcion, perdido, direccion_perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado, fk_usuario);
             res.send({ "message": " 😎 Objeto creado !!!", "ID": data.insertId });
         };
     } catch (error) {
@@ -63,6 +66,7 @@ exports.ObjetoCambiar = async (req, res) => {
     const foto = req.body.foto;
     const descripcion = req.body.descripcion;
     const perdido = req.body.perdido;
+    const direccion_perdido = req.body.direccion_perdido;
     const encontrado = req.body.encontrado;
     const fecha_perdido = req.body.fecha_perdido;
     const latitud_perdido = req.body.latitud_perdido;
@@ -77,7 +81,7 @@ exports.ObjetoCambiar = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-            const data = await ObjetoModel.ObjetoCambiarModel(ID, nombre, foto, descripcion, perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado);
+            const data = await ObjetoModel.ObjetoCambiarModel(ID, nombre, foto, descripcion, perdido, direccion_perdido, encontrado, fecha_perdido, latitud_perdido, longitud_perdido, fecha_encontrado, latitud_encontrado, longitud_encontrado);
             if (data.affectedRows > 0) {
                 res.send({ "message": `😎 Objeto ${nombre} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
             } else {

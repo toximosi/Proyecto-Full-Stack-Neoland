@@ -1,209 +1,176 @@
-<!-- 👇 Objetos perdidos usuario --  INICIO ------------------------------ -->
-
-<div class="col-12">
-    <div class="usuario-objeto">
-        <h1>Objetos perdidos por "usuario[id].nombre"</h1>
-
-        <div class="card-columns">
-            <button class="btn btn-primary">Crear objeto</button>
-            <div class="card text-center" *ngFor="let o of arrObjeto">
-
-                <img src="{{o?.foto | urlimg}}" class="card-img-top" alt="{{o?.nombre}}">
-                <div class="estado">
-                    <span *ngIf="(o?.perdido) == 1">Perdido</span>
-                    <span *ngIf="(((o?.perdido) == 1) && ((o?.encontrado) == 1))"> / </span>
-                    <span *ngIf="(o?.encontrado) == 1">Encontrado</span>
-                </div>
-                <div class="card-body">
-
-                    <h5 class=" card-title">{{o?.nombre}}</h5>
-                    <p class="card-text">"{{o?.descripcion}}"</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li *ngIf="(o?.perdido)==1" class="list-group-item fecha">
-
-                        <span class="material-icons">
-                            insert_invitation
-                        </span> Perdido el: {{o?.fecha_perdido | date : 'yyyy-MM-dd'}}</li>
-                    <li *ngIf="(o?.encontrado)==1" class=" list-group-item fecha"><span class="material-icons">
-                            insert_invitation
-                        </span> Encontrado el: {{o?.fecha_encontrado | date : 'yyyy-MM-dd'}}</li>
-
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-                <div class="card-body">
-
-                    <a href="#" class="card-link" alt="Ver conversaciones relacionadas"
-                        title="Ver conversaciones relacionadas"><span class="material-icons">
-                            mail
-                        </span></a>
-                    <a href="#" class="card-link" alt="Ver objeto en el mapa" title="Ver objeto en el mapa"><span
-                            class="material-icons">
-                            place
-                        </span></a>
-                    <a href="#" class="card-link" alt="editar objeto" title="editar objeto"><span
-                            class="material-icons">
-                            edit
-                        </span></a>
-                    <a href="#" class="card-link" alt="borrar objeto" title="borrar objeto"><span
-                            class="material-icons">
-                            delete_forever
-                        </span></a>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-
+<!-- 👇 Objetos  usuario --  INICIO ------------------------------ -->
+<!-- 👇 Modal mensaje-- Contenido genereal rooter ------------------------- -->
+<div id="ModalConversacion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalMensaje"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class=" modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Enviar un mensaje a:
+                    <!-- {{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}
+                    <img src="{{arrObjeto[objetoSeleccionado]?.usuario[0].foto |urlimg }}"
+                        alt="@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}"
+                        title="@{{arrObjeto[objetoSeleccionado]?.usuario[0].alias}}"> -->
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-
-
+            <div class="modal-body">
+                <!-- {{arrObjeto[objetoSeleccionado]?.ID}} -->
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Asunto del mensaje:</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Asunto">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Mensaje</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <input type="hidden" name="usuario_id" value="valor usuario">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Enviar</button>
+            </div>
         </div>
+    </div>
+</div>
+<!-- 👆 Modal mensaje--  FIN ------------------------------ -->
+<div class="col-12" *ngIf="arrUsuarioObjPerdido.length>0">
+    <div class="usuario-objeto animated fadeInDown">
+        <div class="objeto-cabecera">
+            <h1>¿Q ha pasao @{{arrUsuarioID[0]?.alias}}?, ¿Q lo has perdido?</h1>
+            <p>No te preocupes, con suerte, alguien lo va a encontrar :)</p>
+        </div>
+        <div class="div-flex">
+            <!-- <div class="boton-incluir"><button class="btn btn-primary btn-lg btn-block"
+                    href="location.href='#ModalObjeto';" data-target="#ModalObjeto" data-toggle="modal">Incuir nuevo
+                    objeto</button></div> -->
+            <div class="card-columns">
+                <div *ngFor="let obj of arrUsuarioObjPerdido; let i = index">
+                    <div class="card text-center  ribbon">
+                        <span *ngIf="(obj?.perdido)==1" class="list-group-item fecha"
+                            class="ribbon1"><span>Perdid@</span></span>
+                        <span *ngIf="(obj?.encontrado)==1" class="list-group-item fecha"
+                            class="ribbon3"><span>Encontrad@</span></span>
+                        <img src="{{obj?.foto | urlimg}}" class="card-img-top" alt="{{obj?.nombre}}">
+                        <!--  <img src="{{obj?.foto | urlimg }}" class="card-img-top"
+                            alt="objeto {{obj?.nombre}} de {{obj?.usuario[0].nombre}} {{obj?.usuario[0].apellido}}"
+                            title="objeto {{obj?.nombre}} de {{obj?.usuario[0].nombre}} {{obj?.usuario[0].apellido}}"> -->
+                        <div class="card-body">
+                            <h5 class="card-title">{{obj?.nombre}}</h5>
+                            <p class="card-text"><span style="transform: scaleX(-1);" class="material-icons">
+                                    format_quote
+                                </span>{{obj?.descripcion}}<span class="material-icons">
+                                    format_quote
+                                </span></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li *ngIf="(obj?.perdido)==1" class="list-group-item fecha">
 
-        <!-- <div class="card col-12" *ngFor="let objeto of objeto">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    {{objeto.foto}}
-                    <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="{{objeto.nombre}}">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            {{objeto.nombre}}
-                        </h5>
-                        <p class="card-text">{{objeto.nombre}}</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">{{objeto.descripcion}}</p>
-                        <p> X mensajes realcionados</p>
-                        <p>perdido en</p>
-                        <a href="#" class="btn btn-primary">Ver en el mapa</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Borrar</a>
+                                <span class="material-icons">
+                                    insert_invitation
+                                </span> Perdido el: {{obj?.fecha_perdido | date : 'yyyy-MM-dd'}}</li>
+                            <li *ngIf="(obj?.encontrado)==1" class=" list-group-item fecha"><span
+                                    class="material-icons">
+                                    insert_invitation
+                                </span> Encontrado el: {{obj?.fecha_encontrado | date : 'yyyy-MM-dd'}}
+                            </li>
+                        </ul>
+                        <div class="card-body">
+
+                            <a href="#" class="card-link" alt="Ver conversaciones relacionadas"
+                                title="Ver conversaciones relacionadas"><span class="material-icons">
+                                    mail
+                                </span></a>
+                            <a href="#ModalMapa" data-target="#ModalMapa" data-toggle="modal" class="card-link"
+                                title="ver el objeto {{obj?.nombre}} de obj?.usuario.alias" (click)="mandarID(i)">
+                                <span class=" material-icons">location_on</span></a>
+                            <a href="#" class="card-link" alt="editar objeto" title="editar objeto"><span
+                                    class="material-icons">edit</span></a>
+                            <a href="" class="card-link" alt="borrar objeto" title="borrar objeto" data-toggle="tooltip"
+                                data-placement="top" title="próximamente"><span
+                                    class="material-icons">delete_forever</span></a>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
-        </div> -->
+            <!-- <a href="#ModalObjeto" data-target="#ModalObjeto" data-toggle="modal" class="card-link">Crear</a> -->
+
+        </div>
     </div>
 </div>
 <!-- 👆 Objetos perdidos --  FIN ------------------------------ -->
 <!-- 👇 Objetos encontrados usuario --  INICIO ------------------------------ -->
-<!-- <div class="col-12">
-    <div class="usuario-objeto">
-        <h1>Objetos Encontrados por @{{ usuario.alias }}</h1>
-        <div class="card mb-6" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="{{ objeto.foto | urlimg}}" class="card-img-top" alt="objeto perdido">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre</h5>
-                        <p class="card-text">localizacion</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the
-                            card's
-                            content.</p>
-                        <p> X mensajes realcionados</p>
-                        <a href="#" class="btn btn-primary">Ver en el mapa</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Borrar</a>
-                    </div>
-                </div>
-            </div>
+<div class="col-12" *ngIf="arrUsuarioObjEncontrado.length>0">
+    <div class="usuario-objeto animated fadeInDown ">
+        <div class="objeto-cabecera">
+            <h1>¡Toma ya @{{arrUsuarioID[0]?.alias}}!, ¿Ks encontrao?</h1>
+            <p>Gracias por anunciarlo, seguro que encontraremos a su dueño.<br>Tu recompensa será más grande que la
+                felicidad que le preporcionarás al que lo a perdido ^_^ </p>
         </div>
-        <div class="card mb-6" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="objeto perdido">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre</h5>
-                        <p class="card-text">localizacion</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the
-                            card's
-                            content.</p>
-                        <p> X mensajes realcionados</p>
-                        <a href="#" class="btn btn-primary">Ver en el mapa</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="div-flex">
+            <!-- <div class="boton-incluir"><button class="btn btn-primary btn-lg btn-block"
+                    href="location.href='#ModalObjeto';" data-target="#ModalObjeto" data-toggle="modal">Incuir nuevo
+                    objeto</button></div> -->
+            <div class="card-columns">
+                <div *ngFor="let obj of arrUsuarioObjEncontrado; let i = index">
+                    <div class="card text-center ribbon">
+                        <span *ngIf="(obj?.perdido)==1" class="list-group-item fecha"
+                            class="ribbon1"><span>Perdid@</span></span>
+                        <span *ngIf="(obj?.encontrado)==1" class="list-group-item fecha"
+                            class="ribbon3"><span>Encontrad@</span></span>
+                        <img src="{{obj?.foto | urlimg}}" class="card-img-top" alt="{{obj?.nombre}}">
+                        <!--  <img src="{{obj?.foto | urlimg }}" class="card-img-top"
+                            alt="objeto {{obj?.nombre}} de {{obj?.usuario[0].nombre}} {{obj?.usuario[0].apellido}}"
+                            title="objeto {{obj?.nombre}} de {{obj?.usuario[0].nombre}} {{obj?.usuario[0].apellido}}"> -->
+                        <div class="card-body">
+                            <h5 class="card-title">{{obj?.nombre}}</h5>
+                            <p class="card-text"><span style="transform: scaleX(-1);" class="material-icons">
+                                    format_quote
+                                </span>{{obj?.descripcion}}<span class="material-icons">
+                                    format_quote
+                                </span></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li *ngIf="(obj?.perdido)==1" class="list-group-item fecha">
+
+                                <span class="material-icons">
+                                    insert_invitation
+                                </span> Perdido el: {{obj?.fecha_perdido | date : 'yyyy-MM-dd'}}</li>
+                            <li *ngIf="(obj?.encontrado)==1" class=" list-group-item fecha"><span
+                                    class="material-icons">
+                                    insert_invitation
+                                </span> Encontrado el: {{obj?.fecha_encontrado | date : 'yyyy-MM-dd'}}
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link" alt="Ver conversaciones relacionadas"
+                                title="Ver conversaciones relacionadas"><span class="material-icons">mail</span></a>
+                            <a href="#ModalMapa" data-target="#ModalMapa" data-toggle="modal" class="card-link"
+                                title="ver el objeto {{obj?.nombre}} de obj?.usuario.alias" (click)="mandarID(i)">
+                                <span class=" material-icons">location_on </span></a>
+                            <a href="#" class="card-link" alt="editar objeto" title="editar objeto"><span
+                                    class="material-icons">edit</span></a>
+                            <a href="#" class="card-link" alt="borrar objeto" title="borrar objeto"><span
+                                    class="material-icons">delete_forever</span></a>
+
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
-        </div>
-        <div class="card mb-6" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="objeto perdido">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre</h5>
-                        <p class="card-text">localizacion</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the
-                            card's
-                            content.</p>
-                        <p> X mensajes realcionados</p>
-                        <a href="#" class="btn btn-primary">Ver en el mapa</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Borrar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-6" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="objeto perdido">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre</h5>
-                        <p class="card-text">localizacion</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the
-                            card's
-                            content.</p>
-                        <p> X mensajes realcionados</p>
-                        <a href="#" class="btn btn-primary">Ver en el mapa</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Borrar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-6" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="../../../../assets/img/objeto.png" class="card-img-top" alt="objeto perdido">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre</h5>
-                        <p class="card-text">localizacion</p>
-                        <p class="card-text">Estado</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the
-                            card's
-                            content.</p>
-                        <p> X mensajes realcionados</p>
-                        <a href="#" class="btn btn-primary">Ver en el mapa</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Borrar</a>
-                    </div>
-                </div>
-            </div>
+            <!-- <a href="#ModalObjeto" data-target="#ModalObjeto" data-toggle="modal" class="card-link">Crear</a> -->
+
         </div>
     </div>
-</div> -->
+</div>
 <!-- 👆 Objetos encontrados --  FIN ------------------------------ -->
+<script type="text/javascript">
+    $('#ModalConversacion').modal(options);
+</script>

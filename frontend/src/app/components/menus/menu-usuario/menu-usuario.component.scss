@@ -7,10 +7,24 @@
 
     .contenido {
         @include flexCenter(column, flex-start, flex-end);
-
-        /* .menu {
-            padding-top: $anchoMenu;
-        } */
+        .avatar-user {
+            transform: translate(106px, 8px) scale(1);
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: $SombraSuave;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        &:hover {
+            .avatar-user {
+                transform: translate(80px, 20px) scale(1.5);
+            }
+        }
         .menu {
             padding-top: 1 * $anchoMenu;
             ul {
@@ -25,7 +39,6 @@
                                     color: $colorLlamada;
                                     top: 9px;
                                     left: 25px;
-
                                     i,
                                     .material-icons {
                                         font-size: 14px;
@@ -62,13 +75,6 @@
                     }
                 }
             }
-            /*        &:hover {
-            ul li.boton a.texto {
-                font-size: $fontSmall;
-                transform: translateX(0);
-                opacity: 1;
-            }
-        } */
         }
     }
 }

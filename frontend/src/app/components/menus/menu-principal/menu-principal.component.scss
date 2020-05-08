@@ -3,5 +3,12 @@
 .nav-principal {
   .contenido {
     @include flexCenter(column, space-between, flex-start);
+
+    .menu {
+      padding-top: 0px;
+      .logo {
+        margin-bottom: 50px;
+      }
+    }
   }
 }

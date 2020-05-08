@@ -1,4 +1,6 @@
 const UsuarioModel = require('../models/usuario.model');
+const MensajeModel = require('../models/mensaje.model');
+const ConversacionModel = require('../models/conversacion.model')
 const secret = require('../secret/secrets');
 const { validationResult } = require('express-validator');// valida el body
 const bcrypt = require('bcryptjs');//hashear contraseñas
@@ -30,13 +32,12 @@ exports.UsuarioNuevo = async (req, res) => {
 
     try {
         if (!errors.isEmpty()) {
-
             return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
         } else {
-
             if (email !== secret.email_contacto) {
                 if (UsuarioDuplicado[0].email !== email) {
                     const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, foto);
+
                     res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
 
                 } else {
@@ -45,7 +46,7 @@ exports.UsuarioNuevo = async (req, res) => {
             } else {
                 const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, foto);
                 res.send({ "message": " 👨‍🎤 usuario creado !!!", "ID": data.insertId });
-            }
+            };
         };
     } catch (error) {
         res.send("Error UsuarioNuevoController:" + error);
@@ -78,6 +79,37 @@ exports.UsuarioVerId = async (req, res) => {
 
 };
 //crrUd : UPLOAD --> actualizar usuario
+exports.UsuarioCambiar = async (req, res) => {
+    const hash = await bcrypt.hash(req.body.password, 14);//hashear la contraseña para que tenga más seguridad
+
+    const ID = req.body.ID;
+    const alias = req.body.alias;
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const edad = req.body.edad;
+    const email = req.body.email;
+    const password = hash;//passwoord hasheada
+    const foto = req.body.foto;
+
+    const errors = validationResult(req)//Ejecuta las validaciones
+
+    try {
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+            const data = await UsuarioModel.UsuarioCambiarModel(ID, alias, nombre, apellidos, edad, email, password, foto);
+
+            if (data.affectedRows > 0) {
+                res.send({ "message": `👨‍🎤 Usuari@ ${alias} con id = ${ID} modificado con éxito!!!!!, Oh YEa 😎 !!` });
+            } else {
+                res.status(404).send({ "error": `Ese 👨‍🎤 Usuari@ con id = ${ID} no existe 😱` })
+            };
+        };
+    } catch (error) {
+        res.send("Error UsuarioCambiarControler: " + error);
+    };
+};
+//cambiar todo-----------
 exports.UsuarioCambiar = async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, 14);//hashear la contraseña para que tenga más seguridad
 
@@ -146,13 +178,16 @@ exports.UsuarioCompleto = async (req, res) => {
         const data = await UsuarioModel.UsuarioVerModel();
         for (let d of data) {
             const objeto = await UsuarioModel.UsuarioObjetoModel(d.ID);
-
             for (let o of objeto) {
                 if (o.perdido == 1) {
-                    d.objetoPerdido = objeto;
+                    d.objetoPerdido = o;
+                } else if (!d.objetoPerdido) {
+                    d.objetoPerdido = [];
                 }
                 if (o.encontrado == 1) {
-                    d.objetoEncontrado = objeto;
+                    d.objetoEncontrado = o;
+                } else if (!d.objetoEncontrado) {
+                    d.objetoEncontrado = [];
                 }
                 const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(o.fk_objetotipo);
 
@@ -164,36 +199,39 @@ exports.UsuarioCompleto = async (req, res) => {
             };
         };
 
-        for (let conversacion of data) {
-            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
-            conversacion.conversacionesRecibida = conversaciones;
+        //conversaciones----------------------------------
+        for (let d of data) {
+            //conversaciones Recibidas
+            const conRecibida = await UsuarioModel.UsuarioConversacionRecibidoModel(d.ID);
+            d.conversacionesRecibida = conRecibida;
 
-            for (let mensaje of conversaciones) {
-                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
-                mensaje.emisorNombre = emisorNombre;
-                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
-                mensaje.receptorNombre = receptorNombre;
-                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
-                mensaje.mensajes = mensajes;
+            for (let conv of conRecibida) {
+                /* console.log("entro2"); */
+                const emisornombre = await UsuarioModel.UsuarioVerIdModel(conv.emisor);
+                conv.emisorNombre = emisornombre;
+                const receptornombre = await UsuarioModel.UsuarioVerIdModel(conv.receptor);
+                conv.receptorNombre = receptornombre;
+                const mensajes = await ConversacionModel.ConversacionMensajeModel(conv.ID);
                 for (let m of mensajes) {
-                    mensaje.mensajes = mensajes;
+                    conv.mensajes = mensajes;
                     const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
                     m.emisorNombre = emisorNombre;
                 }
-
             };
-            const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
-            conversacion.conversacionesEnviada = conversacionesEnv;
 
-            for (let mensaje of conversacionesEnv) {
-                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
-                mensaje.emisorNombre = emisorNombre;
-                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
-                mensaje.receptorNombre = receptorNombre;
-                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
-                mensaje.mensajes = mensajes;
+            //conversaciones Enviadas
+            const conEnviada = await UsuarioModel.UsuarioConversacionEnvidaModel(d.ID);
+            d.conversacionesEnviada = conEnviada;
+
+            for (let conv of conEnviada) {
+                /* console.log("entro2"); */
+                const emisornombre = await UsuarioModel.UsuarioVerIdModel(conv.emisor);
+                conv.emisorNombre = emisornombre;
+                const receptornombre = await UsuarioModel.UsuarioVerIdModel(conv.receptor);
+                conv.receptorNombre = receptornombre;
+                const mensajes = await ConversacionModel.ConversacionMensajeModel(conv.ID);
                 for (let m of mensajes) {
-                    mensaje.mensajes = mensajes;
+                    conv.mensajes = mensajes;
                     const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
                     m.emisorNombre = emisorNombre;
                 }
@@ -207,17 +245,20 @@ exports.UsuarioCompleto = async (req, res) => {
 
 exports.UsuarioCompletoID = async (req, res) => {
     const ID = req.params.ID;//sacamos del path param el id del usuario
+
     try {
         const data = await UsuarioModel.UsuarioVerIdModel(ID);
         for (let d of data) {
+            d.objetoPerdido = [];
+            d.objetoEncontrado = [];
             const objeto = await UsuarioModel.UsuarioObjetoModel(d.ID);
 
             for (let o of objeto) {
                 if (o.perdido == 1) {
-                    d.objetoPerdido = objeto;
+                    d.objetoPerdido.push(o);
                 }
                 if (o.encontrado == 1) {
-                    d.objetoEncontrado = objeto;
+                    d.objetoEncontrado.push(o);
                 }
                 const tipo = await UsuarioModel.UsuarioObjetoFamiliaTipoModel(o.fk_objetotipo);
 
@@ -228,37 +269,39 @@ exports.UsuarioCompletoID = async (req, res) => {
                 };
             };
         };
+        //conversaciones----------------------------------
+        for (let d of data) {
+            //conversaciones Recibidas
+            const conRecibida = await UsuarioModel.UsuarioConversacionRecibidoModel(d.ID);
+            d.conversacionesRecibida = conRecibida;
 
-        for (let conversacion of data) {
-            const conversaciones = await UsuarioModel.UsuarioConversacionModel(conversacion.ID);
-            conversacion.conversacionesRecibida = conversaciones;
-
-            for (let mensaje of conversaciones) {
-                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
-                mensaje.emisorNombre = emisorNombre;
-                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
-                mensaje.receptorNombre = receptorNombre;
-                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
-                mensaje.mensajes = mensajes;
+            for (let conv of conRecibida) {
+                /* console.log("entro2"); */
+                const emisornombre = await UsuarioModel.UsuarioVerIdModel(conv.emisor);
+                conv.emisorNombre = emisornombre;
+                const receptornombre = await UsuarioModel.UsuarioVerIdModel(conv.receptor);
+                conv.receptorNombre = receptornombre;
+                const mensajes = await ConversacionModel.ConversacionMensajeModel(conv.ID);
                 for (let m of mensajes) {
-                    mensaje.mensajes = mensajes;
+                    conv.mensajes = mensajes;
                     const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
                     m.emisorNombre = emisorNombre;
                 }
-
             };
-            const conversacionesEnv = await UsuarioModel.UsuarioConversacionEnvidaModel(conversacion.ID);
-            conversacion.conversacionesEnviada = conversacionesEnv;
 
-            for (let mensaje of conversacionesEnv) {
-                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.emisor);
-                mensaje.emisorNombre = emisorNombre;
-                const receptorNombre = await UsuarioModel.UsuarioVerIdModel(mensaje.receptor);
-                mensaje.receptorNombre = receptorNombre;
-                const mensajes = await UsuarioModel.UsuarioConversacionMensajeModel(mensaje.ID);
-                mensaje.mensajes = mensajes;
+            //conversaciones Enviadas
+            const conEnviada = await UsuarioModel.UsuarioConversacionEnvidaModel(d.ID);
+            d.conversacionesEnviada = conEnviada;
+
+            for (let conv of conEnviada) {
+                /* console.log("entro2"); */
+                const emisornombre = await UsuarioModel.UsuarioVerIdModel(conv.emisor);
+                conv.emisorNombre = emisornombre;
+                const receptornombre = await UsuarioModel.UsuarioVerIdModel(conv.receptor);
+                conv.receptorNombre = receptornombre;
+                const mensajes = await ConversacionModel.ConversacionMensajeModel(conv.ID);
                 for (let m of mensajes) {
-                    mensaje.mensajes = mensajes;
+                    conv.mensajes = mensajes;
                     const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
                     m.emisorNombre = emisorNombre;
                 }
@@ -299,10 +342,22 @@ exports.UsuarioLogin = async (req, res) => {
                             if (error) {
                                 res.send("Error Token: " + error);
                             } else {
-                                res.cookie("cookie_lostthing", token);
+                                //incluimos cookie
+                                /* res.cookie("cookie_lostthing", token);
+                                res.cookie("userId", usuario[0].ID); */
+                                /* .then(() => {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'user-token': localStorage.getItem('token')
+          // 'userId': localStorage.getItem('userId')
+        })
+      }
+    })
+    .catch(error => console.log(error)); */
+                                /* res.cookie("user-token", token); */
                                 //! incluir en el header???????????
-                                res.cookie("user-token", token);
-                                res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado", "token": token });
+                                // respuesta--> se hace en el front, pero no me funciona en el back
+                                res.send({ "message": "👍 Ok, tu contraseña coincide - Estás autorizado", "user-token": token, "userId": usuario[0].ID });
                             };
                         });
                     //res.send({ "message": " 👍 Ok, tu contraseña coincide" })
@@ -318,7 +373,6 @@ exports.UsuarioLogin = async (req, res) => {
         res.send("Error UsuarioCambiarControler: " + error);
     };
 };
-
 // crear Token con las siguientes características:
 /* const createToken = (user) => {
     const obj = {
@@ -327,4 +381,56 @@ exports.UsuarioLogin = async (req, res) => {
         expiredAt: moment().add(15, 'days').unix()
     }
     return jwt.sign(obj, secret.jwt_clave);
-} */
+}*/
+exports.UsuarioRegistro = async (req, res) => {
+    //request, response --> solicitud, respuesta
+    //try {
+    const hash = await bcrypt.hash(req.body.password, 14);//hashear la contraseña para que tenga más seguridad}
+    /* } catch (error) {
+        res.send("Error en el hasha de la contraseña: " + error);
+        return//ponemos el return para que no siga más
+    } */
+    const alias = req.body.alias;
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const edad = req.body.edad;
+    const email = req.body.email;
+    const password = hash;//passwoord hasheada
+    const foto = req.body.foto;
+    //! la fecha la incluye directamente mysql
+
+    const errors = validationResult(req);//Ejecuta las validaciones 
+
+    const UsuarioDuplicado = await UsuarioModel.UsuarioVerModel();
+
+    try {
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ "error": "El body esta mal formado", "Explicacion": errors });
+        } else {
+
+            if (email !== secret.email_contacto || UsuarioDuplicado[0].email !== email) {
+                res.send({ "message": " 👨‍🎤 usuario duplicado con el mismo email !!!", "email": email });
+            } else {
+                const data = await UsuarioModel.UsuarioNuevoModel(alias, nombre, apellidos, edad, email, password, foto);
+                jwt.sign(
+                    {
+                        // crear Token con las siguientes características:
+                        "usuarioID": data.insertId,
+                        "createdAt": moment().unix(),
+                        "expiredAt": moment().add(15, 'days').unix()
+                    },
+                    secret.jwt_clave,
+                    (error, token) => {
+                        if (error) {
+                            res.send("Error Token: " + error);
+                        } else {
+                            res.send({ "message": " 👨‍🎤 usuario creado !!!", "user-token": token, "userId": data.insertId });
+                        };
+                    }
+                );
+            };
+        };
+    } catch (error) {
+        res.send("Error UsuarioNuevoController:" + error);
+    };
+};

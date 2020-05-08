@@ -1,37 +1,140 @@
-<!-- 👇 conversaciones --  INICIO ------------------------------ -->
-<div class="col-12">
-    <div class="usuario-conversacion" style="flex-direction: column;">
-        <h1>conversacion</h1>
-        <!-- <h2>conversacion Recibidas</h2> -->
-        https://getbootstrap.com/docs/4.4/components/media-object/
-        <div class="conversacion">
-            <div class="media-body" *ngFor="let con of conversacion">
-                <h5 class="mt-0">{{con.asunto}}</h5>
-                {{con.ID}} - Emisor: {{con.emisorNombre[0].alias}} - Receptor {{con.receptorNombre[0].alias}} <br>
-                - {{con.fecha_inicio}}
-
-                <div class="media mt-3" *ngFor="let men of con.mensajes">
-
-                    <img class="mr-3 imagen" src=" {{ men.emisorNombre[0].foto | urlimg}}" class="mr-3"
-                        alt="{{men.emisorNombre[0].alias}}">
-
-                    <div class="media-body">
-                        <div class="fecha">{{men.fecha}}</div>
-                        <div class="texto"><span style="transform: scaleX(-1);" class="material-icons">
-                                format_quote
-                            </span>{{men.texto}}<span class="material-icons">
-                                format_quote
-                            </span></div>
-                        <h5 class="firma mt-0">@{{men.emisorNombre[0].alias}}</h5>
-                    </div>
+<!-- 👇 Modal mensaje-- Contenido genereal rooter ------------------------- -->
+<div id="ModalConversacionMensaje" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ModalMensaje"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-mensaje" role="document">
+        <div class="modal-content">
+            <div class=" modal-header">
+                <h4 class="modal-title" id="exampleModalLongTitle">Enviar un mensaje a:</h4>
+                <div class="modal-avatar"><strong>@{{arrConversacionSeleccionada[0]?.emisorNombre[0]?.alias}}</strong>
+                    <div class="imagen"><img src="{{arrConversacionSeleccionada[0]?.emisorNombre[0]?.foto | urlimg}}"
+                            alt="@{{arrConversacionSeleccionada[0]?.emisorNombre[0]?.alias}}"
+                            title="@{{arrConversacionSeleccionada[0]?.emisorNombre[0]?.alias}}"></div>
                 </div>
-                <button _ngcontent-mkk-c50="" type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
-                    Responder a
-                    @{{con.emisorNombre[0].alias}}</button>
-
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
+            <div class="modal-body">
+                <!-- {{arrObjetoVer|json}} -->
+                <!-- {{arrObjeto[objetoSeleccionado]?.ID}} -->
+                <!-- {{arrObjeto[objetoSeleccionado]?.ID}} -->
+                <form [formGroup]="formularioMensaje" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Escribe tu mensaje para
+                            @{{arrConversacionSeleccionada[0]?.emisorNombre[0]?.alias}}</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            formControlName="texto"></textarea>
+                    </div>
+                    <div class="firma">Firmado @{{arrConversacionSeleccionada[0]?.receptorNombre[0]?.alias}}</div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+                    </div>
+                </form>
+            </div>
 
+        </div>
     </div>
 </div>
+<!-- 👆 Modal mensaje--  FIN ------------------------------ -->
+<!-- 👇 conversaciones --  INICIO ------------------------------ -->
+<div class="col-8 offset-md-2">
+    <!-- 👇 conversaciones RECIBIDAS--  INICIO ------------------------------ -->
+    <div class="usuario-conversacion" style="flex-direction: column;" *ngIf="arrConversacionRecivida">
+        <h1>MENSAJES RECIVIDOS</h1>
+        <!-- <h2>conversacion Recibidas</h2> -->
+        <!--  https://getbootstrap.com/docs/4.4/components/media-object/ -->
+        <div class="conversacion">
+            <div class="media-conversacion" *ngFor="let conRecivida of arrConversacionRecivida; let i= index">
+                <div class="asunto">
+                    <div class="asunto-cabecera"><span class="material-icons">all_inbox</span> Conversación iniciada por
+                        &nbsp;<strong>@{{conRecivida?.emisorNombre[0]?.alias}}</strong></div>
+                    <h2 class="mt-0">{{conRecivida?.asunto}}</h2>
+                </div>
+                <div class="mensaje" *ngFor="let men of conRecivida.mensajes">
+                    <div class="media mt-3">
+                        <div class="avatar emisor" *ngIf="conRecivida?.emisorNombre[0]?.ID == men?.emisorNombre[0]?.ID">
+                            <div class="imagen">
+                                <img class="mr-3 imagen" src="{{men?.emisorNombre[0]?.foto | urlimg}}" class="mr-3"
+                                    alt="{{men?.emisorNombre[0]?.alias}}"></div>
+                            <div class="firma mt-0">@{{men?.emisorNombre[0]?.alias}}</div>
+                        </div>
+                        <div class="media-body">
+                            <div class="fecha"><span _ngcontent-qid-c66=""
+                                    class="material-icons">insert_invitation</span>{{men?.fecha| date : 'yyyy-MM-dd'}}
+                            </div>
+                            <div class="texto">
+                                {{men?.texto}}<span class="material-icons">format_quote</span>
+                            </div>
+                        </div>
+                        <div class="avatar receptor"
+                            *ngIf="conRecivida?.receptorNombre[0]?.ID == men?.emisorNombre[0]?.ID">
+                            <div class="imagen">
+                                <img class="mr-3 imagen" src="{{men?.emisorNombre[0]?.foto | urlimg}}" class="mr-3"
+                                    alt="{{men?.emisorNombre[0]?.alias}}"></div>
+                            <div class="firma mt-0">@{{men?.emisorNombre[0]?.alias}}</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal"
+                    data-target="#ModalConversacionMensaje" data-toggle="modal"
+                    (click)="RecogerInformacion(conRecivida?.emisorNombre[0]?.ID, conRecivida?.receptorNombre[0]?.ID, conRecivida?.ID)"><i
+                        class="fas fa-paper-plane"></i>
+                    Responder a
+                    @{{conRecivida.emisorNombre[0].alias}}</button>
+            </div>
+        </div>
+    </div>
+    <!-- 👆 Conversaciones RECIBIDAS --  FIN ------------------------------ -->
+    <!-- 👇 conversaciones ENVIADAS--  INICIO ------------------------------ -->
+    <div class="usuario-conversacion" style="flex-direction: column;" *ngIf="arrConversacionEnviada">
+        <h1>MENSAJES ENVIADOS</h1>
+        <!-- <h2>conversacion Recibidas</h2> -->
+        <!--  https://getbootstrap.com/docs/4.4/components/media-object/ -->
+        <div class="conversacion">
+            <div class="media-conversacion" *ngFor="let conEnviada of arrConversacionEnviada; let i=index">
+                <div class="asunto">
+                    <div class="asunto-cabecera"><span class="material-icons">
+                            all_inbox
+                        </span>&nbsp;Mensajes enviados a&nbsp;<strong>@{{conEnviada?.receptorNombre[0]?.alias}}</strong>
+                    </div>
+                    <h2 class="mt-0">{{conEnviada?.asunto}}</h2>
+                </div>
+                <div class="mensaje" *ngFor="let men of conEnviada.mensajes">
+                    <div class="media mt-3">
+                        <div class="avatar emisor" *ngIf="conEnviada?.emisorNombre[0]?.ID == men?.emisorNombre[0]?.ID">
+                            <div class="imagen">
+                                <img class="mr-3 imagen" src="{{men?.emisorNombre[0]?.foto | urlimg}}" class="mr-3"
+                                    alt="{{men?.emisorNombre[0]?.alias}}"></div>
+                            <div class="firma mt-0">@{{men?.emisorNombre[0]?.alias}}</div>
+                        </div>
+                        <div class="media-body">
+                            <div class="fecha"><span _ngcontent-qid-c66="" class="material-icons"> insert_invitation
+                                </span> {{men?.fecha| date : 'yyyy-MM-dd'}}</div>
+                            <div class="texto">
+                                {{men?.texto}}<span class="material-icons">format_quote</span>
+                            </div>
+                        </div>
+                        <div class="avatar emisor"
+                            *ngIf="conEnviada?.receptorNombre[0]?.ID == men?.emisorNombre[0]?.ID">
+                            <div class="imagen">
+                                <img class="mr-3 imagen" src="{{men?.emisorNombre[0]?.foto | urlimg}}" class="mr-3"
+                                    alt="{{men?.emisorNombre[0]?.alias}}"></div>
+                            <div class="firma mt-0">@{{men?.emisorNombre[0]?.alias}}</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal"
+                    data-target="#ModalConversacionMensaje" data-toggle="modal"
+                    (click)="RecogerInformacion(conEnviada?.receptorNombre[0]?.ID, conEnviada?.emisorNombre[0]?.ID, conEnviada?.ID)"><i
+                        class="fas fa-paper-plane"></i> Enivar mensaje a
+                    @{{conEnviada.receptorNombre[0].alias}}</button>
+            </div>
+        </div>
+    </div>
+    <!-- 👆 Conversaciones ENVIADAS --  FIN ------------------------------ -->
+</div>
+
 <!-- 👆 Conversaciones --  FIN ------------------------------ -->
+<script>
+    $('#ModalConversacionMensaje').modal(options);
+</script>

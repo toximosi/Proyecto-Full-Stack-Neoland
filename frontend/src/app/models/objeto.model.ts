@@ -7,6 +7,7 @@ export class ObjetoModel {
   perdido: number;
   encontrado: number;
   fecha_perdido: Date;
+  direccion_perdido: string;
   latitud_perdido: number;
   longitud_perdido: number;
   fecha_encontrado: Date;

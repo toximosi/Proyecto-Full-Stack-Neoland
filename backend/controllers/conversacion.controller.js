@@ -83,11 +83,32 @@ exports.ConversacionBorrar = async (req, res) => {
     };
 };
 //Extras ------------- obtener todas las conversaciones
-exports.ConversacionMensaje = async (req, res) => {
-
+exports.ConversacionCompleta = async (req, res) => {
     try {
         //console.log("entro1");
         const data = await ConversacionModel.ConversacionVerModel();
+
+        for (let d of data) {
+            /* console.log("entro2"); */
+            const emisornombre = await UsuarioModel.UsuarioVerIdModel(d.emisor);
+            d.emisorNombre = emisornombre;
+            const receptornombre = await UsuarioModel.UsuarioVerIdModel(d.receptor);
+            d.receptorNombre = receptornombre;
+            const mensajes = await ConversacionModel.ConversacionMensajeModel(d.ID);
+            for (let m of mensajes) {
+                d.mensajes = mensajes;
+                const emisorNombre = await UsuarioModel.UsuarioVerIdModel(m.emisor);
+                m.emisorNombre = emisorNombre;
+            }
+        };
+        res.send(data);
+    } catch (error) { res.send("Error ConversacionMensaje " + error) };
+};
+exports.ConversacionMensajeId = exports.ConversacionMensaje = async (req, res) => {
+    const ID = req.params.ID;
+    try {
+        //console.log("entro1");
+        const data = await ConversacionModel.ConversacionVerIdModel(ID);
 
         for (let d of data) {
             /* console.log("entro2"); */

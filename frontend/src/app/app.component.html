@@ -1,7 +1,14 @@
 <!-- 👇 INICIO -- Modal ------------------------- -->
-<div id="ModalLogin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <app-login></app-login>
+<!-- <ng-template #content let-c="close" let-d="dismiss">
+    <app-login (eventCerrarModal)="ocultarModal($event)"></app-login>
+</ng-template> -->
+<div [ngClass]="estadoLogin" id="ModalLogin" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-dismiss="modal">
+    <app-login (menuVisible)="cambiarMenu($event)"></app-login>
+</div>
+<div [ngClass]="estadoRegistro" id="ModalRegistro" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-dismiss="modal">
+    <app-registro></app-registro>
 </div>
 <!-- 👆 FIN -- Modal -------------------------- -->
 <!-- 👇 INICIO -- Menú navegación ------------------------- -->
@@ -9,10 +16,14 @@
 <!-- 👆 FIN -- Menú navegación -------------------------- -->
 
 <!-- 👇 INICIO -- Menú usuario ------------------------- -->
-<app-menu-usuario></app-menu-usuario>
+<div [ngClass]="estadoMenuUsuario">
+    <app-menu-usuario (menuVisible)="cambiarMenu($event)"></app-menu-usuario>
+</div>
 <!-- 👆 FIN -- Menú usuario -------------------------- -->
 <!-- 👇 INICIO -- Menú Top ------------------------- -->
-<app-menu-top></app-menu-top>
+<div [ngClass]="estadoMenuRegistro">
+    <app-menu-top></app-menu-top>
+</div>
 <!-- 👆 FIN -- Menú Top -------------------------- -->
 
 <router-outlet></router-outlet>
@@ -26,4 +37,11 @@
     $('#ModalLogin').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
     })
+    $('#ModalRegistro').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+
+
+
+//data-toggle="tooltip" data-placement="top" title ="Tooltip on top"
 </script>

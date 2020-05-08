@@ -1,7 +1,21 @@
-@import "../../import.scss";
-@import "../mapa/mapa.component.scss";
+@import "../../../import.scss";
+@import "./../objeto-mapa/objeto-mapa.component.scss";
 
+.contentido-centro {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: $EsquinaRedondeadaMedia;
+    padding: $spaceMedium $spaceBig;
+    text-transform: uppercase;
+    width: auto !important;
+    box-shadow: $Sombra;
+    h1 {
+        font-weight: bolder;
+        color: $colorFontTitulo;
+    }
+}
 agm-map {
+    height: calc(100% - 100px);
     .agm-map-container-inne {
         margin: 0 !important;
     }

@@ -10,6 +10,7 @@
   background-color: $colorBg;
   width: 100%;
   height: $anchoMenu;
+  z-index: 100;
 
   .registro {
     @include flexCenter();

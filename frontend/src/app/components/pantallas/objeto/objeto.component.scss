@@ -1,5 +1,5 @@
 @import "../../import.scss";
-@import "../mapa/mapa.component.scss";
+@import "../mapas/objeto-mapa/objeto-mapa.component.scss";
 
 .card-columns {
     column-count: 4;
@@ -21,8 +21,8 @@
             height: auto;
         }
         &:hover {
-            width: 90px;
-            height: 90px;
+            /* width: 90px;
+            height: 90px; */
             border-radius: $EsquinaRedondeadaMedia;
         }
     }
@@ -80,6 +80,7 @@
         }
     }
 }
+
 /* .card-columns {
     .card-objeto {
         @include flexCenter(column, flex-start, stretch);
@@ -141,7 +142,4 @@
         margin: 0 $spaceSmall;
         font-size: 1rem;
     }
-}
-.card-body.botones {
-    @include flexCenter();
 }

@@ -1,0 +1,112 @@
+//alarmas
+.swal2-cancel.btn.btn-danger {
+    background-color: $colorPrincipalHover;
+    border-color: $colorPrincipalHover;
+    margin-right: 30px;
+}
+.swal2-confirm.btn.btn-success {
+    background-color: $colorPrincipal;
+    border-color: $colorPrincipal;
+}
+.swal2-icon.swal2-warning {
+    border-color: $colorPrincipal !important;
+    color: $colorPrincipal !important;
+}
+
+//modal
+.modal-dialog {
+    max-width: 700px;
+}
+.modal-content {
+    .modal-header {
+        border: none;
+        @include flexCenter;
+        justify-content: space-between;
+
+        button.close {
+            @include flexCenter;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background: $colorPrincipal;
+            color: #ffffff !important;
+            border-radius: 50%;
+            opacity: 1;
+            &:hover {
+                color: #ffffff !important;
+                background-color: $colorPrincipalHover;
+            }
+        }
+    }
+}
+/*  .modal-body {
+        padding: 0;
+        agm-map {
+            height: 500px;
+            margin: 0 !important;
+            .agm-map-container-inne {
+                margin: 0 !important;
+            }
+
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 2px solid #e8d4bd;
+                box-shadow: $Sombra;
+                transform: scale(1);
+                &:hover {
+                    transform: scale(4);
+                    border: 0px;
+                    border-radius: $EsquinaRedondeadaMedia;
+                }
+            }
+        }
+    } */
+.modal-body {
+    .ribbon1,
+    .ribbon3 {
+        z-index: 10;
+    }
+    .ribbon1 {
+        right: 70px;
+    }
+    .ribbon3 {
+        left: -9px;
+        top: 9px;
+    }
+}
+.modal-mensaje {
+    /* .modal-header {
+    } */
+    .modal-content {
+        padding: $spaceBig;
+
+        .modal-avatar {
+            @include flexCenter;
+            .imagen {
+                margin-left: 30px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+        .modal-body {
+            .firma {
+                text-align: right;
+                font-style: italic;
+            }
+        }
+        .modal-footer {
+            border: none;
+        }
+    }
+}

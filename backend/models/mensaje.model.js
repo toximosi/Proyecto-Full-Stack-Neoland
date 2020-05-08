@@ -2,9 +2,9 @@ const connection = require('./db.model');
 
 // CRRUD --> CREATE, READ, READ ID, UPLOAD, DELETE
 // Crrud : CREATE --> crear un nuevo objetos
-exports.MensajeNuevoModel = (emisor, texto) => {
+exports.MensajeNuevoModel = (emisor, texto, fk_conversacion) => {
     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO mensaje (emisor, texto) VALUE (?,?);`, [emisor, texto])
+        connection.query(`INSERT INTO mensaje (emisor, texto, fk_conversacion) VALUE (?,?,?);`, [emisor, texto, fk_conversacion])
             .then(result => resolve(result))
             .catch(error => reject("Error MensajeNuevoModel: " + error));
     });
@@ -44,5 +44,13 @@ exports.MensajeBorrarModel = (ID) => {
         connection.query(`DELETE FROM mensaje WHERE ID = ?;`, [ID])
             .then(result => resolve(result))
             .catch(error => reject("Error MensajeBorrarModel: " + error));
+    });
+};
+//Obtener mensaje con realcion a la conversacion
+exports.MensajeConversacionId = (ID) => {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM mensaje WHERE fk_conversacion = ?;`, [ID])
+            .then(result => resolve(result))
+            .catch(error => reject("Error ConversacionBorrarModel: " + error));
     });
 };

@@ -20,6 +20,9 @@ $frontend-warn: mat-palette($mat-red);
 // Create the theme object (a Sass map containing all of the palettes).
 $frontend-theme: mat-light-theme($frontend-primary, $frontend-accent, $frontend-warn);
 
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -32,17 +35,13 @@ $frontend-theme: mat-light-theme($frontend-primary, $frontend-accent, $frontend-
 //font-family: 'Rubik Mono One', sans-serif;
 
 /* vasirables y funciones ScSS*/
-
 @import "./assets/scss/variables";
 @import "./assets/scss/mixin";
 
 /* Estilos generales */
-
+@import "./assets/scss/estilos-texto";
 @import "./assets/scss/layout";
-@import "./assets/scss/layout";
-
-/* Ajuste de las mediaqueries en resposive */
-@import "./assets/scss/menu-navegacion";
+@import "./assets/scss/animacion";
 
 html,
 body {
@@ -52,6 +51,13 @@ body {
     margin: 0;
     /* font-family: Rubik, "Helvetica Neue", sans-serif; */
 }
+/* modicficaciones de bootstrap*/
+@import "./assets/scss/bootstrap";
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+/* componetes html */
+@import "./assets/scss/menus";
+@import "./assets/scss/maps-agm";
+@import "./assets/scss/cards";
+@import "./assets/scss/modales";
+/* Ajuste de las mediaqueries en resposive */
+@import "./assets/scss/medias";

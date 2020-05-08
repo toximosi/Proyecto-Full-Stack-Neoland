@@ -17,7 +17,8 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 // importacion Font-iconos de font awesome: https://fontawesome.com/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+//alertas
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 //-------------------------------------------------------------------------------------------------------------------
 //Componentes
@@ -31,8 +32,8 @@ import { MenuUsuarioPerfilComponent } from './components/menus/menu-usuario-perf
 
 //Pantallas ---------------------------------------------------------------------------------------------------------
 import { InicioComponent } from './components/pantallas/inicio/inicio.component';
-import { CentroComponent } from './components/pantallas/centro/centro.component';
-import { MapaComponent } from './components/pantallas/mapa/mapa.component';
+import { AgujerosMapaComponent } from './components/pantallas/mapas/agujeros-mapa/agujeros-mapa.component';
+import { ObjetoMapaComponent } from './components/pantallas/mapas/objeto-mapa/objeto-mapa.component';
 import { UsuarioPerfilComponent } from './components/pantallas/usuario-perfil/usuario-perfil.component';
 import { AlarmasComponent } from './components/pantallas/alarmas/alarmas.component';
 import { Error404Component } from './components/pantallas/error404/error404.component';
@@ -52,6 +53,9 @@ import { ObjetoComponent } from './components/pantallas/objeto/objeto.component'
 //Pipes ---------------------------------------------------------------------------------------------------------
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { UrlimgPipe } from './pipes/urlimg.pipe';
+import { RegistroComponent } from './components/pantallas/registro/registro.component';
+import { UsuarioObjetoCrearComponent } from './components/pantallas/usuario-objeto-crear/usuario-objeto-crear.component';
+import { PruebasComponent } from './pruebas/pruebas/pruebas.component';
 
 
 
@@ -69,8 +73,8 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     //pantallas ---------------
     InicioComponent,
     UsuarioPerfilComponent,
-    CentroComponent,
-    MapaComponent,
+    AgujerosMapaComponent,
+    ObjetoMapaComponent,
     Error404Component,
     AlarmasComponent,
     UsuarioComponent,
@@ -81,7 +85,10 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     ObjetoComponent,
     //pipes ---------------
     NoimagePipe,
-    UrlimgPipe
+    UrlimgPipe,
+    RegistroComponent,
+    UsuarioObjetoCrearComponent,
+    PruebasComponent
 
   ],
   imports: [
@@ -106,7 +113,9 @@ import { UrlimgPipe } from './pipes/urlimg.pipe';
     AgmJsMarkerClustererModule,
     // Font iconos de font awesome: https://fontawesome.com/
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    //alertas
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     //aunque los sercivios tienen el "providedIn: 'root'", lo incluimos por si acaso

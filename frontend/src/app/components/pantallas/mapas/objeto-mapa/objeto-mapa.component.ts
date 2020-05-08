@@ -8,11 +8,11 @@ import { FormControl } from '@angular/forms';
 declare var google;
 
 @Component({
-  selector: 'app-mapa',
-  templateUrl: './mapa.component.html',
-  styleUrls: ['./mapa.component.scss']
+  selector: 'app-objeto-mapa',
+  templateUrl: './objeto-mapa.component.html',
+  styleUrls: ['./objeto-mapa.component.scss']
 })
-export class MapaComponent implements OnInit {
+export class ObjetoMapaComponent implements OnInit {
   //declaracoin de variables
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -175,7 +175,7 @@ export class MapaComponent implements OnInit {
           // this.searchElementRef.nativeElement.value = results[0].formatted_address);
           // console.log(this.searchElementRef.nativeElement.value);
           // infowindow.setContent(results[0].formatted_address);
-          console.log(this.direccion);
+          /* console.log(this.direccion); */
         } else {
           window.alert('No results found');
         }

@@ -1,7 +1,13 @@
+//Angular
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+//componentes
+import { UsuarioModel } from 'src/app/models/usuario.model';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { ObjetoModel } from 'src/app/models/objeto.model';
 import { ObjetoService } from 'src/app/services/objeto.service';
-import { UsuarioComponent } from '../usuario/usuario.component';
+//variables de entorno
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-usuario-objeto',
@@ -9,30 +15,55 @@ import { UsuarioComponent } from '../usuario/usuario.component';
   styleUrls: ['./usuario-objeto.component.scss']
 })
 export class UsuarioObjetoComponent implements OnInit {
+  //variables
 
-  @Input() usuario: any = {};
-  @Input() id: number;
+  imgUrl: string;
+  id: number;
+
+  arrUsuarioID: UsuarioModel[];
+  arrUsuarioObjPerdido: any;
+  arrUsuarioObjEncontrado: any;
 
   arrObjeto: ObjetoModel[];
+  objetoId: number;
 
-  constructor(private objetoService: ObjetoService, private usuarioComponent: UsuarioComponent) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    private activeRouter: ActivatedRoute,
+    private objetoService: ObjetoService) {
+    //iniciacización
+    this.imgUrl = environment.imgUrl;
 
-  ngOnInit(): void {
-
-    /* this.usuario = this.usuarioComponent.usuario */
-
-    /* this.objetoService.ObjetoVer()
-      .then(response => { console.log(response) })
-      .catch(error => console.log("Error UsuarioVer: " + error)) ;*/
-
-    this.objetoService.ObjetoVer()
-      .then(
-        pObjeto => {
-          this.arrObjeto = pObjeto;
-          //console.log(this.objeto);
-        })
-      .catch(error => console.log("Error ObjetoVer: " + error))
+    this.arrUsuarioID = [];
+    this.arrUsuarioObjPerdido = []
+    this.arrUsuarioObjEncontrado = []
+    this.id = parseInt(localStorage.userId);
+    //Conoder Id usaurio por el params de la URl
+    /* this.activeRouter.queryParamMap.subscribe((paraMap) => console.log(paraMap));
+    console.log(this.id) */
   }
 
+  ngOnInit(): void {
+    //obtener la información del uusario
+    this.usuarioService.UsuarioCompletoId(this.id)
+      .then(((result) => {
+        this.arrUsuarioID = result;
+        this.arrUsuarioObjPerdido = this.arrUsuarioID[0].objetoPerdido;
+        this.arrUsuarioObjEncontrado = this.arrUsuarioID[0].objetoEncontrado;
+        /* console.log(this.arrUsuarioID)
+        console.log(this.arrUsuarioObjEncontrado);
+        console.log(this.arrUsuarioObjPerdido); */
+      }))
+      .catch(error => console.log(error))
+
+    this.objetoService.ObjetoCompleto()
+      .then(result => this.arrObjeto = result)
+      .catch(error => console.log(error))
+
+  }
+
+  mandarID(pID) {
+    this.objetoId = pID;
+  }
 
 }

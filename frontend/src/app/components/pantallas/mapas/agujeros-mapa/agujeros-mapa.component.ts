@@ -3,18 +3,18 @@ import { MapsAPILoader, AgmMap, GoogleMapsAPIWrapper, MouseEvent, AgmGeocoder, I
 import { NumberSymbol } from '@angular/common';
 import { FormControl } from '@angular/forms';
 //variables universales---------------------> environment
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { ObjetoModel } from 'src/app/models/objeto.model';
 import { ObjetoService } from 'src/app/services/objeto.service';
 
 declare var google;
 
 @Component({
-  selector: 'app-centro',
-  templateUrl: './centro.component.html',
-  styleUrls: ['./centro.component.scss']
+  selector: 'app-agujeros-mapa',
+  templateUrl: './agujeros-mapa.component.html',
+  styleUrls: ['./agujeros-mapa.component.scss']
 })
-export class CentroComponent implements OnInit {
+export class AgujerosMapaComponent implements OnInit {
   //declaracoin de variables
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -25,15 +25,15 @@ export class CentroComponent implements OnInit {
   zoom: number;
   //datos mapa
 
-  latlongs: any = [];
-  latlong: any = {};
+  /*   latlongs: any = [];
+    latlong: any = {}; */
   searchControl: FormControl;
   geocoder: any;
   infowindow: any;
   isFulled = true;
-  screenOptions = {
-    position: 2
-  };
+  /*   screenOptions = {
+      position: 2
+    }; */
   //Marca inicial:
   imagen: string;
   //modelo array bd

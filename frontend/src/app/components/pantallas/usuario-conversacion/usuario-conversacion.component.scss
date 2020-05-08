@@ -2,33 +2,105 @@
 
 .usuario-conversacion {
     .conversacion {
-        .media {
-            img,
-            .imagen {
-                border-radius: 50%;
-                border: 2px solid #ffffff;
-                width: 80px;
-                height: 80px;
-                box-shadow: 0px 6px 2px 1px rgba(0, 0, 0, 0.2);
+        .media-conversacion {
+            background-color: #eee;
+            border-radius: $EsquinaRedondeadaMedia;
+            padding: $spaceBig;
+            margin-bottom: $spaceBig;
+            border: 1px solid $colorBg;
+            overflow: hidden;
+            .asunto {
+                color: $colorBg;
+                margin: -$spaceBig;
+                padding: $spaceBig;
+                padding-bottom: $spaceMedium;
+                margin-bottom: $spaceBig;
+                background-color: $colorPrincipalClaro;
+                .asunto-cabecera {
+                    @include flexCenter(row, flex-star, center);
+                    font-weight: normal;
+                }
+                h2 {
+                    /*  color: $colorPrincipalHover;*/
+
+                    font-weight: bolder;
+                }
             }
+        }
+        .media {
+            .avatar {
+                text-align: center;
+                color: $colorPrincipal;
+                .imagen {
+                    border-radius: 50%;
+                    border: 2px solid #ffffff;
+                    width: 80px;
+                    height: 80px;
+                    box-shadow: $Sombra;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+            .emisor {
+                .avatar {
+                    margin: 0 120px 20px 40px;
+                }
+            }
+            .receptor {
+                .avatar {
+                    margin: 0 40px 20px 120px;
+                }
+            }
+
             .media-body {
                 background-color: $colorBg;
                 padding: $spaceMedium;
                 border-radius: $EsquinaRedondeadaMedia;
                 box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
                 position: relative;
-                ::before {
-                    content: " ";
-                    display: inline-block;
-                    position: absolute;
-                    background-color: red;
-                    width: 20px;
-                    height: 20px;
-                    top: 0;
-                    left: 0;
-                }
+                margin: 0 30px 0px 30px;
+
+                /* ::before {
+                } */
                 .fecha {
-                    font-size: $fontSmall;
+                    @include flexCenter(row, flex-start, center);
+                    font-size: $fontSmaller;
+                    color: $colorPrincipal;
+                    span {
+                        font-size: $fontSmaller;
+                    }
+                }
+                .texto {
+                    position: relative;
+                    margin: 5px 20px;
+                    &:before {
+                        position: absolute;
+                        top: -1px;
+                        left: -24px;
+                        transform: scaleX(-1);
+                        content: " format_quote ";
+                        font-family: "Material Icons";
+                        font-weight: normal;
+                        font-style: normal;
+                        font-size: 24px;
+                        line-height: 1;
+                        letter-spacing: normal;
+                        text-transform: none;
+                        display: inline-block;
+                        white-space: nowrap;
+                        word-wrap: normal;
+                        direction: ltr;
+                        /* -moz-font-feature-settings: "liga"; */
+                        -moz-osx-font-smoothing: grayscale;
+                    }
+                    .material-icons {
+                        line-height: 0px;
+                        transform: translateY(3px);
+                    }
                 }
                 .firma {
                     text-align: right;

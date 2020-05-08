@@ -1,7 +1,7 @@
 <!-- 👇 Mapa  -- INICIO ------------------------------ -->
 
 <!-- 👇 Buscador  -- INICIO ------------------------------ -->
-<div class="contenido-mapa">
+<div class="contenido-mapa contentido-centro animated fadeInLeft">
     <h1>En centro de todo!!!</h1>
     <!-- {{arrObjeto|json}} -->
 </div>
@@ -28,7 +28,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><i>Perdido:</i> {{obj?.nombre}}</h5>
-                            <p class="card-descripcion"> {{obj?.descripcion}}</p>
+                            <p class="card-descripcion"><span style="transform: scaleX(-1);" class="material-icons">
+                                    format_quote
+                                </span> {{obj?.descripcion}}<span style="transform: scaleX(-1);" class="material-icons">
+                                    format_quote
+                                </span></p>
                             <div class="card-pie">
                                 <div class="card-botones">mandar mensaje</div>
                                 <div class="card-usuario">
