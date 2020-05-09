@@ -29,10 +29,10 @@ server.use(cookieParser());//incluye una cookie en el navegador para saber si el
 
 //! servidor estático -----> Heroku
 //crea el servidor estático en la dirección donde esta todo el material que se trae del ng buli de frontend
-server.use(express.static(__dirname + './dist/frontend/'));
+server.use(express.static(__dirname + '/dist/frontend/'));
 //manda todas las request a index.html
 server.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + './dist/frontend/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/frontend/index.html'));
 });
 
 server.use(cors());//si no se pone esto va a dar problemas entre llamadas de localhoster
