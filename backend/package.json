@@ -20,7 +20,9 @@
     "mysql": "^2.18.1",
     "pug": "^2.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@angular/compiler": "~9.0.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
