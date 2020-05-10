@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
         icon: 'error',
         confirmButtonText: 'Cerrar',
       });
-      //oculatar modal
+      //ocultar modal
       this.ocultarModal();
     });
   }

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  hostUrl: 'http://localhost:3000',
+  hostUrl: 'mysql-5703.dinaserver.com',
   /*  imgUrl: '../../../assets/img/', */
-  imgUrl: 'http://lostthing.toximosi.es/img/',
+  imgUrl: 'https://lostthing.toximosi.es/img/',
   /* ID: 2 */
 
 
